@@ -38,7 +38,7 @@ fastapi==0.115.12
 fastapi-cli==0.0.7
 fastrlock==0.8.3
 filelock==3.18.0
-flash-attn==2.6.3
+# flash-attn==2.6.3
 frozenlist==1.5.0
 fsspec==2025.3.2
 gguf==0.10.0
@@ -167,10 +167,10 @@ threadpoolctl==3.6.0
 tifffile==2025.5.10
 tiktoken==0.9.0
 tokenizers==0.21.1
-torch==2.3.0+cu118
+torch==2.3.0
 torchao==0.11.0
-torchaudio==2.3.0+cu118
-torchvision==0.18.0+cu118
+torchaudio==2.3.0
+torchvision==0.18.0
 tornado==6.4.2
 tqdm==4.67.1
 traitlets==5.14.3
