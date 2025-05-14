@@ -2,7 +2,7 @@
 Author: flying-lby 2230232178@qq.com
 Date: 2025-04-10 14:17:31
 LastEditors: flying-lby 2230232178@qq.com
-LastEditTime: 2025-05-15 00:15:58
+LastEditTime: 2025-05-15 02:42:38
 FilePath: /qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/data/__init__.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -30,7 +30,7 @@ VIDEOCHATGPT = {
 }
 
 MIMIC_CLIP = {
-    "annotation_path": "./data/new_classify_mimic_file_clip.json",
+    "annotation_path": "./qwenvl/data/new_classify_mimic_file_clip.json",
     "data_path": "/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 }
 
