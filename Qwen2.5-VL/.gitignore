@@ -8,10 +8,10 @@ wheels/
 
 # venv
 .venv
-qwenvl/data/*.json
+/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/data/*.json
 /home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/eval_data/eval/
 /home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/eval_data/train/
-
+**/new_classify_mimic_file_clip.json
 Qwen2.5-VL/qwen-vl-finetune/eval_data/eval/
 Qwen2.5-VL/qwen-vl-finetune/eval_data/train/
 /home/lby/qwen_radz/flash_attn-2.6.3+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
