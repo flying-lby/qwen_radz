@@ -3,7 +3,7 @@
  # @Author: flying-lby 2230232178@qq.com
  # @Date: 2025-04-10 14:17:31
  # @LastEditors: flying-lby 2230232178@qq.com
- # @LastEditTime: 2025-05-14 20:02:40
+ # @LastEditTime: 2025-05-15 02:47:15
  # @FilePath: /qwen_radz/Qwen2.5-VL/qwen-vl-finetune/scripts/sft_7b.sh
  # @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 ### 
@@ -20,7 +20,7 @@ deepspeed=./scripts/zero3.json
 # Model configuration
 # llm=/srv/lby/qwen_vl_7b/Qwen2.5-VL-7B-Instruct  # Using HuggingFace model ID
 llm=/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct  # Using HuggingFace model ID
-
+NPROC_PER_NODE=4
 # Training hyperparameters
 lr=1e-5
 batch_size=32

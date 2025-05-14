@@ -3,7 +3,7 @@
  # @Author: flying-lby 2230232178@qq.com
  # @Date: 2025-04-10 14:17:31
  # @LastEditors: flying-lby 2230232178@qq.com
- # @LastEditTime: 2025-05-14 20:03:32
+ # @LastEditTime: 2025-05-15 02:47:26
  # @FilePath: /qwen_radz/Qwen2.5-VL/qwen-vl-finetune/scripts/sft_7b.sh
  # @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 ### 
@@ -35,7 +35,7 @@ datasets=mimic_classify_clip
 # Output configuration
 run_name="qwen2vl-baseline"
 output_dir=/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen2.5_radz_v5_5_14
-
+NPROC_PER_NODE=4
 # Training arguments
 args="
     --deepspeed ${deepspeed} \
