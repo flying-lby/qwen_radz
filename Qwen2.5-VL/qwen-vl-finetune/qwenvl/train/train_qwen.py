@@ -43,9 +43,7 @@ from qwenvl.train.argument import (
     TrainingArguments,
 )
 from transformers import AutoTokenizer, AutoProcessor, Qwen2VLImageProcessor, Trainer
-import numpy as np
-np.float_ = np.float64
-from prophet import Prophet
+
 
 local_rank = None
 
