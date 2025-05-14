@@ -11,21 +11,21 @@
 echo "Starting evaluation process..."
 
 python -m eval.run_eval \
-    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/qwen_vl_7b/Qwen2.5-VL-7B-Instruct \
+    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct \
     --answer_file ./results/Qwen2.5-VL-7B-Instruct/siim/answers.jsonl \
     --image-folder "/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/dataset/" \
     --dataset "siim" \
     --result-file ./results/Qwen2.5-VL-7B-Instruct/siim/siim_qwen7b_metrics.json
 
 python -m eval.run_eval \
-    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/qwen_vl_7b/Qwen2.5-VL-7B-Instruct \
+    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct \
     --answer_file ./results/Qwen2.5-VL-7B-Instruct/covid/answers.jsonl \
     --image-folder "/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/dataset/" \
     --dataset "covid-cxr2" \
     --result-file ./results/Qwen2.5-VL-7B-Instruct/covid/covid_qwen7b_metrics.json
 
 python -m eval.run_eval \
-    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/qwen_vl_7b/Qwen2.5-VL-7B-Instruct \
+    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct \
     --answer_file ./results/Qwen2.5-VL-7B-Instruct/chexpert/answers.jsonl \
     --image-folder "/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/dataset/" \
     --dataset "chexpert" \
@@ -33,7 +33,7 @@ python -m eval.run_eval \
 
 
 python -m eval.run_eval \
-    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/qwen_vl_7b/Qwen2.5-VL-7B-Instruct \
+    --model-path /mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct \
     --answer_file ./results/Qwen2.5-VL-7B-Instruct/chestxray/answers.jsonl \
     --image-folder "/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/dataset/" \
     --dataset "chestxray" \
