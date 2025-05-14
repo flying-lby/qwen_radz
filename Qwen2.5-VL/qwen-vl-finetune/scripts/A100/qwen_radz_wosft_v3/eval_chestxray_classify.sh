@@ -10,6 +10,7 @@
 # ========================
 echo "Starting evaluation process..."
 
+
 python -m eval.run_eval \
     --model-path /mnt/nlp-ali/usr/huangwenxuan/home/qwen_vl_7b/Qwen2.5-VL-7B-Instruct \
     --answer_file ./results/Qwen2.5-VL-7B-Instruct/siim/answers.jsonl \

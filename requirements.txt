@@ -167,10 +167,10 @@ threadpoolctl==3.6.0
 tifffile==2025.5.10
 tiktoken==0.9.0
 tokenizers==0.21.1
-torch==2.3.0
+torch==2.5.0
 torchao==0.11.0
-torchaudio==2.3.0
-torchvision==0.18.0
+torchaudio
+torchvision
 tornado==6.4.2
 tqdm==4.67.1
 traitlets==5.14.3

@@ -1,0 +1,14 @@
+{"id": 1, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 2, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 3, "prediction": "Normal", "label": {"pneumothorax": 0, "normal": 1}}
+{"id": 4, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 5, "prediction": "Normal", "label": {"pneumothorax": 0, "normal": 1}}
+{"id": 6, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 7, "prediction": "Normal", "label": {"pneumothorax": 0, "normal": 1}}
+{"id": 8, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 9, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 10, "prediction": "Normal", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 11, "prediction": "Normal", "label": {"pneumothorax": 0, "normal": 1}}
+{"id": 12, "prediction": "Normal", "label": {"pneumothorax": 0, "normal": 1}}
+{"id": 13, "prediction": "Pneumothorax", "label": {"pneumothorax": 1, "normal": 0}}
+{"id": 14, "prediction": "Pneumothorax", "label": {"pneumothorax": 0, "normal": 1}}
