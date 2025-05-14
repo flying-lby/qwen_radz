@@ -85,7 +85,7 @@ def infer_and_save(args, answer_file):
         model_path,
         torch_dtype=torch.float16,  # 你也可以设置为 torch.bfloat16 或其他
     ).to(device)
-    processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct")
+    processor = AutoProcessor.from_pretrained(model_path)
     model.eval()
 
     with open(question_file, 'r', encoding='utf-8') as _f:
