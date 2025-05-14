@@ -80,11 +80,11 @@ def infer_and_save(args, answer_file):
 
     os.makedirs(os.path.dirname(answer_file), exist_ok=True)
 
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
         model_path,
-        torch_dtype="auto",
-        device_map="auto",
-    )
+        torch_dtype=torch.float16,  # 你也可以设置为 torch.bfloat16 或其他
+    ).to(device)
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct")
     model.eval()
 
