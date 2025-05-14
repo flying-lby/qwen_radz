@@ -1,0 +1,153 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Train Qwen2-VL (Single GPU Debug)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py",
+      "args": [
+        "--model_name_or_path", "/srv/lby/qwen_vl_7b/Qwen2.5-VL-3B-Instruct",
+        "--dataset_use", "mimic_classify_clip",
+        "--data_flatten", "True",
+        "--tune_mm_vision", "False",
+        "--tune_mm_mlp", "True",
+        "--tune_mm_llm", "True",
+        "--bf16", "True",
+        "--output_dir", "./output",
+        "--num_train_epochs", "1",
+        "--per_device_train_batch_size", "1",
+        "--per_device_eval_batch_size", "1",
+        "--gradient_accumulation_steps", "2",
+        "--max_pixels", "50176",
+        "--min_pixels", "784",
+        "--eval_strategy", "no",
+        "--save_strategy", "steps",
+        "--save_steps", "50000",
+        "--save_total_limit", "1",
+        "--learning_rate", "2e-7",
+        "--weight_decay", "0",
+        "--warmup_ratio", "0.03",
+        "--max_grad_norm", "1",
+        "--lr_scheduler_type", "cosine",
+        "--logging_steps", "1",
+        "--model_max_length", "1024",
+        "--gradient_checkpointing", "True",
+        "--dataloader_num_workers", "2",
+        "--run_name", "qwen2vl-baseline",
+        "--report_to", "none"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
+
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//       {
+//         "name": "Train Qwen2-VL with DeepSpeed (2 GPUs)",
+//         "type": "debugpy",
+//         "request": "launch",
+//         "program": "/home/lby/anaconda3/bin/torchrun",  // 请根据你系统中的 torchrun 路径替换
+//         "args": [
+//           "--nproc_per_node=2",
+//           "--master_addr=127.0.0.1",
+//           "--master_port=29500",
+//           "Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py",
+//           "--deepspeed", "/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/scripts/zero3_offload.json",
+//           "--model_name_or_path", "/srv/lby/qwen_vl_7b/Qwen2.5-VL-3B-Instruct",
+//           "--dataset_use", "mimic_classify_clip",
+//           "--data_flatten", "True",
+//           "--tune_mm_vision", "False",
+//           "--tune_mm_mlp", "True",
+//           "--tune_mm_llm", "True",
+//           "--bf16", "True",
+//           "--output_dir", "./output",
+//           "--num_train_epochs", "1",
+//           "--per_device_train_batch_size", "1",
+//           "--per_device_eval_batch_size", "1",
+//           "--gradient_accumulation_steps", "2",
+//           "--max_pixels", "50176",
+//           "--min_pixels", "784",
+//           "--eval_strategy", "no",
+//           "--save_strategy", "steps",
+//           "--save_steps", "50000",
+//           "--save_total_limit", "1",
+//           "--learning_rate", "2e-7",
+//           "--weight_decay", "0",
+//           "--warmup_ratio", "0.03",
+//           "--max_grad_norm", "1",
+//           "--lr_scheduler_type", "cosine",
+//           "--logging_steps", "1",
+//           "--model_max_length", "1024",
+//           "--gradient_checkpointing", "True",
+//           "--dataloader_num_workers", "2",
+//           "--run_name", "qwen2vl-baseline",
+//           "--report_to", "none"
+//         ],
+//         "console": "integratedTerminal",
+//         "justMyCode": false,
+//         "cwd": "${workspaceFolder}"
+//       }
+//     ]
+//   }
+  
+
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Debug Qwen VL Training (2-GPU)",
+//             "type": "debugpy",
+//             "request": "launch",
+//             "program": "-m",
+//             "args": [
+//                 "torch.distributed.run",
+//                 "--nproc_per_node=2",          // 使用2张GPU
+//                 "Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py",
+//                 // DeepSpeed配置
+//                 "--deepspeed", "/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/scripts/zero3.json",
+                
+//                 // 模型配置
+//                 "--model_name_or_path", "/srv/lby/qwen_vl_7b/Qwen2.5-VL-3B-Instruct",
+                
+//                 // 数据集配置
+//                 "--dataset_use", "mimic_classify_clip",
+                
+//                 // 训练参数（保持与单卡一致）
+//                 "--data_flatten", "True",
+//                 "--tune_mm_vision", "False",
+//                 "--tune_mm_mlp", "True",
+//                 "--tune_mm_llm", "True",
+//                 "--bf16", "True",
+//                 "--output_dir", "./output",
+//                 "--num_train_epochs", "1",
+//                 "--per_device_train_batch_size", "1",
+//                 "--per_device_eval_batch_size", "1",
+//                 "--gradient_accumulation_steps", "2",
+//                 "--max_pixels", "50176",
+//                 "--min_pixels", "784",
+//                 "--eval_strategy", "no",
+//                 "--save_strategy", "steps",
+//                 "--save_steps", "50000",
+//                 "--save_total_limit", "1",
+//                 "--learning_rate", "2e-7",
+//                 "--weight_decay", "0",
+//                 "--warmup_ratio", "0.03",
+//                 "--max_grad_norm", "1",
+//                 "--lr_scheduler_type", "cosine",
+//                 "--logging_steps", "1",
+//                 "--model_max_length", "1024",
+//                 "--gradient_checkpointing", "True",
+//                 "--dataloader_num_workers", "2",
+//                 "--run_name", "qwen2vl-baseline",
+//                 "--report_to", "none"
+//             ],
+//             "console": "integratedTerminal",
+//             "justMyCode": false
+//         }
+//     ]
+// }

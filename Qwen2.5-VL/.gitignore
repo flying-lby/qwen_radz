@@ -1,0 +1,17 @@
+# python generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# venv
+.venv
+/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/data/new_classify_mimic_file_clip.json
+/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/eval_data/eval/
+/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/eval_data/train/
+
+Qwen2.5-VL/qwen-vl-finetune/eval_data/eval/
+Qwen2.5-VL/qwen-vl-finetune/eval_data/train/
+/home/lby/qwen_radz/flash_attn-2.6.3+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
