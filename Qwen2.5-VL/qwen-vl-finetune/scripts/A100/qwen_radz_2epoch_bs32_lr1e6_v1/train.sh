@@ -3,7 +3,7 @@
  # @Author: flying-lby 2230232178@qq.com
  # @Date: 2025-04-10 14:17:31
  # @LastEditors: flying-lby 2230232178@qq.com
- # @LastEditTime: 2025-05-14 19:58:12
+ # @LastEditTime: 2025-05-15 02:34:58
  # @FilePath: /qwen_radz/Qwen2.5-VL/qwen-vl-finetune/scripts/sft_7b.sh
  # @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 ### 
@@ -28,7 +28,7 @@ grad_accum_steps=1
 
 # Training entry point
 entry_file=qwenvl/train/train_qwen.py
-
+NPROC_PER_NODE=4
 # Dataset configuration (replace with public dataset names)
 datasets=mimic_classify_clip
 
