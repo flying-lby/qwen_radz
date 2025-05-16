@@ -1,0 +1,119 @@
+  0%|                                                                                                                                                                                      | 0/3602 [00:00<?, ?it/s]/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+  return F.conv3d(
+/usr/local/lib/python3.10/dist-packages/torch/utils/checkpoint.py:91: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/torch/utils/checkpoint.py:91: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+  0%|                                                                                                                                                                           | 1/3602 [00:26<26:43:28, 26.72s/it]/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+{'loss': 3.2167, 'grad_norm': 23.27433094824788, 'learning_rate': 0.0, 'epoch': 0.0}
+  return F.conv3d(
+/usr/local/lib/python3.10/dist-packages/torch/utils/checkpoint.py:91: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+  0%|                                                                                                                                                                           | 2/3602 [00:29<12:51:22, 12.86s/it]/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+{'loss': 3.2831, 'grad_norm': 23.619515239717423, 'learning_rate': 9.174311926605505e-09, 'epoch': 0.0}
+  return F.conv3d(
+/usr/local/lib/python3.10/dist-packages/torch/utils/checkpoint.py:91: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+  0%|▏                                                                                                                                                                           | 3/3602 [00:32<8:02:54,  8.05s/it]/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+{'loss': 3.1912, 'grad_norm': 24.34962698256005, 'learning_rate': 1.834862385321101e-08, 'epoch': 0.0}
+  return F.conv3d(
+                                                                                                                                                                                                                    
+{'loss': 3.3298, 'grad_norm': 25.442161997939674, 'learning_rate': 2.7522935779816516e-08, 'epoch': 0.0}
+{'loss': 3.2507, 'grad_norm': 25.536894749988477, 'learning_rate': 3.669724770642202e-08, 'epoch': 0.0}
+{'loss': 3.2794, 'grad_norm': 25.714822660655617, 'learning_rate': 4.587155963302752e-08, 'epoch': 0.0}
+{'loss': 3.1685, 'grad_norm': 23.71142348093538, 'learning_rate': 5.504587155963303e-08, 'epoch': 0.0}
+{'loss': 3.2431, 'grad_norm': 26.001237345496556, 'learning_rate': 6.422018348623853e-08, 'epoch': 0.0}
+{'loss': 3.338, 'grad_norm': 25.105107114945817, 'learning_rate': 7.339449541284404e-08, 'epoch': 0.0}
+{'loss': 3.1246, 'grad_norm': 22.961899817859678, 'learning_rate': 8.256880733944954e-08, 'epoch': 0.01}
+{'loss': 3.2844, 'grad_norm': 25.175437607830226, 'learning_rate': 9.174311926605505e-08, 'epoch': 0.01}
+{'loss': 3.2747, 'grad_norm': 25.506644021557715, 'learning_rate': 1.0091743119266055e-07, 'epoch': 0.01}
+{'loss': 3.174, 'grad_norm': 23.270869517377484, 'learning_rate': 1.1009174311926606e-07, 'epoch': 0.01}
+{'loss': 3.2312, 'grad_norm': 23.821764342977577, 'learning_rate': 1.1926605504587156e-07, 'epoch': 0.01}
+{'loss': 3.2579, 'grad_norm': 23.839327485421247, 'learning_rate': 1.2844036697247705e-07, 'epoch': 0.01}
+{'loss': 3.1136, 'grad_norm': 24.014564272332336, 'learning_rate': 1.3761467889908257e-07, 'epoch': 0.01}
+{'loss': 3.2369, 'grad_norm': 24.324828961470356, 'learning_rate': 1.4678899082568808e-07, 'epoch': 0.01}
+{'loss': 3.2346, 'grad_norm': 21.91095261894126, 'learning_rate': 1.5596330275229357e-07, 'epoch': 0.01}
+{'loss': 3.166, 'grad_norm': 23.320755248766293, 'learning_rate': 1.6513761467889909e-07, 'epoch': 0.01}
+{'loss': 3.1803, 'grad_norm': 22.97485204531234, 'learning_rate': 1.743119266055046e-07, 'epoch': 0.01}
+{'loss': 3.2532, 'grad_norm': 23.09373733858592, 'learning_rate': 1.834862385321101e-07, 'epoch': 0.01}
+{'loss': 3.2211, 'grad_norm': 20.77403395261562, 'learning_rate': 1.926605504587156e-07, 'epoch': 0.01}
+{'loss': 3.202, 'grad_norm': 21.123776755649516, 'learning_rate': 2.018348623853211e-07, 'epoch': 0.01}
+{'loss': 3.2368, 'grad_norm': 20.802299831258004, 'learning_rate': 2.110091743119266e-07, 'epoch': 0.01}
+{'loss': 3.1745, 'grad_norm': 20.8795451776851, 'learning_rate': 2.2018348623853212e-07, 'epoch': 0.01}
+{'loss': 3.1109, 'grad_norm': 19.74370225040196, 'learning_rate': 2.293577981651376e-07, 'epoch': 0.01}
+{'loss': 3.1813, 'grad_norm': 20.779206546685845, 'learning_rate': 2.3853211009174313e-07, 'epoch': 0.01}
+{'loss': 3.2088, 'grad_norm': 18.589350429454154, 'learning_rate': 2.477064220183486e-07, 'epoch': 0.02}
+{'loss': 3.1138, 'grad_norm': 18.511002651703873, 'learning_rate': 2.568807339449541e-07, 'epoch': 0.02}
+{'loss': 3.1392, 'grad_norm': 18.530059942236946, 'learning_rate': 2.6605504587155965e-07, 'epoch': 0.02}
+{'loss': 3.086, 'grad_norm': 16.95594777123277, 'learning_rate': 2.7522935779816514e-07, 'epoch': 0.02}
+{'loss': 3.0335, 'grad_norm': 16.255062078686546, 'learning_rate': 2.844036697247706e-07, 'epoch': 0.02}
+{'loss': 3.0086, 'grad_norm': 15.70325325659943, 'learning_rate': 2.9357798165137617e-07, 'epoch': 0.02}
+{'loss': 3.0004, 'grad_norm': 16.007641101918605, 'learning_rate': 3.0275229357798165e-07, 'epoch': 0.02}
+{'loss': 3.0161, 'grad_norm': 17.079697561414523, 'learning_rate': 3.1192660550458714e-07, 'epoch': 0.02}
+{'loss': 3.0293, 'grad_norm': 15.896305871072542, 'learning_rate': 3.211009174311927e-07, 'epoch': 0.02}
+{'loss': 3.0651, 'grad_norm': 15.410015265379988, 'learning_rate': 3.3027522935779817e-07, 'epoch': 0.02}
+{'loss': 3.0019, 'grad_norm': 16.91357291390817, 'learning_rate': 3.3944954128440366e-07, 'epoch': 0.02}
+{'loss': 3.0487, 'grad_norm': 15.742987598527485, 'learning_rate': 3.486238532110092e-07, 'epoch': 0.02}
+{'loss': 2.9883, 'grad_norm': 16.970473921746212, 'learning_rate': 3.577981651376147e-07, 'epoch': 0.02}
+{'loss': 2.9931, 'grad_norm': 20.1443654879403, 'learning_rate': 3.669724770642202e-07, 'epoch': 0.02}
+{'loss': 3.0399, 'grad_norm': 18.584123552025805, 'learning_rate': 3.7614678899082567e-07, 'epoch': 0.02}
+{'loss': 2.8956, 'grad_norm': 17.105008016089016, 'learning_rate': 3.853211009174312e-07, 'epoch': 0.02}
+{'loss': 2.8296, 'grad_norm': 16.404015975615117, 'learning_rate': 3.944954128440367e-07, 'epoch': 0.02}
+{'loss': 2.8037, 'grad_norm': 13.577380372371021, 'learning_rate': 4.036697247706422e-07, 'epoch': 0.02}
+{'loss': 2.725, 'grad_norm': 10.713879157287513, 'learning_rate': 4.1284403669724773e-07, 'epoch': 0.03}
+{'loss': 2.6893, 'grad_norm': 10.180638684192955, 'learning_rate': 4.220183486238532e-07, 'epoch': 0.03}
+{'loss': 2.7011, 'grad_norm': 9.514816092477956, 'learning_rate': 4.311926605504587e-07, 'epoch': 0.03}
+{'loss': 2.6704, 'grad_norm': 9.157322862883884, 'learning_rate': 4.4036697247706425e-07, 'epoch': 0.03}
+{'loss': 2.7761, 'grad_norm': 9.260060723702125, 'learning_rate': 4.4954128440366974e-07, 'epoch': 0.03}
+{'loss': 2.6293, 'grad_norm': 8.91209070523538, 'learning_rate': 4.587155963302752e-07, 'epoch': 0.03}
+  File "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py", line 179, in <module>
+    train(attn_implementation="flash_attention_2")
+  File "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py", line 165, in train
+    trainer.train()
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2514, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 5243, in get_batch_samples
+    batch_samples.append(next(epoch_iterator))
+  File "/usr/local/lib/python3.10/dist-packages/accelerate/data_loader.py", line 577, in __iter__
+    next_batch = next(dataloader_iter)
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1329, in _next_data
+    idx, data = self._get_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1285, in _get_data
+    success, data = self._try_get_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1133, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/usr/lib/python3.10/queue.py", line 180, in get
+    self.not_empty.wait(remaining)
+  File "/usr/lib/python3.10/threading.py", line 324, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py", line 179, in <module>
+[rank0]:     train(attn_implementation="flash_attention_2")
+[rank0]:   File "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/train/train_qwen.py", line 165, in train
+[rank0]:     trainer.train()
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 2514, in _inner_training_loop
+[rank0]:     batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/transformers/trainer.py", line 5243, in get_batch_samples
+[rank0]:     batch_samples.append(next(epoch_iterator))
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/accelerate/data_loader.py", line 577, in __iter__
+[rank0]:     next_batch = next(dataloader_iter)
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 631, in __next__
+[rank0]:     data = self._next_data()
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1329, in _next_data
+[rank0]:     idx, data = self._get_data()
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1285, in _get_data
+[rank0]:     success, data = self._try_get_data()
+[rank0]:   File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1133, in _try_get_data
+[rank0]:     data = self._data_queue.get(timeout=timeout)
+[rank0]:   File "/usr/lib/python3.10/queue.py", line 180, in get
+[rank0]:     self.not_empty.wait(remaining)
+[rank0]:   File "/usr/lib/python3.10/threading.py", line 324, in wait
+[rank0]:     gotit = waiter.acquire(True, timeout)
+[rank0]: KeyboardInterrupt

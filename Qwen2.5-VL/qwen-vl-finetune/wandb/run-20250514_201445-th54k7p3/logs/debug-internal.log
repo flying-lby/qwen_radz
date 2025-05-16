@@ -1,0 +1,23 @@
+{"time":"2025-05-14T20:14:45.601809023Z","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-05-14T20:14:45.601901534Z","level":"INFO","msg":"created symlink","path":"/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/wandb/run-20250514_201445-th54k7p3/logs/debug-core.log"}
+{"time":"2025-05-14T20:14:45.612651895Z","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-05-14T20:14:45.650778565Z","level":"INFO","msg":"created new stream","id":"th54k7p3"}
+{"time":"2025-05-14T20:14:45.650955907Z","level":"INFO","msg":"stream: started","id":"th54k7p3"}
+{"time":"2025-05-14T20:14:45.650994307Z","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T20:14:45.651023188Z","level":"INFO","msg":"handler: started","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T20:14:45.651063079Z","level":"INFO","msg":"sender: started","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T20:14:46.560417312Z","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-05-14T20:14:46.572779512Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-14T20:17:48.087330678Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/fly_win/huggingface/th54k7p3/file_stream"}
+{"time":"2025-05-14T20:34:12.277944748Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/fly_win/huggingface/th54k7p3/file_stream"}
+{"time":"2025-05-14T22:40:12.584295517Z","level":"INFO","msg":"stream: closing","id":"th54k7p3"}
+{"time":"2025-05-14T22:40:12.584463243Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-14T22:40:12.592290926Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-14T22:40:13.110334658Z","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-05-14T22:40:13.110495772Z","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-05-14T22:40:13.110540162Z","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-05-14T22:40:14.446745588Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-14T22:40:15.326387676Z","level":"INFO","msg":"handler: closed","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T22:40:15.326481889Z","level":"INFO","msg":"sender: closed","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T22:40:15.326458605Z","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"th54k7p3"}}
+{"time":"2025-05-14T22:40:15.33790876Z","level":"INFO","msg":"stream: closed","id":"th54k7p3"}

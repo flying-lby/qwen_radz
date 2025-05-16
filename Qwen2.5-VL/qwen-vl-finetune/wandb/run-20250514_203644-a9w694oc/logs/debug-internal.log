@@ -1,0 +1,21 @@
+{"time":"2025-05-14T20:36:44.88381776Z","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-05-14T20:36:44.883857326Z","level":"INFO","msg":"created symlink","path":"/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/wandb/run-20250514_203644-a9w694oc/logs/debug-core.log"}
+{"time":"2025-05-14T20:36:44.885074016Z","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-05-14T20:36:44.904054603Z","level":"INFO","msg":"created new stream","id":"a9w694oc"}
+{"time":"2025-05-14T20:36:44.904101736Z","level":"INFO","msg":"stream: started","id":"a9w694oc"}
+{"time":"2025-05-14T20:36:44.904112504Z","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T20:36:44.904129292Z","level":"INFO","msg":"handler: started","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T20:36:44.90412377Z","level":"INFO","msg":"sender: started","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T20:36:45.581684132Z","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-05-14T20:36:45.591529175Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-14T23:00:33.482295985Z","level":"INFO","msg":"stream: closing","id":"a9w694oc"}
+{"time":"2025-05-14T23:00:33.482357197Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-14T23:00:33.484867935Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-14T23:00:33.961198839Z","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-05-14T23:00:33.961227763Z","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-05-14T23:00:33.961240866Z","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-05-14T23:00:35.791776042Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-14T23:00:36.366048036Z","level":"INFO","msg":"handler: closed","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T23:00:36.366114567Z","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T23:00:36.366166443Z","level":"INFO","msg":"sender: closed","stream_id":{"value":"a9w694oc"}}
+{"time":"2025-05-14T23:00:36.376335767Z","level":"INFO","msg":"stream: closed","id":"a9w694oc"}
