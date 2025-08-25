@@ -1,0 +1,20 @@
+Dataset: rsna
+Model: /srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2
+
+macro_f1: 0.20806371329019413
+macro_balanced_accuracy: 0.54375
+macro_sensitivity: 0.4625
+macro_specificity: 0.625
+macro_precision: 0.6153846153846154
+macro_recall: 0.4625
+mean_auc: 0.6214062499999999
+mean_auprc: 0.6853111339059743
+f1_scores_per_class: [0.3673469387755102, 0.04878048780487805]
+balanced_accuracies_per_class: [np.float64(0.575), np.float64(0.5125)]
+sensitivities_per_class: [0.9, 0.025]
+specificities_per_class: [np.float64(0.25), np.float64(1.0)]
+precision_scores_per_class: [0.23076923076923078, 1.0]
+recall_scores_per_class: [0.9, 0.025]
+supports_per_class: [np.int64(20), np.int64(80)]
+auc_scores_per_class: [np.float64(0.674375), np.float64(0.5684375)]
+auprc_scores_per_class: [np.float64(0.49099547511312214), np.float64(0.8796267926988266)]

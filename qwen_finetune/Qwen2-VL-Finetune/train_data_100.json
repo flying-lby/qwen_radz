@@ -1,0 +1,1402 @@
+[
+  {
+    "id": 0,
+    "image": "p10/p10000032/s50414267/02aa804e-bde0afdd-112c0b34-7bc16630-4e384014.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "there is no focal consolidation pleural effusion or pneumothorax . bilateral nodular opacities that most likely represent nipple shadows. the cardiomediastinal silhouette is normal. clips project over the left lung potentially within the breast. the imaged upper abdomen is unremarkable.chronic deformity of the posterior left sixth and seventh ribs are noted. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "image": "p10/p10000032/s53189527/2a2277a9-b0ded155-c0de8eb9-c124d10e-82c5caab.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the cardiac mediastinal and hilar contours are normal. pulmonary vasculatureis normal. lungs are clear. no pleural effusion or pneumothorax is present.multiple clips are again seen projecting over the left breast. remoteleft-sided rib fractures are also redemonstrated. no acute cardio pulmonary abnormality."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "image": "p10/p10000032/s53911762/68b5c4b1-227d0485-9cc38c3f-7b84ab51-4b472714.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "single frontal view of the chest provided.there is no focal consolidation effusion or pneumothorax . thecardiomediastinal silhouette is normal. again seen are multiple clipsprojecting over the left breast and remote left-sided rib fractures. no freeair below the right hemidiaphragm is seen. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "image": "p10/p10000032/s53911762/fffabebf-74fd3a1f-673b6b41-96ec0ac9-2ab69818.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "single frontal view of the chest provided.there is no focal consolidation effusion or pneumothorax . thecardiomediastinal silhouette is normal. again seen are multiple clipsprojecting over the left breast and remote left-sided rib fractures. no freeair below the right hemidiaphragm is seen. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "image": "p10/p10000032/s56699142/ea030e7a-2e3b1346-bc518786-7a8fd698-f673b44c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear of focal consolidation pleural effusion or pneumothorax . the heart size is normal. the mediastinal contours are normal. multiplesurgical clips project over the left breast and old left rib fractures are noted. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "image": "p10/p10000764/s57375967/096052b7-d256dc40-453a102b-fa7d01c6-1b22c6b4.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. the lungs are adequatelyaerated.there is a focal consolidation at the left lung base adjacent to the lateralhemidiaphragm. there is mild vascular engorgement. there is bilateral apical pleural thickening .the cardiomediastinal silhouette is remarkable for aortic arch calcifications.the heart is top normal in size. focal consolidation at the left lung base possibly representing aspiration or pneumonia .central vascular engorgement."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "image": "p10/p10000898/s50771383/2a280266-c8bae121-54d75383-cac046f4-ca37aa16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. lung volumes are somewhat low.there is no focal consolidation effusion or pneumothorax . thecardiomediastinal silhouette is normal. imaged osseous structures are intact. no free air below the right hemidiaphragm is seen. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "image": "p10/p10000898/s54205396/b75df1bd-0f22d631-52d73526-2ae7b85a-d843b39d.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "as compared to the prior examination dated there has been no significant interval change. there is no evidence of focal consolidation pleural effusion pneumothorax or frank pulmonary edema . thecardiomediastinal silhouette is within normal limits. there is persistentthoracic kyphosis with mild wedging of a mid thoracic vertebral body. no evidence of acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "image": "p10/p10000935/s50578979/d0b71acc-b5a62046-bbb5f6b8-7b173b85-65cdf738.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "lung volumes remain low. there are innumerable bilateral scattered small pulmonary nodule which are better demonstrated on recent ct. mild pulmonary vascular congestion is stable. the cardiomediastinal silhouette and hilarcontours are unchanged. small pleural effusion in the right middle fissure is new. there is no new focal opacity to suggest pneumonia . there is no pneumothorax .1. low lung volumes and mild pulmonary vascular congestion is unchanged. 2. new small right fissural pleural effusion .3. no new focal opacities to suggest pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "image": "p10/p10000935/s51178377/9b314ad7-fbcb0422-6db62dfc-732858d0-a5527d8b.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lung volumes are low. the cardiac mediastinal and hilarcontours appear unchanged allowing for differences in technique. there are anumber of round nodular densities projecting over each upper lung but morenumerous and discretely visualized in the left upper lobe similar to priorstudy. however in addition there is a more hazy widespread opacity projecting over the left mid upper lung which could be compatible with acoinciding pneumonia . pulmonary nodule in the left upper lobe are also notcompletely characterized on this study. there is no pleural effusion or pneumothorax . post-operative changes are similar along the right chest wall. increasing left lung opacification which may reflect pneumonia superimposed on metastatic disease although other etiologies such aslymphangitic pattern of metastatic spread could be considered. ct may behelpful to evaluate further if needed clinically."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "image": "p10/p10000935/s55697293/c50494f1-90e2bff5-e9189550-1a4562fd-6ab5204c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "heart size is normal. mediastinal contours are normal with mildaortic tortuosity. post-surgical changes in the right hemithorax are stableincluding thickening of the pleura along the costal surface and blunting of the costophrenic sulcus. the right sixth rib surgical fracture is redemonstrated. there are no new lung nodule identified. stable chest radiograph."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "image": "p10/p10000935/s56164612/8e3f2822-0c1d4b71-2a265bbf-5b96e531-ccf5fa30.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "lung volumes are low. the heart size is normal. the mediastinal and hilarcontours are unremarkable. new nodular opacities are clustered within the left upper lobe and to a lesser extent within the right upper lobe. there is no pneumothorax or left-sided pleural effusion . pulmonary vascularity iswithin normal limits. postsurgical changes are noted in the right chest withpartial resection of the right 6th rib lateral right pleural thickening and chronic blunting of the costophrenic sulcus. new nodular opacities within both upper lobes left greater than right.findings are compatible with metastases as was noted in the lung bases on thesubsequent ct of the abdomen and pelvis performed later the same day."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "image": "p10/p10000935/s58219844/88498b37-c21dc7ba-bc202800-b517a62d-f7ac5bcf.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "lung volumes are low. this results in crowding of the bronchovascularstructures. there may be mild pulmonary vascular congestion . the heart sizeis borderline enlarged. the mediastinal and hilar contours are relativelyunremarkable. innumerable nodule are demonstrated in both lungs morepronounced in the left upper and lower lung fields compatible with metastaticdisease. no new focal consolidation pleural effusion or pneumothorax is seen with chronic elevation of right hemidiaphragm again seen. the patientis status post right lower lobectomy. rib deformities within the righthemithorax is compatible with prior postsurgical changes.innumerable pulmonary metastases. possible mild pulmonary vascular congestion . low lung volumes."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "image": "p10/p10000980/s50985099/6ad03ed1-97ee17ee-9cf8b320-f7011003-cd93b42d.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "compared to chest radiographs since most recently one .previous mild pulmonary edema and possible concurrent pneumonia has allcleared. heart is top-normal size improved and pleural effusion have resolved. right hilar vessels are still enlarged perhaps due to pulmonaryarterial hypertension. lateral view shows atherosclerotic coronarycalcification in the left circumflex."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "image": "p10/p10000980/s51967283/943486a3-b3fa9ff7-50f5a769-7a62fcbb-f39b6da4.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "right upper lobe pneumonia or mass . however given right hilarfullness a mass resulting in post-obstructive pneumonia is within thedifferential. recommend chest ct with intravenous contrast for furtherassessment.dr. communicated the above results to dr. at855 am on by telephone."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "image": "p10/p10000980/s54577367/cfb03587-782edf6c-1bf392e1-98196cd5-365d69e8.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "mild to moderate enlargement of the cardiac silhouette is unchanged. theaorta is calcified and diffusely tortuous. the mediastinal and hilar contoursare otherwise similar in appearance. there is minimal upper zone vascularredistribution without overt pulmonary edema . no focal consolidation pleural effusion or pneumothorax is present. the osseous structures are diffuselydemineralized. no radiographic evidence for pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "image": "p10/p10000980/s54935705/6ad819bb-bae74eb9-7b663e90-b8deabd7-57f8054a.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "there is mild pulmonary edema with superimposed region of more confluent consolidation in the left upper lung. there are possible small bilateral pleural effusion. moderate cardiomegaly is again seen as well as tortuosityof the descending thoracic aorta. no acute osseous abnormalities. mild pulmonary edema with superimposed left upper lung consolidation potentially more confluent edema versus superimposed infection ."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "image": "p10/p10000980/s54980801/a75a1fbe-802065ad-717eb7c1-e2ce3552-646276a6.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear of consolidation effusion or edema . cardiac silhouette is top normal. descending thoracic aorta is tortuous with atheroscleroticcalcification seen at the arch. no acute osseous abnormalities identified. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "image": "p10/p10000980/s57861150/5aa15ba6-55f5e96e-39cea686-7c3b28b2-b8c97a88.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "heart size remains mild to moderate ly enlarged. the aorta is tortuous anddiffusely calcified. mediastinal and hilar contours are otherwise unchanged. previous pattern of mild pulmonary edema has essentially resolved. mild atelectasis is seen in the lung bases without focal consolidation . bluntingof the costophrenic angles bilateral ly suggests trace bilateral pleural effusion not substantially changed in the interval. no pneumothorax is present. interval resolution of previously seen mild pulmonary edema with trace bilateral pleural effusion."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "image": "p10/p10000980/s58206436/54affd39-8bf24209-232bac8a-df6c277a-398ee8a5.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison to study performed on of there is new mild pulmonary edema with small bilateral pleural effusion. lung volumes have decreased with crowding of vasculature. no pneumothorax . severe cardiomegaly is likely accentuated due to low lung volumes and patient positioning. 1. new mild pulmonary edema with persistent small bilateral pleural effusion.2. severe cardiomegaly is likely accentuated due to low lung volumes andpatient positioning."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "image": "p10/p10000980/s58636672/c7526473-7b7214ee-a5d58d12-29d1f67f-9f4edf00.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "as compared to the lung volumes have slightly decreased. signs of mild overinflation and moderate pleural effusion persist. moderate cardiomegaly . elongation of the descending aorta. no pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "image": "p10/p10000980/s59988438/925b9496-a956d7b2-05185e52-bb33313b-c06ee522.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest demonstrate low lung volumes. tiny bilateral pleural effusion are new since . no signs of pneumonia or pulmonary vascular congestion . heart is top normal in sizethough this is stable. aorta is markedly tortuous unchanged. aortic archcalcifications are seen. there is no pneumothorax . no focal consolidation . partially imaged upper abdomen is unremarkable. tiny pleural effusion new. otherwise unremarkable."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "image": "p10/p10001038/s58224503/28fad2ac-d6001216-b4f72c5b-2d4d452e-17b6c9a5.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. the lungs are well aerated.there is no focal consolidation effusion or pneumothorax . thecardiomediastinal silhouette is normal. imaged osseous structures are intact. no free air below the right hemidiaphragm is seen. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "image": "p10/p10001038/s58224503/5cae71aa-99bb4662-41ef629e-7e89308c-5831ff9c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. the lungs are well aerated.there is no focal consolidation effusion or pneumothorax . thecardiomediastinal silhouette is normal. imaged osseous structures are intact. no free air below the right hemidiaphragm is seen. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "image": "p10/p10001122/s53957785/07b9ddda-9a4a1e1a-4495463d-4c77d947-ed368713.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "heart size is top normal. mediastinal and hilar contours are unremarkable with atherosclerotic calcifications noted throughout the thoracic aorta. the pulmonary vasculature is normal. lungs are clear. no pleural effusion or pneumothorax is demonstrated. there is diffuse demineralization of theosseous structures with apparent ossification of the anterior longitudinalligament.no acute cardio pulmonary abnormality."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "image": "p10/p10001176/s53186264/1fe73f8e-036bd24e-4578c891-33c1746e-864884a7.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the heart is normal in size. the mediastinal and hilar contourappear within normal limits. each hilum is mildly prominent probablysuggesting mild prominence of central pulmonary vessels but there is no frankcongestive heart failure. no focal opacification is seen aside from streakyleft lower lung opacity suggesting minor atelectasis . there is no pleural effusion or pneumothorax . bony structures are unremarkable. mild perihilar prominence suspected to represent mildlyprominent pulmonary vessels without definite pneumonia . streaky left basilar opacification seen only on the frontal view is probably due to minor atelectasis or scarring ."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "image": "p10/p10001176/s54684191/3b8b1b7d-054490d5-385641e7-ff43d2c8-9505f058.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "mild pulmonary edema "
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "image": "p10/p10001176/s54684191/ed9c0dfc-ea25b576-0f8cc069-df4cdf14-0cd60eb7.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "mild pulmonary edema "
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "image": "p10/p10001217/s52067803/a917c883-720a5bbf-02c84fc6-98ad00ac-c562ff80.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "there is mild left base atelectasis seen on the frontal view without clearcorrelate on the lateral view. no definite focal consolidation is seen. there is no pleural effusion or pneumothorax . the aorta is slightly tortuous.the cardiac silhouette is not enlarged. there is no overt pulmonary edema .mild left base atelectasis . otherwise no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "image": "p10/p10001217/s58913004/5e54fc9c-37c49834-9ac3b915-55811712-9d959d26.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "as compared to the previous radiograph there is evidence of anunchanged picc line placed over the right upper extremity. the tip appears toproject over the azygous vein at the level of the upper svc. nocomplications notably no pneumothorax . borderline size of the cardiac silhouette . moderate tortuosity of the thoracic aorta."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "image": "p10/p10001401/s50225296/0009a9fb-eb905e90-824cad7c-16d40468-007f0038.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "no previous images. nasogastric tube extends to the mid body of the stomach be for coiling on itself so that the tip lies close to the esophagogastricjunction. for more optimal positioning the to would have to be pulled backalmost 10 cm and then hopefully redirected toward the lower stomach.cardiac silhouette is within normal limits and there is no vascular congestion pleural effusion or acute focal pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "image": "p10/p10001401/s51065211/8061113f-c019f3ae-fd1b7c54-33e8690d-be838099.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. lung volumes are low with mild bibasilar atelectasis . no convincing signs of pneumonia or edema . no large effusion or pneumothorax is seen. the cardiomediastinal silhouette appearsnormal. there is no free air below the right hemidiaphragm. fluid level is noted within the stomach. mild bibasilar atelectasis . no signs of free air below the righthemidiaphragm."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "image": "p10/p10001401/s51065211/c74ce171-c7c53262-a7d57fa1-ee9a9bea-b5f75cb8.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. lung volumes are low with mild bibasilar atelectasis . no convincing signs of pneumonia or edema . no large effusion or pneumothorax is seen. the cardiomediastinal silhouette appearsnormal. there is no free air below the right hemidiaphragm. fluid level is noted within the stomach. mild bibasilar atelectasis . no signs of free air below the righthemidiaphragm."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "image": "p10/p10001401/s55350604/d9db838d-4612fd1e-e45b40a9-3ea30033-26efd8e4.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "compared to chest radiographs through .heart size top-normal. lungs grossly clear. no pleural abnormality or evidence of central lymph node enlargement."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "image": "p10/p10001401/s56534136/d69651ae-dc7bacca-a05efc02-1d5882cd-001c77c4.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the right costophrenic angle is not imaged. otherwise the lungs are clear. the heart size is upper limits of normal. enteric tube courses below thelevel of the diaphragm. there is no pneumothorax . an enteric tube courses below the level of the diaphragm."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "image": "p10/p10001401/s57492692/a83c7ff9-2d42639c-6ddebd0e-6b67809b-38210026.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "ng tube is coiled in the stomach. right picc in lower svc is unchanged inposition. cardiac size is normal. mild bibasilar opacities consistent with atelectasis unchanged compared to chest radiograph performed earlier in thesame day. there is no pneumothorax or pleural effusion . ng tube in expected position with tip coiled in the stomach. no otherinterval change since chest radiograph performed earlier on the same day."
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "image": "p10/p10001401/s58747570/19e55bee-714bb193-0968d683-5bf655a5-7b5caba9.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "ap upright and lateral views of the chest provided.mild basal atelectasis noted. hilar congestion noted without frank edema . no large effusion or pneumothorax . heart size is normal. mediastinal contour is unchanged. bony structures are intact. no free air below the righthemidiaphragm. hilar congestion without frank edema . no convincing signs of pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "image": "p10/p10001851/s59664767/edb88e4a-c04f1be7-aefcf3e0-8889542d-692ff7fd.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral views of the chest were obtained. there is mild basilar atelectasis without evidence of focal consolidation . no pleural effusion or pneumothorax is seen. there is minimal biapical pleural thickening . cardiac silhouette is top normal with likely adjacent epicardialfat pad. the aorta is calcified and tortuous. some degenerative changes are seen along the spine. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "image": "p10/p10001884/s50279568/3892f17f-8fa034e8-e9b81865-01c48bbb-b9452626.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are hyperinflated but clear without consolidation . biapicalscarring is again noted worse on the right. cardiomediastinal silhouette iswithin normal limits. no acute osseous abnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "image": "p10/p10001884/s50376803/469d0d94-3dad5068-efac76ef-a28cc502-68fe6275.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the endotracheal tube tip is 6 cm above the carina. nasogastric tube tip isbeyond the ge junction and off the edge of the film. a left central line is present in the tip is in the mid svc. a pacemaker is noted on the right in the lead projects over the right ventricle. there is probable scarring in both lung apices. there are no new areas of consolidation . there is upperzone redistribution and cardiomegaly suggesting pulmonary venous hypertension.there is no pneumothorax ."
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "image": "p10/p10001884/s50712381/7b25b3ed-e780a527-319cb7b3-02d5d071-f1cddee9.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "compared to prior chest radiographs since most recently and .mild pulmonary edema has not resolved. moderate cardiomegaly is stable. pleural effusion small if any. no pneumothorax .right transjugular temporary pacer lead tip projects over the floor of the right ventricle. et tube in standard placement. esophageal probe ends at thelevel of the carina. transesophageal drainage tube passes into the stomachand out of view."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "image": "p10/p10001884/s50807032/ebf48d65-7e780cd5-59118fba-50977097-3720cc7e.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are hyper-expanded with associated flattening of the diaphragms.unexplained mild rightward deviation of the trachea without tracheal narrowingat the level of the thoracic inlet not markedly changed since . no changein the probable right apical bronchiectasis. the lungs are otherwise clear without focal consolidation or pulmonary edema . no pleural effusion or pneumothorax . normal cardiomediastinal silhouette hila and pleura. stabletortuous descending aorta. 1. no focal consolidation to suggest active infection .2. stable copd.3. stable unexplained mild rightward deviation of the trachea."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "image": "p10/p10001884/s51181158/96bfb531-d6621042-58ea2067-b155e38f-f76e305b.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "portable ap chest radiograph. the lungs are relatively well expanded without focal consolidation pleural effusion or pneumothorax . the heart is normal insize with tortuous aortic contour.no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "image": "p10/p10001884/s51817555/d5f12914-f14ffd99-3ff2ee54-6f0cbd0c-4c411a2c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "relative increase in opacity over the lung bases bilateral ly is felt due tooverlying soft tissue rather than consolidation or pleural effusion . lateralview may be helpful for confirmation. no large pleural effusion or pneumothorax is seen. the cardiac and mediastinal silhouette areunremarkable. no overt pulmonary edema is seen relative increase in opacity over the lung bases bilateral ly felt due tooverlying soft tissue rather than consolidation . lateral view may be helpfulfor confirmation."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "image": "p10/p10001884/s52060840/ee31086f-cbf22f9d-9553d506-2bcd4167-0e1e17bf.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "no new focal consolidation is seen. mild right apical pleural thickening is seen. no pleural effusion or pneumothorax is seen. the cardiac and mediastinal silhouette are stable. small calcification projecting over the upper chest seen on the lateral view is present since at least and may relate to aortic calcification. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "image": "p10/p10001884/s53109065/1e583282-042438d1-4c0d5389-f3c06b76-e9a29eaa.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "mild basilar atelectasis is seen without focal consolidation . no pleural effusion or pneumothorax is seen. the cardiac and mediastinal silhouette are stable. mild basilar atelectasis without definite focal consolidation ."
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "image": "p10/p10001884/s53268982/9f5446a9-46ea84a3-6806d8b7-2c0f6d4d-38799159.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral radiographs of the chest show hyperinflatedlungs with flattened diaphragm consistent with emphysema . asymmetric opacity in the right middle lobe is concerning for pneumonia . no pleural effusion or pneumothorax is seen. the cardiomediastinal contours are within normal limitsaside from a tortuous aorta. right middle lobe opacity concerning for pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "image": "p10/p10001884/s53880659/52d6c812-26dfed36-97e26b11-1fa88177-e8b8b150.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "there is hyperinflation. there is no pneumothorax effusion consolidation or chf. there is probable osteopenia."
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "image": "p10/p10001884/s53894864/a6617202-f5a8661d-78eb1442-037bf3e4-3dd8967f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear without consolidation effusion or edema . biapicalscarring worse on the right is again noted. the cardiomediastinal silhouette is within normal limits. no acute osseous abnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "image": "p10/p10001884/s54000534/4ee6a7f9-915c4c58-7dd1082b-6d03b302-aef0b6d9.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "hyperexpanded lungs with flattened diaphragms are unchanged. previouslydescribed right tracheal deviation is not seen on the current study. unchanged bilateral apical bronchial thickening . the lungs are otherwise clear without focal consolidation pneumothorax or effusion . the cardiomediastinal and hilar silhouette are normal. stable descending tortuous aorta. no acute cardio pulmonary process without consolidation or evidence of chf."
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "image": "p10/p10001884/s54369281/3fc658da-23a5d1b2-68e913fd-bf919f75-b7113290.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "heart size is mildly enlarged. there is mild unfolding of the thoracic aorta.cardiomediastinal silhouette and hilar contours are otherwise unremarkable. there is mild bibasilar atelectasis . lungs are otherwise clear. pleural surfaces are clear without effusion or pneumothorax . focus of air seen underthe right hemidiaphragm likely represents colonic interposition. no acute cardio pulmonary abnormality."
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "image": "p10/p10001884/s54579606/7f23b996-22544258-fcf2fbc3-f8dbf8e7-b6c0e4c5.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. lungs are hyperinflated thoughclear. cardiomediastinal silhouette is stable. bony structures are intact. no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "image": "p10/p10001884/s54828594/7561a64e-145a404e-f12d8f04-3b19c4e1-3de6e5a0.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "mild to moderate enlargement of the cardiac silhouette is unchanged. theaorta remains tortuous. mediastinal and hilar contours are otherwise similar.the pulmonary vasculature is not engorged. lungs are hyperinflated. apartfrom minimal atelectasis in the lung bases and biapical scarring in the lungapices more pronounced on the right the lungs are clear.no pleural effusion or pneumothorax is demonstrated. there are no acute osseous abnormalities.no acute cardio pulmonary abnormality."
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "image": "p10/p10001884/s55333410/5b135035-4708084f-3bb6d230-9db72889-2aa90c14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views the chest provided. biapical pleural parenchymal scarring noted. no focal consolidation concerning for pneumonia . no effusion or pneumothorax . no signs of congestion or edema . cardiomediastinal silhouette is stable with an unfolded thoracic aorta and top-normal heartsize. bony structures are intact. no acute findings. top-normal heart size."
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "image": "p10/p10001884/s55893591/8d4eb7a8-0d3c4f7e-fed33834-ef1c6ffd-e01d0967.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear without focal consolidation . no pleural effusion or pneumothorax is seen. the cardiac and mediastinal silhouette areunremarkable.again noted is a tortuous aorta. no evidence of pneumonia . no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "image": "p10/p10001884/s56308417/f8d7008c-ed9b419b-7f0c85b0-acf404a4-5afe3f3d.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the cardiomediastinal and hilar contours are within normal limits. the aortais tortuous. there is bilateral apical bronchial thickening as before. lung volumes are lower on the current study. focal opacity involving the right lower lobe could represent an area of atelectasis or infection . there is no effusion or pneumothorax . subtle opacity in the right lower lobe could represent atelectasis or infection in the appropriate setting."
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "image": "p10/p10001884/s56349965/79863f89-595bf19b-3c7b514a-42969d9b-eff42368.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "with exception of mild bibasilar atelectasis the lungs are normally expandedwithout focal opacity to suggest pneumonia . heart size is mildly enlarged. the mediastinal and hilar contours are unchanged. there is no pleural effusion or pneumothorax . the aorta is unfolded and tortuous. mild bibasilar atelectasis . no evidence of pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "image": "p10/p10001884/s56722923/c1ad3e27-62d05ef8-95018fe3-b8bcfe4b-bbba0e1f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "compared to prior chest radiographs through .previous mild pulmonary edema has improved moderate cardiomegaly and mediastinal vascular engorgement have not. et tube right transjugulartemporary pacer lead are in standard placements and an esophageal drainagetube passes into the stomach and out of view. pleural effusion are presumedbut not substantial . no pneumothorax ."
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "image": "p10/p10001884/s57156853/9fd47edd-07087209-b901811e-3e9e5f50-f382f611.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison to chest radiograph pulmonary vascular congestion and minimal interstitial edema are new. no other relevant change."
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "image": "p10/p10001884/s57166219/7f885b34-699f595b-36446207-4f146366-55dfb63f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "again seen is biapical scarring . the lungs are otherwise clear without focal consolidation effusion or edema . cardiomediastinal silhouette is stable. no acute osseous abnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "image": "p10/p10001884/s57839849/1f413a3b-78c5a4aa-978ff5ff-f72a424c-b3a51b92.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the cardiomediastinal and hilar contours are normal. the lungs are clear. there is no pleural effusion or pneumothorax . no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "image": "p10/p10001884/s58196907/00dccb6d-d0c6f3d3-96277b9f-0ee6d7aa-08abfc1f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are grossly clear. there is no focal consolidation large effusion or edema . the cardiomediastinal silhouette is within normal limits. no acuteosseous abnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "image": "p10/p10001884/s58196907/702047a4-bc0d5902-5c6165ef-8edd29a4-23af9a3b.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are grossly clear. there is no focal consolidation large effusion or edema . the cardiomediastinal silhouette is within normal limits. no acuteosseous abnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "image": "p10/p10001884/s58350684/7f4e7b8d-cacf5a8f-067353ea-f006ed1c-947dc749.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the cardiac silhouette is normal in size. the hilar and mediastinal contoursare stable. there is mild bibasilar atelectasis . there is no focal consolidation pleural effusion or pneumothorax . no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "image": "p10/p10001884/s58788638/dae10c54-dcb7bb1f-428bb377-af3b739e-9b16e579.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "bibasilar atelectasis . otherwise no acute intrathoracic process."
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "image": "p10/p10001884/s59066712/66ee3842-a927ac25-a5df697e-f1f36b1f-201b2172.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison with the study of the increased opacification at the right base has essentially cleared with better inspiration. cardiac silhouette remains at the upper limits of normal in size and there is againtortuosity of the aorta without vascular congestion or pleural effusion . biapical changes especially on the right are stable."
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "image": "p10/p10001884/s59212874/4a327635-ff0c1380-58766d70-6080047d-3f3d124f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "reticular opacities at the lung bases bilateral ly likely represent mild atelectasis . there is mild biapical pleural - parenchymal scarring . no evidence of pneumonia pleural effusion or pneumothorax . heart size and mediastinal contours are within normal limits. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "image": "p10/p10001884/s59305618/9b1a8a51-2b8e4a04-1719059d-aa6bc888-7ace612b.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison to previous radiograph of 1 day earlier support and monitoringdevices are unchanged in position. pulmonary vascular congestion has improved. airspace opacity at the left lung base has worsened and additionalpatchy opacities have developed at the right lung base. findings couldpotentially be due to aspiration or evolving aspiration pneumonia in the appropriate clinical setting. exam is otherwise remarkable for probable small bilateral pleural effusion."
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "image": "p10/p10001884/s59635781/547c0b6b-72739eeb-3c33bc3e-3aa73d13-a9a54bd5.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are hyperinflated but clear without confluent consolidation or effusion . the cardiomediastinal silhouette is within normal limits. no acuteosseous abnormalities identified. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "image": "p10/p10001884/s59984865/2d8a8525-19d0c810-045e1619-ef196132-cd4f1710.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "heart size is normal. this ascending aorta is unchanged. lungs areessentially clear except for chronic interstitial changes bilateral ly. thefindings might be attributed to the provided history of copd. if clinicallywarranted correlation with cross-sectional imaging might be considered.no pleural effusion or pneumothorax is seen."
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "image": "p10/p10002013/s52535468/0c27f551-2cc6bf3e-a2e2cabd-97973771-40f1e6ce.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral views of the chest. there is persistent blunting of leftcostophrenic angle laterally suggestive of underlying scarring or pleural thickening . the lungs are otherwise clear. cardiomediastinal silhouette iswithin normal limits. median sternotomy wires and mediastinal clips again noted.no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "image": "p10/p10002013/s52535468/a543e2db-75988eb9-12ac92c0-68b31ebe-385afbaf.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral views of the chest. there is persistent blunting of leftcostophrenic angle laterally suggestive of underlying scarring or pleural thickening . the lungs are otherwise clear. cardiomediastinal silhouette iswithin normal limits. median sternotomy wires and mediastinal clips again noted.no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "image": "p10/p10002013/s54573731/9ca8f84e-92fac212-e60ac49d-01779362-caa16791.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "patient is status post median sternotomy and cabg. heart size is normal. mediastinal and hilar contours are unchanged. pulmonary vasculature is normal. no focal consolidation pleural effusion or pneumothorax is seen. no acute osseous abnormality is detected. no acute cardio pulmonary abnormality."
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "image": "p10/p10002013/s55941092/ab37274f-b4c1fc04-e2ff24b4-4a130ba3-cd167968.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral views of the chest provided. midline sternotomy wires and mediastinal clips again noted.there is no focal consolidation effusion or pneumothorax . pleural thickening likely accounts for the left cp angle blunting stable from prior.the cardiomediastinal silhouette is normal. imaged osseous structures areintact. no free air below the right hemidiaphragm is seen. calcifiedgallstones are partially imaged in the upper abdomen. no acute intrathoracic process. if there is strong concern for rib fracture adedicated rib series may be performed."
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "image": "p10/p10002013/s55969846/75a4feeb-09da971a-8852f2d6-5eb13992-42d9a50c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison with the study of earlier in this date the leftchest tube has been removed and there is no evidence of pneumothorax . otherwise little change."
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "image": "p10/p10002013/s57741292/48edbd44-ca2376ca-059a9f55-3fc8abd1-e13e4b76.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison with study of the endotracheal tube andswan-ganz catheter have been removed. the left chest tube remains in placeand there is no evidence of pneumothorax . mild atelectatic changes are seenat the left base."
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "image": "p10/p10002013/s58054149/81bca127-0c416084-67f8033c-ecb26476-6d1ecf60.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "a moderate left pleural effusion is new since .associated left basilar opacity likely reflect compressive atelectasis . there is no pneumothorax . there are no new abnormal cardiac or mediastinal contour.median sternotomy wires and mediastinal clips are in expected positions. new moderate left pleural effusion with adjacent atelectasis in the left lung base."
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "image": "p10/p10002131/s52823782/051b7911-cb00aec9-0b309188-89803662-303ec278.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral chest radiographs demonstrate bilateral pleural effusion which make evaluation of the cardiomediastinal silhouette difficulty. these effusion are large on the right and small on the left. there is no definite focal consolidation although evaluation is limited secondary to these effusion. no pneumothorax is appreciated. the visualized upper abdomen isunremarkable. bilateral pleural effusion large on the right and small on the left. no definite focal consolidation identified although evaluation is limitedsecondary to these effusion."
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "image": "p10/p10002157/s56373033/3c659977-44aefeb8-cdc200a8-24ea059e-9dd6758c.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear without focal consolidation . no pleural effusion or pneumothorax is seen. the cardiac and mediastinal silhouette areunremarkable. no evidence of pneumomediastinum is seen. there is no evidence of free air beneath the diaphragms. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "image": "p10/p10002177/s50520012/2833b85f-3bb4273f-cffd3794-2bf2cd57-7ddb3f5f.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the lungs are clear without focal consolidation or edema . thecardiomediastinal silhouette is within normal limits. no acute osseousabnormalities. no acute cardio pulmonary process."
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "image": "p10/p10002428/s50027225/e8c44648-ff02beea-3d5ff638-dec79b01-7df71a69.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "a single portable semi-erect chest radiograph was obtained. small left and moderate layering right pleural effusion have increased in sizesince the preceding day's exam. the right middle lobe pnemonia seen on recentct is not clearly differentiated but the right heart border is obscured. left basilar atelectasis is stable. no new focal consolidation or pneumothorax is present. hila remain indistinct. a left-sided picc line tipremains in the upper svc. interval increase in moderate to large right and small left pleural effusion. persistent right basilar pneumonia ."
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "image": "p10/p10002428/s50444997/85b903ac-bfc4d6cd-491d2a72-18e7c16e-23d2cafa.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison with the study of there is little change in themonitoring and support devices. substantial bilateral pleural effusion moreprominent on the right with bibasilar atelectasis . unusual configuration to the collection of opacification at the left base raises the possibility ofsome loculated fluid. there is again evidence of increased pulmonary venouspressure. overlapping structures somewhat obscure visualization of the left upper zoneand simulate the appearance of cavitary process. this area should be closelychecked on subsequent radiographs."
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "image": "p10/p10002428/s54020701/40a4d537-de28a3ab-aa746c28-750aea7d-2965bcdb.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "comparison is made to prior study from at 405 a.m. there is a dobbhoff tube whose distal tip is within the mid-to-distalesophagus. this could be advanced to 20 cm for more optimal placement. cardiac silhouette is within normal limits. there are bilateral pleural effusion left side worse than right and a left retrocardiac opacity . no overt pulmonary edema is seen."
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "image": "p10/p10002428/s54831516/852306b6-02fc04aa-82d30dbf-0c2dd18d-5c9ef054.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "comparison is made to previous study from .there is a dobbhoff tube whose distal tip is in the body of the stomach. there are bilateral pleural effusion. there is a right-sided pleural -basedcatheter. there is no pneumothoraces or signs for overt pulmonary edema . overall these findings are stable since prior study from ."
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "image": "p10/p10002428/s55758034/3bea0373-0d10dd77-1cac5b90-651be924-d343b184.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "a single portable semi-erect chest radiograph is obtained. there is no significant change in the middle and lower lobe pneumonia better appreciated on recent ct. there is no increased pulmonary edema new consolidation or pneumothorax . layering left pleural effusion has gottenslightly bigger. cardiac and mediastinal contours are unchanged. no significant change in right middle and lower lobe pneumonia . small increase in left pleural effusion ."
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "image": "p10/p10002428/s56100138/06c9ad0d-eba8bb4c-7f1216e8-3164684d-4a4b228d.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "frontal and lateral views of the chest were performed. the lung volumes are low which results in vascular crowding. however despite this there appear to be bibasilar right greater than left nodular opacities and interstitial thickening . there is likely a small right pleural effusion . heart size is normal. there is no pneumothorax . there are no suspiciousosseous lesions. multiple dilated loops of small bowel are present.1. bibasilar opacities would be consistent with pneumonia and/or aspirationin the right clinical setting. likely some component of pulmonary edema given the interstitial thickening .2. multiple dilated loops of small bowel may represent ileus or obstruction. dedicated abdominal radiograph may be performed for better characterization."
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "image": "p10/p10002428/s56597576/d98d5096-a32483d3-669ed39b-bc81eafb-5e251563.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "comparison is made to previous study from .there is an endotracheal tube whose distal tip is 5.6 cm above the carina. there is a left-sided central line with distal lead tip in the distal svc. there is a feeding tube and a nasogastric tube whose tips and side ports arebelow the ge junction. there are persistent bilateral pleural effusion and a left retrocardiac opacity ."
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "image": "p10/p10002428/s56836542/471418ab-0bfd6700-6bb770d0-07f7f6a3-2ce2d9c2.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "a bedside ap radiograph of the chest demonstrates intervalimprovement in mild pulmonary edema compared to the most recent study from_. a moderate right pleural effusion is stable and a small left pleural effusion has also decreased in size. aside from persistent bibasilar atelectasis the lungs are clear. the hilar and cardiomediastinal contoursare normal. there is no pneumothorax . an endotracheal tube terminates noless than 4.6 cm above the carina. a left picc terminates in the mid svc. adobbhoff tube terminates in the stomach and a second enteric tube enters thestomach and courses inferiorly beyond the field of view. compared to the most recent study there is improvement in themild pulmonary edema and decrease in the small left pleural effusion . moderate right pleural effusion and bibasilar atelectasis are stable."
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "image": "p10/p10002428/s57064083/217e6a56-b4a78227-a2acc34d-3b571d4a-27b9746a.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "ap chest compared to and 505 p.m.the enteric tube has been advanced to the distal stomach and out of view. feeding tube ends in the upper stomach. et tube is in standard placement. moderate right and smaller left pleural effusion are unchanged. heart sizeis normal size. aside from attendant basal atelectasis lungs are clear. there is no pneumothorax . right pic line ends in the right axilla."
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "image": "p10/p10002428/s57321224/bdf7f3f9-17832c70-9048e935-65663ff2-13f0814e.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "the heart is normal in size. the mediastinal and hilar contourappear unchanged. the lungs are hyperinflated. there is no evidence for pleural effusion or pneumothorax . the lungs appear clear. mildly exaggeratedkyphotic curvature and suspected demineralization are noted. hyperinflation. no evidence of acute disease."
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "image": "p10/p10002428/s57506266/e325a8d1-1d6b0dca-404efabc-204c6bbd-599788f0.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "1. endotracheal tube has been withdrawn now lying approximately 5 cm fromthe carina.2. unchanged positioning of the orogastric tube with tip at thegastroesophageal junction and side port in the distal esophagus. this should be advanced for appropriate positioning.3. bilateral pleural effusion moderate to large on the right and small on the left with bibasilar atelectasis ."
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "image": "p10/p10002428/s57887188/3dc1b72b-7d6efa14-1f9db998-e46ff2db-2cb7375e.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "in comparison with the study of the bibasilar opacificationhas somewhat decreased bilateral ly. the time course suggests that much ofthis appearance may have reflected improved pulmonary edema . nevertheless there is continued engorgement of pulmonary vessels more prominent on the right consistent with some persistent elevation of pulmonary venous pressure.hazy opacification on the right suggests pleural fluid.in the appropriate clinical setting supervening pneumonia would certainlyhave to be considered. loss of the medial aspect of the left hemidiaphragmsuggests some volume loss in the retrocardiac portion of the lower lobe."
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "image": "p10/p10002428/s57961288/0780573c-30edcc44-42f1084d-e77f7ebf-8a7dd236.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "distal tip of the dobbhoff is now in the fundus of the stomach. this could be advanced an additional 5 cm for more optimal placement. there are unchanged bilateral pleural effusion left greater than right. a pleural catheter is seen at the right base. there are no pneumothoraces identified."
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "image": "p10/p10002428/s57961288/c9c37c26-44932433-1df1066e-966dae54-3a0d372b.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "distal tip of the dobbhoff is now in the fundus of the stomach. this could be advanced an additional 5 cm for more optimal placement. there are unchanged bilateral pleural effusion left greater than right. a pleural catheter is seen at the right base. there are no pneumothoraces identified."
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "image": "p10/p10002428/s58601917/b5f871e6-fc68f8fa-7580a463-b7674531-c7033269.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "as compared to the previous radiograph the monitoring and supportdevices are constant. constant extent and distribution of the known left pleural effusion with mild to moderate retrocardiac and basal atelectasis . on the right the pleural drain is in unchanged position and there is no evidence of a larger pleural effusion . no pneumothorax . unchanged size of the heart."
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "image": "p10/p10002428/s58658824/12622d34-1a419a0d-6809a110-318f0fb1-eb8635e6.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "pa and lateral chest radiographs again demonstrate severehyperinflation and diffuse bronchiectasis. there is no focal consolidation pleural effusion or pneumothorax . the cardiomediastinal silhouette is stable. no acute cardio pulmonary process.findings were relayed to dr. ."
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "image": "p10/p10002428/s58838312/08ee3bce-a3ed7087-0af8769d-de0d3535-1318d234.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "single portable view of the chest is compared to previous exam from_. enteric tube is seen with tip off the inferior field of view. left picc is seen however tip is not clearly delineated. persistent bibasilar effusion and a right pigtail catheter projecting over the lowerchest. there is possible right apical pneumothorax . superiorly the lungsare clear of consolidation . cardiac silhouette is within normal limits. osseous and soft tissue structures are unremarkable. no significant interval change with bilateral pleural effusion with right pigtail catheter in the lower chest. possible small right apical pneumothorax ."
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "image": "p10/p10002428/s58851198/7254cc41-a1055fd0-f387a81f-1f60ec41-4ae4ac3e.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "a single portable chest radiograph is obtained. endotracheal andenteric tubes have been removed. a right internal jugular catheter tipterminates in the right atrium. a right pleural drain remains in the right base. a tiny right effusion and small left effusion are visualized. cardiaccontours are unchanged. no consolidation pneumothorax or nodule present. a left-sided picc line tip terminates in the left brachiocephalic vein. unchanged appearance of small bilateral pleural effusion statuspost extubation."
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "image": "p10/p10002428/s59098825/2337617e-d39e1d86-bc30b1cf-fa45dcb5-b7ac1695.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "comparison is made to previous study from .there has been removal of the right ij central venous line. there is again seen a large amount of loculated pleural fluid along the left chest which has increased in size since the prior study. pigtail catheter is seen within the right lower lobe. cardiac silhouette is upper limits of normal. there is mild prominence of the pulmonary markings without overt pulmonary edema ."
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "image": "p10/p10002428/s59258773/fa771fa1-d9571d07-bff8f655-327734a7-6e10b29d.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWhat disease is indicated by the chest X-ray?"
+      },
+      {
+        "from": "gpt",
+        "value": "ap chest compared to moderate to large right and moderate left pleural effusion have bothincreased in size. upper lungs are clear. heart is obscured by the effusion but not substantially enlarged. no free subdiaphragmatic gas.left pic line ends in the left brachiocephalic vein."
+      }
+    ]
+  }
+]

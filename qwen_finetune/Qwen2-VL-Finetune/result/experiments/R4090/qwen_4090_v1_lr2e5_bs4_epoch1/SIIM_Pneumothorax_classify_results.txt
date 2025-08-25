@@ -1,0 +1,20 @@
+Dataset: SIIM_Pneumothorax
+Model: /srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2
+
+macro_f1: 0.4473684210526316
+macro_balanced_accuracy: 0.5543293718166383
+macro_sensitivity: 0.4473684210526316
+macro_specificity: 0.6612903225806451
+macro_precision: 0.4473684210526316
+macro_recall: 0.4473684210526316
+mean_auc: 0.2717529711375213
+mean_auprc: 0.16434210526315787
+f1_scores_per_class: [0.4473684210526316, 0.0]
+balanced_accuracies_per_class: [np.float64(0.5543293718166383), 0.0]
+sensitivities_per_class: [0.4473684210526316, 0.0]
+specificities_per_class: [np.float64(0.6612903225806451), 1.0]
+precision_scores_per_class: [0.4473684210526316, 0.0]
+recall_scores_per_class: [0.4473684210526316, 0.0]
+supports_per_class: [np.int64(38), 0]
+auc_scores_per_class: [np.float64(0.5435059422750426), 0.0]
+auprc_scores_per_class: [np.float64(0.32868421052631575), 0.0]

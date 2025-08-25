@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug DeepSpeed Training",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/train/train_sft.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--use_liger", "True",
+        "--lora_enable", "True",
+        "--use_dora", "False",
+        "--lora_namespan_exclude", "['lm_head', 'embed_tokens']",
+        "--lora_rank", "64",
+        "--lora_alpha", "64",
+        "--lora_dropout", "0.05",
+        "--num_lora_modules", "-1",
+        "--deepspeed", "scripts/zero3_offload.json",
+        "--model_id", "/srv/lby/qwen_vl_7b/Qwen2.5-VL-7B-Instruct",
+        "--data_path", "/home/lby/qwen_radz/Qwen2.5-VL/qwen-vl-finetune/qwenvl/data/new_classify_mimic_file_clip.json",
+        "--image_folder", "/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files",
+        "--remove_unused_columns", "False",
+        "--freeze_vision_tower", "False",
+        "--freeze_llm", "True",
+        "--freeze_merger", "False",
+        "--bf16", "True",
+        "--fp16", "False",
+        "--disable_flash_attn2", "False",
+        "--output_dir", "output/testing_lora",
+        "--num_train_epochs", "1",
+        "--per_device_train_batch_size", "4",
+        "--gradient_accumulation_steps", "1",
+        "--image_min_pixels", "200704",    
+        "--image_max_pixels", "1003520",   
+        "--learning_rate", "1e-4",
+        "--merger_lr", "1e-5",
+        "--vision_lr", "2e-6",
+        "--weight_decay", "0.1",
+        "--warmup_ratio", "0.03",
+        "--lr_scheduler_type", "cosine",
+        "--logging_steps", "1",
+        "--tf32", "True",
+        "--gradient_checkpointing", "True",
+        "--report_to", "tensorboard",
+        "--lazy_preprocess", "True",
+        "--save_strategy", "steps",
+        "--save_steps", "200",
+        "--save_total_limit", "10",
+        "--dataloader_num_workers", "4"
+      ],
+      "env": {
+        "PYTHONPATH": "src:$PYTHONPATH"
+      }
+    }
+  ]
+}
