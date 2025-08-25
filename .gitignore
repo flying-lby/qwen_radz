@@ -24,22 +24,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
 # Environments
 .env
 .venv
@@ -67,10 +51,3 @@ logs/
 tmp/
 temp/
 *.tmp
-
-# Model checkpoints and outputs (optional - uncomment if needed)
-# *.pth
-# *.bin
-# *.safetensors
-# checkpoints/
-# outputs/
