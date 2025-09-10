@@ -52,21 +52,56 @@ logger = logging.getLogger(__name__)
 class RSNAGroundingDataset(Dataset):
     """RSNA Grounding数据集类"""
     
-    def __init__(self, csv_path, image_folder, target_size=224, max_samples=-1):
+    def __init__(self, csv_path=None, jsonl_path=None, image_folder="", target_size=224, max_samples=-1):
         import pandas as pd
+        import json
         
         self.image_folder = image_folder
         self.target_size = target_size
         
-        # 读取CSV文件
-        df = pd.read_csv(csv_path)
-        
-        # 限制样本数量
-        if max_samples > 0:
-            df = df.head(max_samples)
-        
-        self.data = df
-        logger.info(f"Loaded RSNA dataset with {len(self.data)} samples")
+        if jsonl_path:
+            # 读取JSONL文件
+            data_list = []
+            with open(jsonl_path, 'r', encoding='utf-8') as f:
+                count = 0
+                for line in f:
+                    if max_samples > 0 and count >= max_samples:
+                        break
+                    
+                    data = json.loads(line.strip())
+                    
+                    # 转换JSONL格式到CSV格式的字典
+                    image_rel_path = data['image']  # "RSNA_Pneumonia/stage_2_train_images/xxx.dcm"
+                    sample_id = os.path.splitext(os.path.basename(image_rel_path))[0]
+                    
+                    # 从标签提取类别
+                    labels = data.get('label', {})
+                    pneumonia_label = labels.get('pneumonia', 0)
+                    
+                    data_list.append({
+                        'ID': sample_id,
+                        'img_path': image_rel_path,
+                        'boxes': '',  # JSONL中没有box信息
+                        'classes': pneumonia_label,
+                        'text': data.get('text', '')
+                    })
+                    count += 1
+            
+            self.data = pd.DataFrame(data_list)
+            logger.info(f"Loaded RSNA dataset from JSONL with {len(self.data)} samples")
+            
+        elif csv_path:
+            # 读取CSV文件（原始逻辑）
+            df = pd.read_csv(csv_path)
+            
+            # 限制样本数量
+            if max_samples > 0:
+                df = df.head(max_samples)
+            
+            self.data = df
+            logger.info(f"Loaded RSNA dataset from CSV with {len(self.data)} samples")
+        else:
+            raise ValueError("Either csv_path or jsonl_path must be provided")
     
     def __len__(self):
         return len(self.data)
@@ -105,12 +140,13 @@ class RSNAGroundingDataset(Dataset):
         return sample
 
 
-def create_rsna_dataloader(csv_path, image_folder, batch_size=4, target_size=224, 
+def create_rsna_dataloader(csv_path=None, jsonl_path=None, image_folder="", batch_size=4, target_size=224, 
                           max_samples=-1, num_workers=0, shuffle=False):
     """创建RSNA数据加载器"""
     
     dataset = RSNAGroundingDataset(
         csv_path=csv_path,
+        jsonl_path=jsonl_path,
         image_folder=image_folder, 
         target_size=target_size,
         max_samples=max_samples
@@ -613,8 +649,10 @@ class CLIPGroundingEvaluator:
             return None, "failed"
             
         try:
-            # 使用模型的extract_features方法
+            # 使用模型的extract_features方法（需要传递完整参数）
             feats = self.model.extract_features(
+                input_ids=inputs["input_ids"],
+                attention_mask=inputs["attention_mask"],
                 pixel_values=inputs["pixel_values"], 
                 image_grid_thw=inputs.get("image_grid_thw", None)
             )
@@ -1034,6 +1072,8 @@ def main():
     parser.add_argument("--csv_path", type=str, 
                        default="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/process_data/rsna/test.csv",
                        help="Path to RSNA test CSV file")
+    parser.add_argument("--jsonl_path", type=str, 
+                       help="Path to RSNA JSONL file (alternative to CSV)")
     parser.add_argument("--image_folder", type=str, default="/srv/lby/",
                        help="Root path to image folders")
     parser.add_argument("--disease_desc_path", type=str,
@@ -1064,16 +1104,30 @@ def main():
     )
     
     # 创建数据加载器
-    logger.info(f"Creating dataset from: {args.csv_path}")
-    dataloader, dataset = create_rsna_dataloader(
-        csv_path=args.csv_path,
-        image_folder=args.image_folder,
-        batch_size=args.batch_size,
-        target_size=args.target_size,
-        max_samples=args.max_samples,
-        num_workers=0,
-        shuffle=False
-    )
+    if args.jsonl_path:
+        logger.info(f"Creating dataset from JSONL: {args.jsonl_path}")
+        dataloader, dataset = create_rsna_dataloader(
+            jsonl_path=args.jsonl_path,
+            image_folder=args.image_folder,
+            batch_size=args.batch_size,
+            target_size=args.target_size,
+            max_samples=args.max_samples,
+            num_workers=0,
+            shuffle=False
+        )
+        data_source = args.jsonl_path
+    else:
+        logger.info(f"Creating dataset from CSV: {args.csv_path}")
+        dataloader, dataset = create_rsna_dataloader(
+            csv_path=args.csv_path,
+            image_folder=args.image_folder,
+            batch_size=args.batch_size,
+            target_size=args.target_size,
+            max_samples=args.max_samples,
+            num_workers=0,
+            shuffle=False
+        )
+        data_source = args.csv_path
     
     logger.info(f"Dataset loaded: {len(dataset)} samples")
     
@@ -1087,7 +1141,7 @@ def main():
     # 保存结果
     output_data = {
         "model_path": args.model_path,
-        "csv_path": args.csv_path,
+        "data_source": data_source,
         "dataset_size": len(dataset),
         "batch_size": args.batch_size,
         "evaluation_results": results

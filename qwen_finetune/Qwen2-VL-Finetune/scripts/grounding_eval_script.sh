@@ -52,7 +52,8 @@ echo "✅ 项目根目录: $PROJECT_ROOT"
 echo "✅ 源代码目录: $SRC_DIR"
 
 # 模型和数据路径配置
-MODEL_PATH="/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged"
+# MODEL_PATH="/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged"
+MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2" 
 CSV_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/process_data/rsna/test.csv"
 IMAGE_FOLDER="/srv/lby/"
 DISEASE_DESC_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/observation_explanation.json"
@@ -63,7 +64,7 @@ MAX_SAMPLES=-1                  # 最大样本数(-1表示全部)
 TARGET_SIZE=224                 # 目标图像尺寸
 
 # 输出配置
-OUTPUT_DIR="$PROJECT_ROOT/grounding_results"
+OUTPUT_DIR="$PROJECT_ROOT/results/rsna_grounding"
 OUTPUT_PATH="$OUTPUT_DIR/rsna_grounding_results_$(date +%Y%m%d_%H%M%S).json"
 VIZ_DIR="$OUTPUT_DIR/visualizations"
 
@@ -145,6 +146,7 @@ EVAL_CMD="python src/eval/grounding_eval_rsna.py \
     --save_visualizations \
     --viz_dir \"$VIZ_DIR\" \
     --target_size $TARGET_SIZE"
+
 
 echo ""
 echo "🚀 开始执行grounding评估..."

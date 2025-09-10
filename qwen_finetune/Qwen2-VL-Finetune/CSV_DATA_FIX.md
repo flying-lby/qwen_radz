@@ -121,3 +121,4 @@ cd /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune
 
 **修复完成！** 现在CSV数据格式与代码期望完全匹配，应该能够正常运行grounding评估。🎉
 
+
