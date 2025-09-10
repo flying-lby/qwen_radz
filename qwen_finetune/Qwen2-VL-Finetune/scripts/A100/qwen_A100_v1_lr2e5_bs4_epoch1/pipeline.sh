@@ -3,29 +3,30 @@
 # 改进的CLIP风格Qwen2.5-VL训练脚本
 
 # 切换到项目根目录
-# SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-# PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
-# cd "${PROJECT_ROOT}"
-# echo "当前工作目录: $(pwd)"
-# echo "项目根目录: ${PROJECT_ROOT}"
-# echo "训练脚本路径: ${PROJECT_ROOT}/src/train/clip_train_improved.py"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+cd "${PROJECT_ROOT}"
+echo "当前工作目录: $(pwd)"
+echo "项目根目录: ${PROJECT_ROOT}"
+echo "训练脚本路径: ${PROJECT_ROOT}/src/train/clip_train_improved.py"
 
 # 设置Python路径
-# export PYTHONPATH="${PROJECT_ROOT}:$PYTHONPATH"
-# echo "PYTHONPATH设置为: $PYTHONPATH"
+export PYTHONPATH="${PROJECT_ROOT}:$PYTHONPATH"
+echo "PYTHONPATH设置为: $PYTHONPATH"
 
 # 设置环境变量与激活环境
 
-export CUDA_VISIBLE_DEVICES=0,1
+
 export WANDB_PROJECT="clip-qwen2vl-improved"
 export CUDA_LAUNCH_BLOCKING=1
 
 # 模型和数据路径配置
-MODEL_NAME_OR_PATH="/srv/lby/qwen_vl_7b/Qwen2.5-VL-3B-Instruct"
-DATA_PATH="/home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/train_data_1000.json"
-IMAGE_FOLDER="/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
-DISEASE_DESC_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/disease_desc.json"
-OUTPUT_DIR="/srv/lby/qwen_radz/qwen_lora_new_clip_version1"
+MODEL_NAME_OR_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct"
+DATA_PATH="./data/chest_xray/new_classify_mimic_file_clip.json"
+IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
+DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
+OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version1"
+
 
 # 创建输出目录
 mkdir -p $OUTPUT_DIR
@@ -33,24 +34,24 @@ mkdir -p $OUTPUT_DIR
 # 训练参数  
 NUM_TRAIN_EPOCHS=1
 LEARNING_RATE=5e-5
-GLOBAL_BATCH_SIZE=16
-BATCH_PER_DEVICE=8
+GLOBAL_BATCH_SIZE=32
+BATCH_PER_DEVICE=16
 NUM_DEVICES=2
 GRAD_ACCUM_STEPS=$((GLOBAL_BATCH_SIZE / (BATCH_PER_DEVICE * NUM_DEVICES)))
-MAX_LENGTH=4096
+MAX_LENGTH=8192
 
 # CLIP特定参数
 IMGCLS_COUNT=4
-TXTCLS_COUNT=4
+TXTCLS_COUNT=8
 HIDDEN_DIM=1024
-OUTPUT_DIM=512
+OUTPUT_DIM=4096
 TEMPERATURE=0.05
 CLIP_TRAINING_RATIO=0.8
 
 # LoRA参数
 USE_LORA=True
-LORA_R=64
-LORA_ALPHA=64  
+LORA_R=128
+LORA_ALPHA=256  
 LORA_DROPOUT=0.05
 USE_BNB=False
 
@@ -58,8 +59,6 @@ USE_BNB=False
 DEEPSPEED_CONFIG="scripts/zero3.json"
 
 # GPU配置
-GPUS="0,1"  # 根据实际可用GPU调整
-NUM_GPUS=$(echo $GPUS | tr ',' '\n' | wc -l)
 
 echo "=========================================="
 echo "开始改进的CLIP风格Qwen2.5-VL训练"
@@ -69,8 +68,7 @@ echo "输出: $OUTPUT_DIR"
 echo "=========================================="
 
 # 训练命令 - 使用DeepSpeed
-CUDA_VISIBLE_DEVICES=$GPUS deepspeed --num_gpus=$NUM_GPUS \
-    --master_port=12345 \
+deepspeed --master_port=12345 \
     src/train/clip_train_improved.py \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --data_path $DATA_PATH \
@@ -91,7 +89,7 @@ CUDA_VISIBLE_DEVICES=$GPUS deepspeed --num_gpus=$NUM_GPUS \
     --tf32 True \
     --bf16 True \
     --gradient_checkpointing True \
-    --dataloader_num_workers 2 \
+    --dataloader_num_workers 4 \
     --report_to "wandb" \
     --do_train True \
     --img_cls_token_count $IMGCLS_COUNT \

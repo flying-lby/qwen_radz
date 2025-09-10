@@ -1,0 +1,15 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "csv_path": "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/process_data/rsna/test.csv",
+  "dataset_size": 2,
+  "batch_size": 4,
+  "evaluation_results": {
+    "mean_dice_score": 0.0005698333843611181,
+    "std_dice_score": 0.00035600652336142957,
+    "mean_iou_score": 0.0002850137243513018,
+    "std_iou_score": 0.00017810476128943264,
+    "point_accuracy": 0.0,
+    "total_samples": 2,
+    "total_point_hits": 0
+  }
+}

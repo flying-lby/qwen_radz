@@ -1,0 +1,13 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "task_type": "segmentation",
+  "data_path": "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl",
+  "evaluation_results": {
+    "mean_dice": 0.0,
+    "mean_iou": 0.0,
+    "mean_pixel_accuracy": 0.9698744964599609,
+    "std_dice": 0.0,
+    "std_iou": 0.0,
+    "num_samples": 100
+  }
+}

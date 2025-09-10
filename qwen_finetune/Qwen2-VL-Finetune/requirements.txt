@@ -110,4 +110,5 @@ wheel==0.45.1
 widgetsnbextension==4.0.14
 xxhash==3.5.0
 yarl==1.20.0
+pydicom==3.0.1
 zipp==3.21.0
