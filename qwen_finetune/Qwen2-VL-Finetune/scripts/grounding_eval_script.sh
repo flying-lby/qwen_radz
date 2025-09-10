@@ -52,8 +52,10 @@ SRC_DIR="$PROJECT_ROOT/src"
 echo "✅ 项目根目录: $PROJECT_ROOT"
 echo "✅ 源代码目录: $SRC_DIR"
 
-# 通用配置
+# 模型和数据路径配置
+# MODEL_PATH="/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged"
 MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2" 
+JSONL_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/rsna/rsna_pneumonia_llava_origin_val.jsonl"
 IMAGE_FOLDER="/srv/lby/"
 DISEASE_DESC_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/observation_explanation.json"
 
@@ -62,10 +64,10 @@ BATCH_SIZE=4                    # 批次大小，考虑内存限制
 MAX_SAMPLES=100                 # 最大样本数(-1表示全部)
 TARGET_SIZE=224                 # 目标图像尺寸
 
-# 数据集配置
-declare -A DATASETS
-DATASETS[rsna]="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/rsna/rsna_pneumonia_llava_origin_val.jsonl"
-DATASETS[SIIM_Pneumothorax]="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl"
+# 输出配置
+OUTPUT_DIR="$PROJECT_ROOT/results/rsna_grounding"
+OUTPUT_PATH="$OUTPUT_DIR/rsna_grounding_results_$(date +%Y%m%d_%H%M%S).json"
+VIZ_DIR="$OUTPUT_DIR/visualizations"
 
 echo ""
 echo "📁 路径配置检查:"
@@ -133,126 +135,34 @@ else
     echo "✅ clip_modeling_qwen2_5_vl.py存在"
 fi
 
-# 定义评估函数
-evaluate_dataset() {
-    local dataset_name="$1"
-    local dataset_display_name="$2"
-    local jsonl_path="$3"
-    local output_dir="$4"
-    
-    echo ""
-    echo "🚀 开始执行 $dataset_display_name grounding评估..."
-    echo "================================================"
-    
-    # 创建数据集特定的输出目录
-    mkdir -p "$output_dir"
-    mkdir -p "$output_dir/visualizations"
-    
-    local output_path="$output_dir/${dataset_name}_grounding_results_$(date +%Y%m%d_%H%M%S).json"
-    local viz_dir="$output_dir/visualizations"
-    
-    # 构建评估命令
-    local eval_cmd="cd \"$PROJECT_ROOT\" && python src/eval/grounding_eval_rsna.py \
-        --model_path \"$MODEL_PATH\" \
-        --jsonl_path \"$jsonl_path\" \
-        --dataset_name \"$dataset_name\" \
-        --image_folder \"$IMAGE_FOLDER\" \
-        --disease_desc_path \"$DISEASE_DESC_PATH\" \
-        --batch_size $BATCH_SIZE \
-        --max_samples $MAX_SAMPLES \
-        --output_path \"$output_path\" \
-        --save_visualizations \
-        --viz_dir \"$viz_dir\" \
-        --target_size $TARGET_SIZE"
-    
-    echo "执行命令:"
-    echo "$eval_cmd"
-    echo "================================================"
-    
-    # 记录开始时间
-    local start_time=$(date +%s)
-    
-    # 执行评估命令
-    if eval "$eval_cmd"; then
-        # 计算执行时间
-        local end_time=$(date +%s)
-        local duration=$((end_time - start_time))
-        local hours=$((duration / 3600))
-        local minutes=$(((duration % 3600) / 60))
-        local seconds=$((duration % 60))
-        
-        echo ""
-        echo "🎉 $dataset_display_name grounding评估完成!"
-        echo "================================================"
-        echo "⏱️  执行时间: ${hours}小时 ${minutes}分钟 ${seconds}秒"
-        echo "📊 结果文件: $output_path"
-        
-        # 检查结果文件是否生成
-        if [ -f "$output_path" ]; then
-            echo "✅ 结果文件已生成"
-            echo "📁 结果目录: $output_dir"
-            if [ -d "$viz_dir" ] && [ "$(ls -A $viz_dir)" ]; then
-                echo "🖼️  可视化文件已保存到: $viz_dir"
-            fi
-        else
-            echo "⚠️ 结果文件未生成，请检查评估过程"
-            return 1
-        fi
-        return 0
-    else
-        echo ""
-        echo "❌ $dataset_display_name 评估执行失败!"
-        echo "================================================"
-        return 1
-    fi
-}
+# 构建评估命令
+EVAL_CMD="python src/eval/grounding_eval_rsna.py \
+    --model_path \"$MODEL_PATH\" \
+    --jsonl_path \"$JSONL_PATH\" \
+    --image_folder \"$IMAGE_FOLDER\" \
+    --disease_desc_path \"$DISEASE_DESC_PATH\" \
+    --batch_size $BATCH_SIZE \
+    --max_samples $MAX_SAMPLES \
+    --output_path \"$OUTPUT_PATH\" \
+    --save_visualizations \
+    --viz_dir \"$VIZ_DIR\" \
+    --target_size $TARGET_SIZE"
 
-# 开始多数据集评估
-echo ""
-echo "🎯 开始多数据集grounding评估..."
-echo "================================================"
-
-# 记录总开始时间
-TOTAL_START_TIME=$(date +%s)
-FAILED_DATASETS=()
-
-# 1. 评估RSNA数据集
-RSNA_JSONL="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/rsna/rsna_pneumonia_llava_origin_val.jsonl"
-RSNA_OUTPUT_DIR="$PROJECT_ROOT/results/rsna_grounding"
-
-if ! evaluate_dataset "rsna" "RSNA Pneumonia" "$RSNA_JSONL" "$RSNA_OUTPUT_DIR"; then
-    FAILED_DATASETS+=("RSNA")
-fi
-
-# 2. 评估SIIM数据集
-SIIM_JSONL="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl"
-SIIM_OUTPUT_DIR="$PROJECT_ROOT/results/siim_grounding"
-
-if ! evaluate_dataset "SIIM_Pneumothorax" "SIIM Pneumothorax" "$SIIM_JSONL" "$SIIM_OUTPUT_DIR"; then
-    FAILED_DATASETS+=("SIIM")
-fi
-
-# 计算总执行时间
-TOTAL_END_TIME=$(date +%s)
-TOTAL_DURATION=$((TOTAL_END_TIME - TOTAL_START_TIME))
-TOTAL_HOURS=$((TOTAL_DURATION / 3600))
-TOTAL_MINUTES=$(((TOTAL_DURATION % 3600) / 60))
-TOTAL_SECONDS=$((TOTAL_DURATION % 60))
 
 echo ""
+echo "🚀 开始执行grounding评估..."
 echo "================================================"
-echo "📈 多数据集grounding评估总结"
+echo "执行命令:"
+echo "$EVAL_CMD"
 echo "================================================"
-echo "⏱️  总执行时间: ${TOTAL_HOURS}小时 ${TOTAL_MINUTES}分钟 ${TOTAL_SECONDS}秒"
-echo "📊 评估配置:"
-echo "   模型: $(basename $MODEL_PATH)"
-echo "   样本数: $MAX_SAMPLES"
-echo "   批次大小: $BATCH_SIZE"
-echo "   图像尺寸: ${TARGET_SIZE}x${TARGET_SIZE}"
-echo ""
 
-# 检查失败的数据集
-if [ ${#FAILED_DATASETS[@]} -eq 0 ]; then
+# 记录开始时间
+START_TIME=$(date +%s)
+
+# ===== 评估RSNA数据集 =====
+echo "评估RSNA数据集..."
+# 执行评估命令
+if eval "$EVAL_CMD"; then
     # 计算执行时间
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
@@ -261,31 +171,75 @@ if [ ${#FAILED_DATASETS[@]} -eq 0 ]; then
     SECONDS=$((DURATION % 60))
     
     echo ""
-    echo "🎉 所有数据集评估完成!"
+    echo "🎉 评估完成!"
     echo "================================================"
-    echo "✅ 总执行时间: ${TOTAL_HOURS}h ${TOTAL_MINUTES}m ${TOTAL_SECONDS}s"
-    echo "✅ 成功评估的数据集: RSNA, SIIM"
+    echo "✅ 总执行时间: ${HOURS}h ${MINUTES}m ${SECONDS}s"
+    echo "✅ 结果保存至: $OUTPUT_PATH"
+    echo "✅ 可视化保存至: $VIZ_DIR"
     echo ""
     
+    # 显示结果文件大小
+    if [ -f "$OUTPUT_PATH" ]; then
+        RESULT_SIZE=$(du -h "$OUTPUT_PATH" | cut -f1)
+        echo "📊 结果文件大小: $RESULT_SIZE"
+    fi
+    
+    # 显示可视化文件数量
+    if [ -d "$VIZ_DIR" ]; then
+        VIZ_COUNT=$(find "$VIZ_DIR" -name "*.png" | wc -l)
+        echo "🖼️  可视化文件数量: $VIZ_COUNT"
+    fi
     
     echo ""
-    echo "📁 结果位置:"
-    echo "   RSNA结果: $PROJECT_ROOT/results/rsna_grounding/"
-    echo "   SIIM结果: $PROJECT_ROOT/results/siim_grounding/"
-    echo ""
-    echo "✨ 您可以查看各自的结果文件获取详细的评估指标！"
+    echo "📋 RSNA评估完成，继续SIIM评估..."
     echo "================================================"
+
+# ===== 评估SIIM数据集 =====
+echo "评估SIIM Pneumothorax数据集..."
+SIIM_EVAL_CMD="python src/eval/grounding_eval_rsna.py \
+    --model_path \"$MODEL_PATH\" \
+    --jsonl_path \"/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl\" \
+    --dataset_name \"SIIM_Pneumothorax\" \
+    --image_folder \"$IMAGE_FOLDER\" \
+    --disease_desc_path \"$DISEASE_DESC_PATH\" \
+    --batch_size $BATCH_SIZE \
+    --max_samples $MAX_SAMPLES \
+    --output_path \"$PROJECT_ROOT/results/siim_grounding/siim_grounding_results_$(date +%Y%m%d_%H%M%S).json\" \
+    --save_visualizations \
+    --viz_dir \"$PROJECT_ROOT/results/siim_grounding/visualizations\" \
+    --target_size $TARGET_SIZE"
+
+echo "执行命令:"
+echo "$SIIM_EVAL_CMD"
+echo "================================================"
+
+# 创建SIIM输出目录
+mkdir -p "$PROJECT_ROOT/results/siim_grounding"
+mkdir -p "$PROJECT_ROOT/results/siim_grounding/visualizations"
+
+# 执行SIIM评估命令
+eval "$SIIM_EVAL_CMD"
+
+echo ""
+echo "🎉 所有数据集grounding评估完成!"
+echo "================================================"
+echo "📁 结果位置:"
+echo "   RSNA结果: $PROJECT_ROOT/results/rsna_grounding/"
+echo "   SIIM结果: $PROJECT_ROOT/results/siim_grounding/"
+echo ""
+echo "✨ 您可以查看各自的结果文件获取详细的评估指标！"
+echo "================================================"
     
 else
     echo ""
-    echo "⚠️ 部分数据集评估失败!"
+    echo "❌ 评估执行失败!"
     echo "================================================"
-    echo "❌ 失败的数据集: ${FAILED_DATASETS[*]}"
-    echo ""
     echo "🔍 调试信息:"
     echo "   工作目录: $(pwd)"
     echo "   Python路径: $PYTHONPATH"
     echo "   模型路径: $MODEL_PATH"
+    echo "   JSONL路径: $JSONL_PATH"
+    echo "   图像目录: $IMAGE_FOLDER"
     echo ""
     echo "🔧 请检查:"
     echo "   1. 模型路径是否正确并包含所有必需文件"
@@ -303,4 +257,4 @@ else
 fi
 
 echo ""
-echo "✨ multi-dataset grounding_eval_script.sh 执行完成 ✨"
+echo "✨ grounding_eval_script.sh 执行完成 ✨"
