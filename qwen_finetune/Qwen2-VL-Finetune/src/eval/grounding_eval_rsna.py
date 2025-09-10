@@ -354,7 +354,7 @@ def score_cal_medklip_style(labels, seg_map, pred_map):
         dice_score: Dice分数
     """
     device = labels.device
-    total_num = torch.sum(labels).item()  # 转换为Python整数
+    total_num = int(torch.sum(labels).item())  # 确保转换为Python整数
     mask = (labels == 1).squeeze()
     
     if total_num == 0:
