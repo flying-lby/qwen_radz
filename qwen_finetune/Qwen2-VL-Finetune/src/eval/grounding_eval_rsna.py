@@ -752,6 +752,8 @@ class CLIPGroundingEvaluator:
         # 使用疾病描述或默认查询
         if "pneumonia" in text.lower() and "pneumonia" in self.disease_descriptions:
             processed_text = self.disease_descriptions["pneumonia"]
+        elif "pneumothorax" in text.lower() and "pneumothorax" in self.disease_descriptions:
+            processed_text = self.disease_descriptions["pneumothorax"]
         else:
             processed_text = text
         
@@ -1090,6 +1092,8 @@ def main():
                        help="Path to RSNA test CSV file")
     parser.add_argument("--jsonl_path", type=str, 
                        help="Path to RSNA JSONL file (alternative to CSV)")
+    parser.add_argument("--dataset_name", type=str, default="rsna",
+                       help="Dataset name (rsna, SIIM_Pneumothorax, etc.)")
     parser.add_argument("--image_folder", type=str, default="/srv/lby/",
                        help="Root path to image folders")
     parser.add_argument("--disease_desc_path", type=str,
