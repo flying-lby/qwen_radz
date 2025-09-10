@@ -37,6 +37,7 @@ from train.clip_modeling_qwen2_5_vl import (
     ClipQwen2VLConfig,
     ClipQwen2VLForConditionalGeneration
 )
+from constants import DEFAULT_IMAGE_TOKEN
 from transformers import AutoTokenizer, AutoProcessor
 from torch.utils.data import Dataset
 
@@ -552,6 +553,12 @@ class CLIPGroundingEvaluator:
         )
         self.model.eval()
         
+        # 获取配置参数（与ClipEvaluator一致）
+        self.sparse_config = config.sparse_config
+        self.Imgcls_count = self.sparse_config["Imgcls_count"]
+        self.Txtcls_count = self.sparse_config["Txtcls_count"]
+        self.temperature = self.sparse_config["temperature"]
+        
         # 检查模型权重是否包含NaN
         nan_params = []
         for name, param in self.model.named_parameters():
@@ -697,29 +704,38 @@ class CLIPGroundingEvaluator:
             return None, "failed"
     
     def prepare_image_input(self, image_path: str):
-        """准备图像输入（参考ClipEvaluator的方法）"""
+        """准备图像输入（与ClipEvaluator完全一致）"""
         try:
             image = load_image_file(image_path)
             if image is None:
                 return None
             
-            # 使用processor处理图像（需要提供text以避免错误）
-            # Qwen2.5-VL的processor需要同时提供images和text
-            dummy_text = "Describe this image."
+            # 使用与ClipEvaluator相同的格式：DEFAULT_IMAGE_TOKEN + 特殊标记
+            imgcls_tokens = "".join([f"<Imgcls{i}>" for i in range(self.Imgcls_count)])
+            prompt = f"{DEFAULT_IMAGE_TOKEN}\nAnalyze this medical image. {imgcls_tokens}"
+            
             inputs = self.processor(
-                text=dummy_text,
-                images=image,
+                text=[prompt],
+                images=[image],
+                padding=False,
+                do_resize=True,
                 return_tensors="pt"
             )
             
             if inputs is None:
                 return None
             
-            # 移动到设备
-            inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v 
-                     for k, v in inputs.items()}
+            # 组织返回字典并迁移到目标设备（与ClipEvaluator一致）
+            result = {
+                "input_ids": inputs["input_ids"].to(self.device),
+                "attention_mask": inputs["attention_mask"].to(self.device),
+            }
+            if "pixel_values" in inputs:
+                result["pixel_values"] = inputs["pixel_values"].to(self.device)
+            if "image_grid_thw" in inputs:
+                result["image_grid_thw"] = inputs["image_grid_thw"].to(self.device)
             
-            return inputs
+            return result
             
         except Exception as e:
             logger.error(f"Failed to prepare image input for {image_path}: {e}")
