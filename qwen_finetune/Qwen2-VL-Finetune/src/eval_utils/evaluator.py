@@ -717,18 +717,47 @@ class ClipEvaluator:
     
     def compute_AUCs_medklip_style(self, gt: torch.Tensor, pred: torch.Tensor, n_class: int) -> List[float]:
         """
-        MedKLIP风格的AUC计算
-        完全复制MedKLIP的compute_AUCs函数
+        MedKLIP风格的AUC计算 - 改进版本
+        处理无效类别，使用np.nan标记计算失败的情况
         """
         AUROCs = []
         gt_np = gt.cpu().numpy()
         pred_np = pred.cpu().numpy()
+        
         for i in range(n_class):
             try:
-                AUROCs.append(roc_auc_score(gt_np[:, i], pred_np[:, i]))
-            except ValueError:
-                # 处理只有一个类别的情况
-                AUROCs.append(0.0)
+                # 检查数据有效性
+                gt_class = gt_np[:, i]
+                pred_class = pred_np[:, i]
+                
+                # 检查是否有NaN或inf值
+                if np.any(np.isnan(pred_class)) or np.any(np.isinf(pred_class)):
+                    logger.warning(f"Class {i}: prediction contains NaN/inf values")
+                    AUROCs.append(np.nan)
+                    continue
+                
+                # 检查标签是否有效（需要同时有0和1）
+                unique_labels = np.unique(gt_class)
+                if len(unique_labels) < 2:
+                    logger.warning(f"Class {i}: insufficient label diversity (only {unique_labels})")
+                    AUROCs.append(np.nan)
+                    continue
+                
+                # 计算AUC
+                auc_score = roc_auc_score(gt_class, pred_class)
+                
+                # 检查AUC结果是否有效
+                if np.isnan(auc_score) or np.isinf(auc_score):
+                    logger.warning(f"Class {i}: AUC calculation returned {auc_score}")
+                    AUROCs.append(np.nan)
+                else:
+                    AUROCs.append(auc_score)
+                    
+            except (ValueError, IndexError) as e:
+                # 处理计算异常
+                logger.warning(f"Class {i}: AUC calculation failed - {str(e)}")
+                AUROCs.append(np.nan)
+                
         return AUROCs
 
     def calculate_classification_metrics(
@@ -747,7 +776,17 @@ class ClipEvaluator:
         
         # 1. 计算AUC (MedKLIP风格)
         AUROCs = self.compute_AUCs_medklip_style(gt_tensor, pred_tensor, len(target_classes))
-        AUROC_avg = np.array(AUROCs).mean()
+        
+        # 计算有效AUC的平均值，排除NaN值
+        valid_aucs = [auc for auc in AUROCs if not np.isnan(auc)]
+        invalid_count = len(AUROCs) - len(valid_aucs)
+        
+        if len(valid_aucs) > 0:
+            AUROC_avg = np.mean(valid_aucs)
+            logger.info(f"AUC计算：{len(valid_aucs)}/{len(AUROCs)} 个类别有效，{invalid_count} 个类别被排除")
+        else:
+            AUROC_avg = np.nan
+            logger.warning(f"AUC计算：所有 {len(AUROCs)} 个类别都无效，平均AUC设为NaN")
         
         # 2. 使用MedKLIP的最优F1阈值策略重新计算预测
         max_f1s = []
@@ -786,7 +825,7 @@ class ClipEvaluator:
         f1_avg = np.array(max_f1s).mean()
         acc_avg = np.array(accs).mean()
         
-        # 存储结果
+        # 存储结果（增加AUC有效性信息）
         results['mean_auc'] = AUROC_avg
         results['macro_f1'] = f1_avg
         results['overall_accuracy'] = acc_avg
@@ -794,20 +833,57 @@ class ClipEvaluator:
         results['individual_f1s'] = max_f1s
         results['individual_accs'] = accs
         
-        # 4. MedKLIP风格的输出格式
-        print(f"\n===== MedKLIP-Style Classification Results =====")
-        print('The average AUROC is {AUROC_avg:.4f}'.format(AUROC_avg=AUROC_avg))
-        for i in range(len(target_classes)):
-            print('The AUROC of {} is {:.4f}'.format(target_classes[i], AUROCs[i]))
+        # AUC有效性统计
+        results['valid_auc_count'] = len(valid_aucs)
+        results['total_class_count'] = len(target_classes)
+        results['invalid_auc_count'] = invalid_count
+        results['auc_validity_rate'] = len(valid_aucs) / len(target_classes) if len(target_classes) > 0 else 0.0
         
-        print('The average f1 is {F1_avg:.4f}'.format(F1_avg=f1_avg))
+        # 记录无效类别名称
+        invalid_classes = [target_classes[i] for i, auc in enumerate(AUROCs) if np.isnan(auc)]
+        results['invalid_classes'] = invalid_classes
+        
+        # 4. MedKLIP风格的输出格式（增强版）
+        print(f"\n===== MedKLIP-Style Classification Results =====")
+        
+        # AUC统计信息
+        if np.isnan(AUROC_avg):
+            print('The average AUROC is NaN (no valid classes for AUC calculation)')
+        else:
+            print('The average AUROC is {AUROC_avg:.4f} (based on {valid_count}/{total_count} valid classes)'.format(
+                AUROC_avg=AUROC_avg, valid_count=len(valid_aucs), total_count=len(target_classes)))
+        
+        # 逐个类别AUC结果
+        print("\n=== Individual Class AUC Results ===")
+        for i in range(len(target_classes)):
+            if np.isnan(AUROCs[i]):
+                print('The AUROC of {class_name} is NaN (excluded from average)'.format(class_name=target_classes[i]))
+            else:
+                print('The AUROC of {class_name} is {auc:.4f}'.format(class_name=target_classes[i], auc=AUROCs[i]))
+        
+        # 排除类别汇总
+        if invalid_classes:
+            print(f"\n⚠️  Excluded classes ({len(invalid_classes)}): {', '.join(invalid_classes)}")
+            print(f"   Reason: Insufficient label diversity or invalid predictions")
+        
+        print('\nThe average f1 is {F1_avg:.4f}'.format(F1_avg=f1_avg))
         print('The average ACC is {ACC_avg:.4f}'.format(ACC_avg=acc_avg))
         
-        # 5. 详细的每类别指标（可选，用于调试）
+        # 5. 详细的每类别指标（增强版）
         if logger.level <= logging.DEBUG:
             print(f"\n===== Detailed Per-Class Metrics =====")
             for i, class_name in enumerate(target_classes):
-                if all_labels[:, i].sum() > 0:
-                    print(f"{class_name}: AUC={AUROCs[i]:.4f}, F1={max_f1s[i]:.4f}, ACC={accs[i]:.4f}")
+                positive_count = all_labels[:, i].sum()
+                total_count = len(all_labels[:, i])
+                if positive_count > 0:
+                    auc_str = f"{AUROCs[i]:.4f}" if not np.isnan(AUROCs[i]) else "NaN"
+                    print(f"{class_name}: AUC={auc_str}, F1={max_f1s[i]:.4f}, ACC={accs[i]:.4f}, "
+                          f"Pos={positive_count}/{total_count} ({positive_count/total_count:.1%})")
+                else:
+                    print(f"{class_name}: No positive samples (excluded from AUC)")
+        
+        # 6. 最终验证日志
+        logger.info(f"AUC计算完成: 平均AUC={AUROC_avg:.4f if not np.isnan(AUROC_avg) else 'NaN'}, "
+                   f"有效类别={len(valid_aucs)}/{len(target_classes)}, 有效率={len(valid_aucs)/len(target_classes):.1%}")
         
         return results
