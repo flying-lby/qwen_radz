@@ -49,7 +49,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 fi
 echo "结果保存到: $RESULT_DIR"
 echo "============================================"
-
+ 
 echo "评估ChestX-ray14数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
