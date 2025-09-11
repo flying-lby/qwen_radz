@@ -5,19 +5,19 @@
   "chunk_info": "1/1",
   "evaluation_method": "CLIP-style similarity",
   "metrics": {
-    "mean_auc": 0.5220312500000001,
-    "macro_f1": 0.6296296296296297,
-    "overall_accuracy": 0.55,
+    "mean_auc": 0.47062499999999996,
+    "macro_f1": 0.6777777777777778,
+    "overall_accuracy": 0.81,
     "individual_aucs": [
-      0.5578125,
-      0.48625
+      0.5921875,
+      0.3490625
     ],
     "individual_f1s": [
-      0.37037037037037035,
+      0.4666666666666667,
       0.888888888888889
     ],
     "individual_accs": [
-      0.31,
+      0.83,
       0.79
     ]
   }

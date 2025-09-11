@@ -136,7 +136,8 @@ BASE_CMD="python -m src.eval.clip_eval \
     --output_path $RESULT_DIR/COVIDx_CXR_clip_results.json \
     --num_chunks 1 \
     --chunk_idx 0 \
-    --max_samples $MAX_SAMPLES"
+    --max_samples $MAX_SAMPLES
+    --device cuda:0"  # 显式指定设备
 
 # 添加疾病描述参数
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
@@ -162,7 +163,8 @@ BASE_CMD="python -m src.eval.clip_eval \
     --output_path $RESULT_DIR/SIIM_Pneumothorax_clip_results.json \
     --num_chunks 1 \
     --chunk_idx 0 \
-    --max_samples $MAX_SAMPLES"
+    --max_samples $MAX_SAMPLES
+    --device cuda:0"  # 显式指定设备
 
 # 添加疾病描述参数
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
@@ -188,7 +190,8 @@ BASE_CMD="python -m src.eval.clip_eval \
     --output_path $RESULT_DIR/rsna_pneumonia_clip_results.json \
     --num_chunks 1 \
     --chunk_idx 0 \
-    --max_samples $MAX_SAMPLES"
+    --max_samples $MAX_SAMPLES
+    --device cuda:0"  # 显式指定设备
 
 # 添加疾病描述参数
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
@@ -214,7 +217,8 @@ BASE_CMD="python -m src.eval.clip_eval \
     --output_path $RESULT_DIR/chestxray14_clip_results.json \
     --num_chunks 1 \
     --chunk_idx 0 \
-    --max_samples $MAX_SAMPLES"
+    --max_samples $MAX_SAMPLES
+    --device cuda:0"  # 显式指定设备
 
 # 添加疾病描述参数
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
@@ -240,7 +244,8 @@ BASE_CMD="python -m src.eval.clip_eval \
     --output_path $RESULT_DIR/chexpert_clip_results.json \
     --num_chunks 1 \
     --chunk_idx 0 \
-    --max_samples $MAX_SAMPLES"
+    --max_samples $MAX_SAMPLES
+    --device cuda:0"  # 显式指定设备
 
 # 添加疾病描述参数
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
