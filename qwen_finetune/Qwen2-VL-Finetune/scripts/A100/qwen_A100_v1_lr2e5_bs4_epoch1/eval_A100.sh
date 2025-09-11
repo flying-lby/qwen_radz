@@ -6,6 +6,12 @@
  # @Description: CLIP风格Qwen2.5-VL胸部X光分类评估脚本
 ### 
 
+export MASTER_ADDR=localhost
+export MASTER_PORT=29500
+export WORLD_SIZE=1
+export RANK=0
+export LOCAL_RANK=0
+
 # 设置基本路径
 BASE_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune"
 cd $BASE_DIR
