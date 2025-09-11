@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 # 改进的CLIP风格Qwen2.5-VL训练脚本
 
