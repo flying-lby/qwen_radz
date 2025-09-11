@@ -48,8 +48,11 @@ class ClipEvaluator:
         disease_desc_path: Optional[str] = None,
         description_source: str = "template",
     ):
-        # 自动检测设备
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        # 自动检测设备，使用torch.device对象确保精确匹配
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda:0")  # 明确指定cuda:0
+        else:
+            self.device = torch.device("cpu")
         self.batch_size = batch_size
         self.use_disease_descriptions = use_disease_descriptions
         self.disease_desc_path = disease_desc_path
@@ -226,13 +229,16 @@ class ClipEvaluator:
             return None, "failed"
             
         try:
-            # 严格的设备一致性检查
-            logger.debug(f"模型设备: {next(self.model.parameters()).device}")
+            # 设备一致性检查和修正（减少日志噪音）
+            device_warnings_count = 0
             for key, tensor in inputs.items():
-                logger.debug(f"输入张量 {key} 设备: {tensor.device}")
                 if tensor.device != self.device:
-                    logger.warning(f"输入张量 {key} 设备不匹配，从 {tensor.device} 移动到 {self.device}")
                     inputs[key] = tensor.to(self.device)
+                    device_warnings_count += 1
+            
+            # 只在有设备不匹配时才记录一次警告
+            if device_warnings_count > 0:
+                logger.debug(f"自动修正了 {device_warnings_count} 个输入张量的设备位置到 {self.device}")
             
             # 检查GPU内存，如果不足则清理
             if torch.cuda.is_available():
@@ -252,9 +258,8 @@ class ClipEvaluator:
             if image_features.dim() == 1:
                 image_features = image_features.unsqueeze(0)
             
-            # 确保输出特征在正确的设备上
+            # 确保输出特征在正确的设备上（静默修正）
             if image_features.device != self.device:
-                logger.warning(f"输出特征设备不匹配，从 {image_features.device} 移动到 {self.device}")
                 image_features = image_features.to(self.device)
             
             # 验证输出维度（维度不匹配问题已在模型层修复）
