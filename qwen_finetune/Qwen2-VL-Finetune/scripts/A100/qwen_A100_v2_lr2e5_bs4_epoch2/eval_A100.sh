@@ -51,7 +51,7 @@ BATCH_SIZE=1
 MAX_SAMPLES=-1  # 最大样本数量，-1表示全部样本
 
 # 结果输出路径
-RESULT_DIR="$BASE_DIR/results/clip_eval_experiments"
+RESULT_DIR="$BASE_DIR/results/clip_eval_experiments_v2"
 mkdir -p $RESULT_DIR
 
 echo "============================================"
