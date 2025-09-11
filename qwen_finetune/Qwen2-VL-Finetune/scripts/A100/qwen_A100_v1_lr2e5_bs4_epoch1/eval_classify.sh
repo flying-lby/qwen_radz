@@ -54,7 +54,7 @@ echo "评估ChestX-ray14数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chest_xray/chest_xray_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chest_xray/chest_xray_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "chestxray" \
         --batch_size $BATCH_SIZE \
@@ -68,7 +68,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 else
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chest_xray/chest_xray_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chest_xray/chest_xray_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "chestxray" \
         --batch_size $BATCH_SIZE \
@@ -82,7 +82,7 @@ echo "评估CheXpert数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chexpert/chexpert_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chexpert/chexpert_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "chexpert" \
         --batch_size $BATCH_SIZE \
@@ -96,7 +96,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 else
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chexpert/chexpert_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/chexpert/chexpert_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "chexpert" \
         --batch_size $BATCH_SIZE \
@@ -110,7 +110,7 @@ echo "评估COVIDx_CXR数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/COVIDx_CXR/COVIDx_CXR_llava_origin_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/COVIDx_CXR/COVIDx_CXR_llava_origin_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "COVIDx_CXR" \
         --batch_size $BATCH_SIZE \
@@ -124,7 +124,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 else
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/COVIDx_CXR/COVIDx_CXR_llava_origin_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/COVIDx_CXR/COVIDx_CXR_llava_origin_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "COVIDx_CXR" \
         --batch_size $BATCH_SIZE \
@@ -138,7 +138,7 @@ echo "评估SIIM_Pneumothorax数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "SIIM_Pneumothorax" \
         --batch_size $BATCH_SIZE \
@@ -152,7 +152,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 else
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "SIIM_Pneumothorax" \
         --batch_size $BATCH_SIZE \
@@ -166,7 +166,7 @@ echo "评估RSNA数据集..."
 if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "rsna" \
         --batch_size $BATCH_SIZE \
@@ -180,7 +180,7 @@ if [ "$USE_DISEASE_DESCRIPTIONS" = "true" ]; then
 else
     python -m src.eval.clip_eval \
         --model_path $MODEL_PATH \
-        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
+        --data_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
         --image_folder $IMAGE_FOLDER \
         --dataset "rsna" \
         --batch_size $BATCH_SIZE \

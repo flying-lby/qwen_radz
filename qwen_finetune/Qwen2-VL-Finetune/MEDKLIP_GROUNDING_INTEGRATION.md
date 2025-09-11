@@ -190,3 +190,10 @@ Evaluation completed successfully using MedKLIP methodology!
 *修改完成！现在的grounding_eval_rsna.py完全按照MedKLIP的方法进行zero-shot grounding评估。* 🎉
 
 
+
+
+
+
+
+
+

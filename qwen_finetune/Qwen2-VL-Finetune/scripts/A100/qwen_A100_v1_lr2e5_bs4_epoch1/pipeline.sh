@@ -22,7 +22,7 @@ export CUDA_LAUNCH_BLOCKING=1
 
 # 模型和数据路径配置
 MODEL_NAME_OR_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.5-VL-7B-Instruct"
-DATA_PATH="./data/chest_xray/new_classify_mimic_file_clip.json"
+DATA_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/data/train_data_100.json"
 IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
 OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version1"

@@ -1,0 +1,39 @@
+{
+  "model_path": "/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2",
+  "data_source": "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl",
+  "dataset_size": 100,
+  "batch_size": 4,
+  "evaluation_results": {
+    "mean_dice_score": 0.0,
+    "mean_iou_score": 0.0,
+    "point_accuracy": 0.0,
+    "total_samples": 0,
+    "processing_stats": {
+      "processed_samples": 100,
+      "total_samples": 100,
+      "processed_batches": 25,
+      "total_batches": 25,
+      "success_count": 100,
+      "error_count": 0,
+      "success_rate": 100.0,
+      "samples_per_sec": 1.3761335537865929,
+      "avg_batch_time": 2.9060266494750975,
+      "elapsed_time": 72.66736555099487,
+      "eta": "00:00:00",
+      "status_breakdown": {
+        "success": 100,
+        "nan_fixed": 0,
+        "zero_norm_fixed": 0,
+        "degraded": 0,
+        "failed": 0
+      },
+      "avg_memory_gb": 3.5596160888671875,
+      "max_memory_gb": 3.5596160888671875,
+      "current_memory": {
+        "gpu_allocated": 3.5596160888671875,
+        "gpu_reserved": 3.6015625,
+        "gpu_max_allocated": 4.127506256103516
+      }
+    }
+  }
+}

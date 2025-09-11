@@ -1,0 +1,12 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "data_source": "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl",
+  "dataset_size": 100,
+  "batch_size": 4,
+  "evaluation_results": {
+    "mean_dice_score": 0.0,
+    "mean_iou_score": 0.0,
+    "point_accuracy": 0.0,
+    "total_samples": 0
+  }
+}

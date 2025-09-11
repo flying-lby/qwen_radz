@@ -160,3 +160,10 @@ python src/eval/grounding_eval_rsna.py --help
 **调试完成！** 现在grounding_eval_script.sh已经具备了完善的兼容性检查和错误诊断能力，可以与修改后的grounding_eval_rsna.py正常配合使用。🎉
 
 
+
+
+
+
+
+
+

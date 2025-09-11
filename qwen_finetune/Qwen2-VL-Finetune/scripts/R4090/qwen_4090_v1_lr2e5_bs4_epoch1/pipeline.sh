@@ -3,16 +3,16 @@
 # 改进的CLIP风格Qwen2.5-VL训练脚本
 
 # 切换到项目根目录
-# SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-# PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
-# cd "${PROJECT_ROOT}"
-# echo "当前工作目录: $(pwd)"
-# echo "项目根目录: ${PROJECT_ROOT}"
-# echo "训练脚本路径: ${PROJECT_ROOT}/src/train/clip_train_improved.py"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+cd "${PROJECT_ROOT}"
+echo "当前工作目录: $(pwd)"
+echo "项目根目录: ${PROJECT_ROOT}"
+echo "训练脚本路径: ${PROJECT_ROOT}/src/train/clip_train_improved.py"
 
 # 设置Python路径
-# export PYTHONPATH="${PROJECT_ROOT}:$PYTHONPATH"
-# echo "PYTHONPATH设置为: $PYTHONPATH"
+export PYTHONPATH="${PROJECT_ROOT}:$PYTHONPATH"
+echo "PYTHONPATH设置为: $PYTHONPATH"
 
 # 设置环境变量与激活环境
 

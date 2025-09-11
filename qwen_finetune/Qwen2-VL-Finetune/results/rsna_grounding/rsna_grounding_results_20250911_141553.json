@@ -1,0 +1,39 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "data_source": "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/rsna/rsna_pneumonia_llava_origin_val.jsonl",
+  "dataset_size": 100,
+  "batch_size": 4,
+  "evaluation_results": {
+    "mean_dice_score": 0.061862122267484665,
+    "mean_iou_score": 0.03193166106939316,
+    "point_accuracy": 0.15,
+    "total_samples": 20,
+    "processing_stats": {
+      "processed_samples": 100,
+      "total_samples": 100,
+      "processed_batches": 25,
+      "total_batches": 25,
+      "success_count": 100,
+      "error_count": 0,
+      "success_rate": 100.0,
+      "samples_per_sec": 1.3567231451614392,
+      "avg_batch_time": 2.9476155757904055,
+      "elapsed_time": 73.70700526237488,
+      "eta": "00:00:00",
+      "status_breakdown": {
+        "success": 100,
+        "nan_fixed": 0,
+        "zero_norm_fixed": 0,
+        "degraded": 0,
+        "failed": 0
+      },
+      "avg_memory_gb": 3.5586142349243164,
+      "max_memory_gb": 3.558614730834961,
+      "current_memory": {
+        "gpu_allocated": 3.5586137771606445,
+        "gpu_reserved": 3.6015625,
+        "gpu_max_allocated": 4.125499725341797
+      }
+    }
+  }
+}
