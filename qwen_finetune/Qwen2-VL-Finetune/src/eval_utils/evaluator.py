@@ -93,9 +93,11 @@ class ClipEvaluator:
             model_path,
             config=config,
             torch_dtype=torch.float16,  # 改为float16，更稳定
-            device_map="auto",
+            device_map=None,  # 改为None，避免设备分布不一致
             trust_remote_code=True
         )
+        # 明确将整个模型移动到指定设备，确保所有组件在同一设备上
+        self.model = self.model.to(self.device)
         self.model.eval()
         
         # 检查模型权重是否包含NaN
@@ -224,6 +226,14 @@ class ClipEvaluator:
             return None, "failed"
             
         try:
+            # 严格的设备一致性检查
+            logger.debug(f"模型设备: {next(self.model.parameters()).device}")
+            for key, tensor in inputs.items():
+                logger.debug(f"输入张量 {key} 设备: {tensor.device}")
+                if tensor.device != self.device:
+                    logger.warning(f"输入张量 {key} 设备不匹配，从 {tensor.device} 移动到 {self.device}")
+                    inputs[key] = tensor.to(self.device)
+            
             # 检查GPU内存，如果不足则清理
             if torch.cuda.is_available():
                 memory_allocated = torch.cuda.memory_allocated() / 1024**3  # GB
@@ -241,6 +251,11 @@ class ClipEvaluator:
             image_features = feats["global_features"]  # (1, D)
             if image_features.dim() == 1:
                 image_features = image_features.unsqueeze(0)
+            
+            # 确保输出特征在正确的设备上
+            if image_features.device != self.device:
+                logger.warning(f"输出特征设备不匹配，从 {image_features.device} 移动到 {self.device}")
+                image_features = image_features.to(self.device)
             
             # 验证输出维度（维度不匹配问题已在模型层修复）
             expected_dim = self.sparse_config["output_dim"]
