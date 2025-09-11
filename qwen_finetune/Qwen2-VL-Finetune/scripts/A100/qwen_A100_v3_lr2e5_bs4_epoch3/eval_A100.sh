@@ -27,7 +27,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # 模型路径配置
 # MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2"  # 训练输出的CLIP模型路径
-MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version1/merged"
+MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version3/merged"
 
 # MODEL_BASE="/srv/lby/qwen_vl_7b/Qwen2.5-VL-7B-Instruct"  # 基础模型路径
 

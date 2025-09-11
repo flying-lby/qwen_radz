@@ -162,4 +162,5 @@ xformers==0.0.30
 xgrammar==0.1.19
 xxhash==3.5.0
 yarl==1.20.1
+pydicom==3.0.1
 

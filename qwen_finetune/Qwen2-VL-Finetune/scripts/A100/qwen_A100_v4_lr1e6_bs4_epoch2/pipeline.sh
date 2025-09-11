@@ -25,15 +25,15 @@ MODEL_NAME_OR_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.
 DATA_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/data/best_classify_mimic_file_clip.json"
 IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
-OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version1"
+OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version4"
 
 
 # 创建输出目录
 mkdir -p $OUTPUT_DIR
 
 # 训练参数  
-NUM_TRAIN_EPOCHS=1
-LEARNING_RATE=2e-5
+NUM_TRAIN_EPOCHS=2
+LEARNING_RATE=1e-6
 GLOBAL_BATCH_SIZE=32
 BATCH_PER_DEVICE=16
 NUM_DEVICES=2
