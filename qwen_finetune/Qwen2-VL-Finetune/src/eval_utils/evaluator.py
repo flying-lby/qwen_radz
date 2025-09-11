@@ -883,7 +883,9 @@ class ClipEvaluator:
                     print(f"{class_name}: No positive samples (excluded from AUC)")
         
         # 6. 最终验证日志
-        logger.info(f"AUC计算完成: 平均AUC={AUROC_avg:.4f if not np.isnan(AUROC_avg) else 'NaN'}, "
-                   f"有效类别={len(valid_aucs)}/{len(target_classes)}, 有效率={len(valid_aucs)/len(target_classes):.1%}")
+        avg_str = f"{AUROC_avg:.4f}" if not np.isnan(AUROC_avg) else "NaN"
+        validity_rate = len(valid_aucs)/len(target_classes) if len(target_classes) > 0 else 0.0
+        logger.info(f"AUC计算完成: 平均AUC={avg_str}, "
+                   f"有效类别={len(valid_aucs)}/{len(target_classes)}, 有效率={validity_rate:.1%}")
         
         return results
