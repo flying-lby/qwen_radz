@@ -31,9 +31,9 @@ class ClipQwen2VLConfig(Qwen2_5_VLConfig):
             "Imgcls_count": 4,  # 图像分类标记数量
             "Txtcls_count": 4,  # 文本分类标记数量
             "hidden_dim": 1024,  # MLP隐藏层维度
-            "output_dim": 512,   # 输出特征维度
-            "img_mlp_type": 1,   # 图像MLP类型
-            "txt_mlp_type": 1,   # 文本MLP类型
+            "output_dim": 3584,  # 输出特征维度 - 更新为3584
+            "img_mlp_type": 8,   # 图像MLP类型 - 使用简化增强架构
+            "txt_mlp_type": 8,   # 文本MLP类型 - 使用简化增强架构
             "knowledge_mlp_type": 1,  # 知识MLP类型
             "loss_threshold": 0.5,    # 损失函数阈值
             "temperature": 0.05,      # InfoNCE温度参数
@@ -111,6 +111,35 @@ class ImageMLP(nn.Module):
                 nn.Dropout(0.1),
                 nn.Linear(input_dim, output_dim),
             )
+        elif mlp_type == 7:
+            # 增强模态特定架构 - 图像版本，输出维度3584
+            self.input_stabilizer = nn.Dropout(0.05)
+            self.out_mlp = nn.Sequential(
+                nn.Linear(input_dim, input_dim // 2),      # 3584 -> 1792
+                nn.LayerNorm(input_dim // 2, eps=1e-6),
+                nn.GELU(),
+                nn.Dropout(0.1),
+                nn.Linear(input_dim // 2, output_dim * 2), # 1792 -> 7168 (假设output_dim=3584)
+                nn.LayerNorm(output_dim * 2, eps=1e-6),
+                nn.GELU(),
+                nn.Dropout(0.1),
+                nn.Linear(output_dim * 2, output_dim)      # 7168 -> 3584
+            )
+            # 残差连接投影层
+            self.residual_proj = nn.Linear(input_dim, output_dim)
+        elif mlp_type == 8:
+            # 简化增强架构 - 图像版本，输出维度3584
+            # 只有一次适度的维度扩展，然后直接输出
+            self.input_stabilizer = nn.Dropout(0.05)
+            self.out_mlp = nn.Sequential(
+                nn.LayerNorm(input_dim, eps=1e-6),
+                nn.Linear(input_dim, hidden_dim * 2),      # 3584 -> 2048 (适度扩展)
+                nn.GELU(),
+                nn.Dropout(0.1),
+                nn.Linear(hidden_dim * 2, output_dim),     # 2048 -> 3584 (直接输出)
+            )
+            # 简单残差连接
+            self.residual_proj = nn.Linear(input_dim, output_dim)
         else:
             # mlp_type == 0, 直接返回输入
             self.input_stabilizer = None
@@ -135,7 +164,16 @@ class ImageMLP(nn.Module):
             
         if self.out_mlp is None:
             return x
-        return self.out_mlp(x)
+        
+        # 主路径输出
+        main_output = self.out_mlp(x)
+        
+        # 如果有残差连接（mlp_type=7），则应用残差连接
+        if hasattr(self, 'residual_proj') and self.residual_proj is not None:
+            residual = self.residual_proj(x)
+            return main_output + 0.1 * residual  # 加权残差连接
+        
+        return main_output
 
 
 class TextMLP(nn.Module):
@@ -201,6 +239,36 @@ class TextMLP(nn.Module):
                 nn.Dropout(0.1),
                 nn.Linear(input_dim, output_dim),
             )
+        elif mlp_type == 7:
+            # 增强模态特定架构 - 文本版本，输出维度3584
+            # 文本特征更稀疏，需要保留更多原始信息
+            self.input_stabilizer = nn.Dropout(0.03)  # 更小的dropout
+            self.out_mlp = nn.Sequential(
+                nn.LayerNorm(input_dim, eps=1e-6),
+                nn.Linear(input_dim, output_dim * 3),      # 3584 -> 10752
+                nn.GELU(),
+                nn.Dropout(0.05),
+                nn.Linear(output_dim * 3, output_dim * 2), # 10752 -> 7168
+                nn.LayerNorm(output_dim * 2, eps=1e-6),
+                nn.GELU(),
+                nn.Dropout(0.05),
+                nn.Linear(output_dim * 2, output_dim)      # 7168 -> 3584
+            )
+            # 残差连接投影层
+            self.residual_proj = nn.Linear(input_dim, output_dim)
+        elif mlp_type == 8:
+            # 简化增强架构 - 文本版本，输出维度3584
+            # 保持文本特征的稀疏性，使用更保守的变换
+            self.input_stabilizer = nn.Dropout(0.03)
+            self.out_mlp = nn.Sequential(
+                nn.LayerNorm(input_dim, eps=1e-6),
+                nn.Linear(input_dim, hidden_dim * 3),      # 3584 -> 3072 (保守扩展)
+                nn.GELU(),
+                nn.Dropout(0.05),
+                nn.Linear(hidden_dim * 3, output_dim),     # 3072 -> 3584 (直接输出)
+            )
+            # 简单残差连接
+            self.residual_proj = nn.Linear(input_dim, output_dim)
         else:
             # mlp_type == 0, 直接返回输入
             self.input_stabilizer = None
@@ -225,7 +293,16 @@ class TextMLP(nn.Module):
             
         if self.out_mlp is None:
             return x
-        return self.out_mlp(x)
+        
+        # 主路径输出
+        main_output = self.out_mlp(x)
+        
+        # 如果有残差连接（mlp_type=7），则应用残差连接
+        if hasattr(self, 'residual_proj') and self.residual_proj is not None:
+            residual = self.residual_proj(x)
+            return main_output + 0.1 * residual  # 加权残差连接
+        
+        return main_output
 
 
 class KnowledgeMLP(nn.Module):
@@ -256,6 +333,18 @@ class KnowledgeMLP(nn.Module):
                 nn.Dropout(0.3),
                 nn.Linear(input_dim, output_dim),
             )
+        elif mlp_type == 7:
+            # 增强知识特征架构，输出维度3584
+            self.out_mlp = nn.Sequential(
+                nn.LayerNorm(input_dim, eps=1e-6),
+                nn.Linear(input_dim, hidden_dim * 2),      # 3584 -> 2048
+                nn.GELU(),
+                nn.Dropout(0.1),
+                nn.Linear(hidden_dim * 2, output_dim),     # 2048 -> 3584
+                nn.LayerNorm(output_dim, eps=1e-6)
+            )
+            # 残差连接投影层
+            self.residual_proj = nn.Linear(input_dim, output_dim)
         else:
             # mlp_type == 0, 直接返回输入
             self.out_mlp = None
@@ -263,7 +352,16 @@ class KnowledgeMLP(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         if self.out_mlp is None:
             return x
-        return self.out_mlp(x)
+        
+        # 主路径输出
+        main_output = self.out_mlp(x)
+        
+        # 如果有残差连接（mlp_type=7），则应用残差连接
+        if hasattr(self, 'residual_proj') and self.residual_proj is not None:
+            residual = self.residual_proj(x)
+            return main_output + 0.1 * residual  # 加权残差连接
+        
+        return main_output
 
 
 class CrossAttentionModule(nn.Module):
