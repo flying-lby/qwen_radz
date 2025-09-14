@@ -4,7 +4,7 @@
 
 # 切换到项目根目录
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"
 cd "${PROJECT_ROOT}"
 echo "当前工作目录: $(pwd)"
 echo "项目根目录: ${PROJECT_ROOT}"
