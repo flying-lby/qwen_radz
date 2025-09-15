@@ -27,7 +27,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # 模型路径配置
 # MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2"  # 训练输出的CLIP模型路径
-MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-13/qwen_lora_new_clip_version8/merged"
+MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-15/qwen_lora_new_clip_version10/merged"
 
 # MODEL_BASE="/srv/lby/qwen_vl_7b/Qwen2.5-VL-7B-Instruct"  # 基础模型路径
 
@@ -51,7 +51,7 @@ BATCH_SIZE=1
 MAX_SAMPLES=-1  # 最大样本数量，-1表示全部样本
 
 # 结果输出路径
-RESULT_DIR="$BASE_DIR/results/2025-09-13/clip_eval_experiments_v8"
+RESULT_DIR="$BASE_DIR/results/2025-09-15/clip_eval_experiments_v10"
 mkdir -p $RESULT_DIR
 
 echo "============================================"

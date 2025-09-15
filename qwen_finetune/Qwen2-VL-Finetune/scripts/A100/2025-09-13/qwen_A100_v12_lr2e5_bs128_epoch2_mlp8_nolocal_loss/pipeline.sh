@@ -25,7 +25,7 @@ MODEL_NAME_OR_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.
 DATA_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/data/best_classify_mimic_file_clip.json"
 IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
-OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-13/qwen_lora_new_clip_version12"
+OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-15/qwen_lora_new_clip_version12"
 
 
 # 创建输出目录
@@ -36,7 +36,7 @@ NUM_TRAIN_EPOCHS=2
 LEARNING_RATE=2e-5
 GLOBAL_BATCH_SIZE=128
 BATCH_PER_DEVICE=32
-NUM_DEVICES=4
+NUM_DEVICES=8
 GRAD_ACCUM_STEPS=$((GLOBAL_BATCH_SIZE / (BATCH_PER_DEVICE * NUM_DEVICES)))
 MAX_LENGTH=8192
 

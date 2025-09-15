@@ -25,9 +25,7 @@ MODEL_NAME_OR_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/official_llava_med/Qwen2.
 DATA_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/data/best_classify_mimic_file_clip.json"
 IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
-
-# edit
-OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-15/qwen_lora_new_clip_version1"
+OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-15/qwen_lora_new_clip_version10"
 
 
 # 创建输出目录
@@ -38,7 +36,7 @@ NUM_TRAIN_EPOCHS=2
 LEARNING_RATE=2e-5
 GLOBAL_BATCH_SIZE=128
 BATCH_PER_DEVICE=32
-NUM_DEVICES=4
+NUM_DEVICES=8
 GRAD_ACCUM_STEPS=$((GLOBAL_BATCH_SIZE / (BATCH_PER_DEVICE * NUM_DEVICES)))
 MAX_LENGTH=8192
 
@@ -102,10 +100,10 @@ deepspeed --master_port=12345 \
     --clip_training_ratio $CLIP_TRAINING_RATIO \
     --use_disease_desc True \
     --disease_desc_path $DISEASE_DESC_PATH \
-    --img_mlp_type 1 \
-    --txt_mlp_type 1 \
-    --use_local_loss False \
-    --use_cross_attention_loss False \
+    --img_mlp_type 0 \
+    --txt_mlp_type 0 \
+    --use_local_loss True \
+    --use_cross_attention_loss True \
     --pooling_strategy "mean" \
     --feature_extraction_layer -1 \
     --use_data_augmentation False \
