@@ -59,7 +59,7 @@ USE_BNB=False
 DEEPSPEED_CONFIG="scripts/zero3.json"
 
 # GPU配置
-
+ 
 echo "=========================================="
 echo "开始改进的CLIP风格Qwen2.5-VL训练"
 echo "模型: $MODEL_NAME_OR_PATH"

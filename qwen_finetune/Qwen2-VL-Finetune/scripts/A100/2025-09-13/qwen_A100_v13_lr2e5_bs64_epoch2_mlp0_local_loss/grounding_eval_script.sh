@@ -19,7 +19,7 @@ export PYTHONPATH=src:$PYTHONPATH
 export CUDA_VISIBLE_DEVICES=0,1
 export CUDA_LAUNCH_BLOCKING=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-
+ 
 # 可选：设置日志级别减少警告输出（如果需要）
 # export PYTHONPATH=src:$PYTHONPATH
 # export PYTHONWARNINGS="ignore::UserWarning"
