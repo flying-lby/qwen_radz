@@ -68,7 +68,7 @@ echo "输出: $OUTPUT_DIR"
 echo "=========================================="
 
 # 训练命令 - 使用DeepSpeed
-deepspeed --master_port=12345 \
+deepspeed --master_port=29500 \
     src/train/clip_train_improved.py \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --data_path $DATA_PATH \
