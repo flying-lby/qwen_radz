@@ -66,7 +66,7 @@ echo "模型: $MODEL_NAME_OR_PATH"
 echo "数据: $DATA_PATH"
 echo "输出: $OUTPUT_DIR"
 echo "=========================================="
-
+ 
 # 训练命令 - 使用DeepSpeed
 deepspeed --master_port=29500 \
     src/train/clip_train_improved.py \
