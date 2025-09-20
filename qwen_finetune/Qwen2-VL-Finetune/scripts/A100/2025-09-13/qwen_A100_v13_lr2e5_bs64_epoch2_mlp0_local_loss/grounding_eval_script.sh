@@ -23,7 +23,7 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 # 可选：设置日志级别减少警告输出（如果需要）
 # export PYTHONPATH=src:$PYTHONPATH
 # export PYTHONWARNINGS="ignore::UserWarning"
- 
+  
 # 模型和数据路径配置
 # MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2"  # 当前模型有NaN参数问题
 MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-13/qwen_lora_new_clip_version13/merged"  # 尝试使用备用模型
