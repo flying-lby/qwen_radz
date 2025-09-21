@@ -5,7 +5,7 @@
  # @FilePath: /qwen_radz/qwen_finetune/Qwen2-VL-Finetune/scripts/clip_eval_script.sh
  # @Description: CLIP风格Qwen2.5-VL胸部X光分类评估脚本
 ### 
-
+ 
 export MASTER_ADDR=localhost
 export MASTER_PORT=29500
 export WORLD_SIZE=1
