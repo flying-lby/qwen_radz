@@ -115,7 +115,7 @@ SIIM_OUTPUT_FILE="$RESULT_DIR/siim_grounding/siim_grounding_results_$(date +%Y%m
 # 构建SIIM评估命令
 SIIM_CMD="python src/eval/eval_grounding.py \
     --model_path \"$MODEL_PATH\" \
-    --jsonl_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl" \
+    --jsonl_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_val.jsonl" \
     --dataset_name \"SIIM_Pneumothorax\" \
     --image_folder \"$IMAGE_FOLDER\" \
     --disease_desc_path \"$DISEASE_DESC_PATH\" \
