@@ -4,13 +4,12 @@
 ###
 
 # 设置基本路径
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-cd $PROJECT_ROOT
+PROJECT_ROOT="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune"
+cd "$PROJECT_ROOT"
 
-# 激活conda环境
-eval "$(conda shell.bash hook)"
-conda activate qwen_vl
+
+
+
 
 # 设置Python路径
 export PYTHONPATH=src:$PYTHONPATH
@@ -26,14 +25,19 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # 模型和数据路径配置
 # MODEL_PATH="/srv/lby/qwen_radz/checkpoints/qwen_new_clip_v2"  # 当前模型有NaN参数问题
-MODEL_PATH="/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged"  # 尝试使用备用模型
-IMAGE_FOLDER="/srv/lby/"
-DISEASE_DESC_PATH="/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/observation_explanation.json"
+MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-13/qwen_lora_new_clip_version13/merged"  # 尝试使用备用模型
+IMAGE_FOLDER="/mnt/nlp-ali/usr/zhaizijie/huangwx_ali/zijie_ali/libangyan/dataset/"
+DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/observation_explanation.json"
 
 # 执行参数配置
 BATCH_SIZE=4
 MAX_SAMPLES=100
 TARGET_SIZE=224
+
+# 增强可视化配置 (可通过环境变量配置)
+ENABLE_ENHANCED_VIZ=${ENABLE_ENHANCED_VIZ:-false}  # 设置为true启用增强可视化
+VIZ_STRATEGY=${VIZ_STRATEGY:-"balanced"}            # 可视化策略
+NUM_VIZ_SAMPLES=${NUM_VIZ_SAMPLES:-15}             # 可视化样本数量
 
 # 输出配置
 RESULT_DIR="$PROJECT_ROOT/results"
@@ -47,6 +51,13 @@ echo "图像文件夹: $IMAGE_FOLDER"
 echo "结果保存到: $RESULT_DIR"
 echo "批次大小: $BATCH_SIZE"
 echo "最大样本数: $MAX_SAMPLES"
+if [ "$ENABLE_ENHANCED_VIZ" = "true" ]; then
+    echo "🎨 增强可视化: 启用"
+    echo "   策略: $VIZ_STRATEGY"
+    echo "   样本数: $NUM_VIZ_SAMPLES"
+else
+    echo "📊 增强可视化: 禁用 (设置ENABLE_ENHANCED_VIZ=true启用)"
+fi
 echo "============================================"
 
 # 检查重构后的评估脚本是否存在
@@ -62,18 +73,26 @@ echo ""
 echo "📊 开始评估RSNA数据集..."
 RSNA_OUTPUT_FILE="$RESULT_DIR/rsna_grounding/rsna_grounding_results_$(date +%Y%m%d_%H%M%S).json"
 
-if python src/eval/eval_grounding.py \
-    --model_path "$MODEL_PATH" \
-    --jsonl_path "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
-    --image_folder "$IMAGE_FOLDER" \
-    --disease_desc_path "$DISEASE_DESC_PATH" \
-    --dataset_name "RSNA_Pneumonia" \
+# 构建RSNA评估命令
+RSNA_CMD="python src/eval/eval_grounding.py \
+    --model_path \"$MODEL_PATH\" \
+    --jsonl_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl" \
+    --image_folder \"$IMAGE_FOLDER\" \
+    --disease_desc_path \"$DISEASE_DESC_PATH\" \
+    --dataset_name \"RSNA_Pneumonia\" \
     --batch_size $BATCH_SIZE \
     --max_samples $MAX_SAMPLES \
-    --output_path "$RSNA_OUTPUT_FILE" \
+    --output_path \"$RSNA_OUTPUT_FILE\" \
     --save_visualizations \
-    --viz_dir "$RESULT_DIR/rsna_grounding/visualizations" \
-    --target_size $TARGET_SIZE; then
+    --viz_dir \"$RESULT_DIR/rsna_grounding/visualizations\" \
+    --target_size $TARGET_SIZE"
+
+# 如果启用增强可视化，添加相关参数
+if [ "$ENABLE_ENHANCED_VIZ" = "true" ]; then
+    RSNA_CMD="$RSNA_CMD --enhanced_viz --num_viz_samples $NUM_VIZ_SAMPLES --viz_strategy $VIZ_STRATEGY"
+fi
+
+if eval $RSNA_CMD; then
     echo "✅ RSNA数据集评估完成"
     echo "📁 结果保存至: $RSNA_OUTPUT_FILE"
 else
@@ -86,18 +105,26 @@ echo ""
 echo "📊 开始评估SIIM Pneumothorax数据集..."
 SIIM_OUTPUT_FILE="$RESULT_DIR/siim_grounding/siim_grounding_results_$(date +%Y%m%d_%H%M%S).json"
 
-if python src/eval/eval_grounding.py \
-    --model_path "$MODEL_PATH" \
-    --jsonl_path "/home/lby/iclr2026/llava_med/LLaVA-Med/llava/run/data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl" \
-    --dataset_name "SIIM_Pneumothorax" \
-    --image_folder "$IMAGE_FOLDER" \
-    --disease_desc_path "$DISEASE_DESC_PATH" \
+# 构建SIIM评估命令
+SIIM_CMD="python src/eval/eval_grounding.py \
+    --model_path \"$MODEL_PATH\" \
+    --jsonl_path "/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/SIIM_Pneumothorax/SIIM_Pneumothorax_llava_origin_val.jsonl" \
+    --dataset_name \"SIIM_Pneumothorax\" \
+    --image_folder \"$IMAGE_FOLDER\" \
+    --disease_desc_path \"$DISEASE_DESC_PATH\" \
     --batch_size $BATCH_SIZE \
     --max_samples $MAX_SAMPLES \
-    --output_path "$SIIM_OUTPUT_FILE" \
+    --output_path \"$SIIM_OUTPUT_FILE\" \
     --save_visualizations \
-    --viz_dir "$RESULT_DIR/siim_grounding/visualizations" \
-    --target_size $TARGET_SIZE; then
+    --viz_dir \"$RESULT_DIR/siim_grounding/visualizations\" \
+    --target_size $TARGET_SIZE"
+
+# 如果启用增强可视化，添加相关参数
+if [ "$ENABLE_ENHANCED_VIZ" = "true" ]; then
+    SIIM_CMD="$SIIM_CMD --enhanced_viz --num_viz_samples $NUM_VIZ_SAMPLES --viz_strategy $VIZ_STRATEGY"
+fi
+
+if eval $SIIM_CMD; then
     echo "✅ SIIM数据集评估完成"
     echo "📁 结果保存至: $SIIM_OUTPUT_FILE"
 else
@@ -114,5 +141,17 @@ echo "   SIIM结果: $SIIM_OUTPUT_FILE"
 echo "📁 可视化文件:"
 echo "   RSNA可视化: $RESULT_DIR/rsna_grounding/visualizations/"
 echo "   SIIM可视化: $RESULT_DIR/siim_grounding/visualizations/"
+
+if [ "$ENABLE_ENHANCED_VIZ" = "true" ]; then
+    echo "🎨 增强可视化文件:"
+    echo "   RSNA GT vs Prediction: $RESULT_DIR/rsna_grounding/visualizations/gt_vs_prediction/"
+    echo "   SIIM GT vs Prediction: $RESULT_DIR/siim_grounding/visualizations/gt_vs_prediction/"
+    echo "   策略: $VIZ_STRATEGY, 样本数: $NUM_VIZ_SAMPLES"
+fi
+
 echo "============================================"
 echo "✨ 使用重构后的eval_utils模块评估完成！"
+echo ""
+echo "💡 快速启用增强可视化："
+echo "   ENABLE_ENHANCED_VIZ=true ./grounding_eval_script.sh"
+echo "   VIZ_STRATEGY=quality NUM_VIZ_SAMPLES=20 ENABLE_ENHANCED_VIZ=true ./grounding_eval_script.sh"
