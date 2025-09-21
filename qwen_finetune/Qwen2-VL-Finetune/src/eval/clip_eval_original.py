@@ -2,7 +2,7 @@
 CLIP风格Qwen2.5-VL模型的分类评估脚本
 采用CLIP风格的图像-文本相似度计算进行分类任务评估
 """
-
+ 
 import os
 import sys
 import json
@@ -19,7 +19,6 @@ from tqdm import tqdm
 import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
-from torch.nn.utils.rnn import pad_sequence
 from transformers import AutoTokenizer, AutoProcessor
 from PIL import Image
 from sklearn.metrics import (
@@ -28,7 +27,7 @@ from sklearn.metrics import (
     precision_recall_curve, auc
 )
 
-# 导入自定义模块
+#  导入自定义模块
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -39,35 +38,13 @@ from train.clip_modeling_qwen2_5_vl import (
 )
 from constants import DEFAULT_IMAGE_TOKEN
 
-# 导入DICOM处理库
+#    导入DICOM处理库
 try:
     import pydicom
-    from skimage import exposure
     DICOM_AVAILABLE = True
 except ImportError:
     DICOM_AVAILABLE = False
     print("Warning: pydicom not available. DCM files will not be supported.")
-
-@dataclass
-class LLaVAMedEvalConfig:
-    """LLaVA-Med风格的评估参数配置"""
-    Imgcls_count: int = 4
-    Txtcls_count: int = 4 
-    hidden_dim: int = 1024
-    output_dim: int = 512
-    img_mlp_type: int = 1
-    txt_mlp_type: int = 1
-    knowledge_mlp_type: int = 1
-    loss_threshold: float = 0.5
-    temperature: float = 0.05
-    use_local_loss: bool = False
-    feature_layer: int = 1
-    special_tokens_mlp_type: int = 1
-    use_ca_loss: bool = True
-    inference_type: int = 2
-    use_cat: bool = True
-    use_prompt: bool = True
-    Book_choice: int = 1
 
 
 # 设置日志
@@ -228,15 +205,54 @@ def load_image_file(img_path):
         file_ext = os.path.splitext(img_path)[1].lower()
         
         if file_ext == '.dcm' and DICOM_AVAILABLE:
-            # 处理DICOM文件 - 对齐LLaVA-Med的处理方式
-            img = pydicom.dcmread(img_path).pixel_array  # 读取 DICOM 图像数据
-            img = img.astype(float) / 255.0  # 归一化图像
-            img = exposure.equalize_hist(img)  # 直方图均衡化，与LLaVA-Med保持一致
+            # 处理DICOM文件
+            dicom_data = pydicom.dcmread(img_path)
             
-            # 转换为 PIL 图像并应用预处理
-            img = (255 * img).astype(np.uint8)  # 转换为 uint8 类型
-            image = Image.fromarray(img).convert('RGB') 
-            return image
+            # 获取像素数据
+            if hasattr(dicom_data, 'pixel_array'):
+                pixel_array = dicom_data.pixel_array.astype(float)
+                
+                # 应用DICOM窗口调整（如果存在）
+                if hasattr(dicom_data, 'WindowCenter') and hasattr(dicom_data, 'WindowWidth'):
+                    try:
+                        window_center = float(dicom_data.WindowCenter[0] if hasattr(dicom_data.WindowCenter, '__iter__') else dicom_data.WindowCenter)
+                        window_width = float(dicom_data.WindowWidth[0] if hasattr(dicom_data.WindowWidth, '__iter__') else dicom_data.WindowWidth)
+                        
+                        # 应用窗口调整
+                        img_min = window_center - window_width // 2
+                        img_max = window_center + window_width // 2
+                        pixel_array = np.clip(pixel_array, img_min, img_max)
+                        pixel_array = (pixel_array - img_min) / (img_max - img_min) * 255
+                    except:
+                        # 如果窗口调整失败，使用默认归一化
+                        pixel_array = (pixel_array - pixel_array.min()) / (pixel_array.max() - pixel_array.min()) * 255
+                else:
+                    # 默认归一化到0-255范围
+                    pixel_array = (pixel_array - pixel_array.min()) / (pixel_array.max() - pixel_array.min()) * 255
+                
+                # 处理不同的像素数据格式
+                if len(pixel_array.shape) == 2:
+                    # 灰度图像
+                    pixel_array = pixel_array.astype(np.uint8)
+                    # 转换为PIL图像
+                    image = Image.fromarray(pixel_array, mode='L')
+                    # 转换为RGB
+                    image = image.convert('RGB')
+                elif len(pixel_array.shape) == 3:
+                    # 彩色图像或多帧图像，取第一帧
+                    if pixel_array.shape[0] < pixel_array.shape[2]:
+                        # 假设第一个维度是帧数
+                        pixel_array = pixel_array[0]
+                    pixel_array = pixel_array.astype(np.uint8)
+                    image = Image.fromarray(pixel_array)
+                    if image.mode != 'RGB':
+                        image = image.convert('RGB')
+                else:
+                    raise ValueError(f"Unsupported pixel array shape: {pixel_array.shape}")
+                
+                return image
+            else:
+                raise ValueError("DICOM file has no pixel_array attribute")
                 
         elif file_ext == '.dcm' and not DICOM_AVAILABLE:
             raise ImportError("pydicom is required to read DCM files. Please install: pip install pydicom")
@@ -261,274 +277,82 @@ def get_chunk(lst, n, k):
 
 
 class ClipClassificationDataset(Dataset):
-    """简化的CLIP分类评估数据集 - 直接使用数据集原生类别"""
-    
-    # 数据集配置：保留各数据集的语义特色
-    DATASET_CONFIGS = {
-        'chestxray': {
-            'classes': ["fibrosis", "edema", "pneumothorax", "cardiomegaly", "atelectasis", 
-                       "nodule", "emphysema", "no finding", "mass", "pleural_thickening", 
-                       "effusion", "infiltration", "pneumonia", "hernia", "consolidation"],
-            'task_type': 'multi_label',
-            'domain': 'chest_xray_pathology'
-        },
-        'chexpert': {
-            'classes': ['no finding', 'enlarged cardiomediastinum', 'cardiomegaly', 
-                       'lung opacity', 'lung lesion', 'edema', 'consolidation', 
-                       'pneumonia', 'atelectasis', 'pneumothorax', 'pleural effusion', 
-                       'pleural other', 'fracture', 'support devices'],
-            'task_type': 'multi_label',
-            'domain': 'chest_xray_pathology'
-        },
-        'mimic': {
-            'classes': ["atelectasis", "cardiomegaly", "consolidation", "edema", "enlarged cardiomediastinum",
-                       "fracture", "lung lesion", "lung opacity", "no finding", "pleural effusion", 
-                       "pleural other", "pneumonia", "pneumothorax", "support devices"],
-            'task_type': 'multi_label',
-            'domain': 'chest_xray_pathology'
-        },
-        'rsna': {
-            'classes': ["normal", "pneumonia"],
-            'task_type': 'binary',
-            'domain': 'pneumonia_screening'
-        },
-        'COVIDx_CXR': {
-            'classes': ["normal", "covid-19"],
-            'task_type': 'binary',
-            'domain': 'covid_detection'
-        },
-        'SIIM_Pneumothorax': {
-            'classes': ["no finding", "pneumothorax"],
-            'task_type': 'binary',
-            'domain': 'pneumothorax_detection'
-        },
-        'siim': {
-            'classes': ['non-pneumothorax', 'pneumothorax'],
-            'task_type': 'binary',
-            'domain': 'pneumothorax_detection'
-        },
-        'covid-cxr2': {
-            'classes': ['normal', 'covid-19'],
-            'task_type': 'binary',
-            'domain': 'covid_detection'
-        }
-    }
+    """CLIP分类评估数据集"""
     
     def __init__(
         self,
         data_path: str,
         image_folder: str = "",
-        dataset_name: str = "mimic",
-        custom_classes: Optional[List[str]] = None
+        dataset_name: str = "mimic"
     ):
-        """
-        初始化数据集
-        
-        Args:
-            data_path: 数据文件路径
-            image_folder: 图像文件夹路径
-            dataset_name: 数据集名称
-            custom_classes: 自定义类别列表（可选，用于新数据集）
-        """
         self.image_folder = image_folder
         self.dataset_name = dataset_name
         
         # 加载数据
-        self.questions = self._load_data(data_path)
-        
-        # 设置类别和任务信息
-        if custom_classes is not None:
-            # 使用自定义类别（用于新数据集）
-            self.target_classes = custom_classes
-            self.task_type = 'custom'
-            self.domain = 'custom'
-            print(f"使用自定义类别: {custom_classes}")
-        elif dataset_name in self.DATASET_CONFIGS:
-            # 使用预定义配置
-            config = self.DATASET_CONFIGS[dataset_name]
-            self.target_classes = config['classes']
-            self.task_type = config['task_type']
-            self.domain = config['domain']
-            print(f"加载数据集 '{dataset_name}': {len(self.target_classes)} 个类别, 任务类型: {self.task_type}")
+        self.questions = []
+        if data_path.endswith('.jsonl'):
+            with open(data_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    self.questions.append(json.loads(line))
         else:
-            # 未知数据集，尝试从数据中自动推断
-            self.target_classes = self._infer_classes_from_data()
-            self.task_type = 'inferred'
-            self.domain = 'unknown'
-            print(f"未知数据集 '{dataset_name}', 自动推断类别: {self.target_classes}")
+            with open(data_path, 'r', encoding='utf-8') as f:
+                self.questions = json.load(f)
         
-        # 验证数据一致性
-        self._validate_data_consistency()
-    
-    def _load_data(self, data_path: str) -> List[Dict]:
-        """加载数据文件"""
-        questions = []
-        try:
-            if data_path.endswith('.jsonl'):
-                with open(data_path, 'r', encoding='utf-8') as f:
-                    for line_num, line in enumerate(f, 1):
-                        try:
-                            questions.append(json.loads(line))
-                        except json.JSONDecodeError as e:
-                            print(f"警告: 第{line_num}行JSON解析失败: {e}")
-            else:
-                with open(data_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        questions = data
-                    else:
-                        raise ValueError("JSON文件应包含一个列表")
-            
-            print(f"成功加载 {len(questions)} 个样本")
-            return questions
-            
-        except Exception as e:
-            raise ValueError(f"数据加载失败: {e}")
-    
-    def _infer_classes_from_data(self) -> List[str]:
-        """从数据中自动推断类别"""
-        all_classes = set()
-        
-        for question in self.questions[:100]:  # 只检查前100个样本
-            if 'label' in question:
-                labels = question['label']
-                if isinstance(labels, dict):
-                    all_classes.update(labels.keys())
-                elif isinstance(labels, list):
-                    all_classes.update(labels)
-                elif isinstance(labels, str):
-                    all_classes.add(labels)
-        
-        inferred_classes = sorted(list(all_classes))
-        if not inferred_classes:
-            raise ValueError("无法从数据中推断类别，请提供custom_classes参数")
-        
-        return inferred_classes
-    
-    def _validate_data_consistency(self):
-        """验证数据一致性"""
-        if not self.questions:
-            raise ValueError("数据集为空")
-        
-        # 检查标签格式一致性
-        label_formats = set()
-        missing_labels = 0
-        
-        for i, question in enumerate(self.questions[:50]):  # 检查前50个样本
-            if 'label' not in question:
-                missing_labels += 1
-                continue
-                
-            labels = question['label']
-            if isinstance(labels, dict):
-                label_formats.add('dict')
-            elif isinstance(labels, list):
-                label_formats.add('list')
-            elif isinstance(labels, str):
-                label_formats.add('string')
-            else:
-                label_formats.add('other')
-        
-        if missing_labels > 0:
-            print(f"警告: {missing_labels} 个样本缺少标签")
-        
-        if len(label_formats) > 1:
-            print(f"警告: 检测到多种标签格式: {label_formats}")
-        
-        print(f"数据验证完成: {len(self.target_classes)} 个类别, 标签格式: {label_formats}")
-    
-    @classmethod
-    def add_dataset_config(cls, dataset_name: str, classes: List[str], task_type: str = 'custom', domain: str = 'custom'):
-        """添加新的数据集配置"""
-        cls.DATASET_CONFIGS[dataset_name] = {
-            'classes': classes,
-            'task_type': task_type,
-            'domain': domain
+        # 数据集类别定义
+        self.dataset_classes = {
+            'chestxray': ["fibrosis", "edema", "pneumothorax", "cardiomegaly", "atelectasis", 
+                         "nodule", "emphysema", "no finding", "mass", "pleural_thickening", 
+                         "effusion", "infiltration", "pneumonia", "hernia", "consolidation"],
+            'chexpert': ['no finding', 'enlarged cardiomediastinum', 'cardiomegaly', 
+                        'lung opacity', 'lung lesion', 'edema', 'consolidation', 
+                        'pneumonia', 'atelectasis', 'pneumothorax', 'pleural effusion', 
+                        'pleural other', 'fracture', 'support devices'],
+            'mimic': ["atelectasis", "cardiomegaly", "consolidation", "edema", "enlarged cardiomediastinum",
+                     "fracture", "lung lesion", "lung opacity", "no finding", "pleural effusion", 
+                     "pleural other", "pneumonia", "pneumothorax", "support devices"],
+            'rsna': ["pneumonia", "normal"],
+            'COVIDx_CXR': ["covid-19", "normal"],
+            'SIIM_Pneumothorax': ["pneumothorax", "no finding"]
         }
-        print(f"添加新数据集配置: {dataset_name}")
-    
-    def get_dataset_info(self) -> Dict[str, Any]:
-        """获取数据集信息"""
-        return {
-            'dataset_name': self.dataset_name,
-            'num_samples': len(self.questions),
-            'num_classes': len(self.target_classes),
-            'classes': self.target_classes,
-            'task_type': self.task_type,
-            'domain': self.domain
-        }
+        
+        # 根据数据集选择类别
+        if dataset_name in self.dataset_classes:
+            self.target_classes = self.dataset_classes[dataset_name]
+        else:
+            self.target_classes = self.dataset_classes['mimic']  # 默认使用MIMIC类别
     
     def __len__(self):
         return len(self.questions)
     
     def __getitem__(self, index):
-        """获取单个样本"""
         question = self.questions[index]
         
         # 构建图像路径
-        img_path = self._get_image_path(question)
+        if 'image' in question:
+            img_path = os.path.join(self.image_folder, question['image'])
+        elif 'image_path' in question:
+            img_path = os.path.join(self.image_folder, question['image_path'])
+        else:
+            raise ValueError("No image path found in question")
         
-        # 获取真实标签向量
-        true_vector = self._get_label_vector(question)
+        # 获取真实标签
+        true_vector = np.zeros(len(self.target_classes))
+        if 'label' in question:
+            labels = question['label']
+            if isinstance(labels, dict):
+                for cls, value in labels.items():
+                    if cls in self.target_classes and value == 1:
+                        true_vector[self.target_classes.index(cls)] = 1
+            elif isinstance(labels, list):
+                for cls in labels:
+                    if cls in self.target_classes:
+                        true_vector[self.target_classes.index(cls)] = 1
         
         return {
             "image_path": img_path,
             "true_labels": true_vector,
             "question_data": question
         }
-    
-    def _get_image_path(self, question: Dict) -> str:
-        """获取图像路径"""
-        # 支持多种图像路径字段名
-        image_fields = ['image', 'image_path', 'img_path', 'file_path']
-        
-        for field in image_fields:
-            if field in question:
-                return os.path.join(self.image_folder, question[field])
-        
-        raise ValueError(f"未找到图像路径字段，支持的字段: {image_fields}")
-    
-    def _get_label_vector(self, question: Dict) -> np.ndarray:
-        """获取标签向量"""
-        true_vector = np.zeros(len(self.target_classes), dtype=np.float32)
-        
-        if 'label' not in question:
-            return true_vector
-        
-        labels = question['label']
-        
-        # 处理不同的标签格式
-        if isinstance(labels, dict):
-            # 字典格式: {"pneumonia": 1, "normal": 0}
-            for cls, value in labels.items():
-                if cls in self.target_classes:
-                    try:
-                        # 支持多种正值表示
-                        if value in [1, 1.0, True, "1", "true", "positive"]:
-                            true_vector[self.target_classes.index(cls)] = 1.0
-                    except (ValueError, TypeError):
-                        continue
-                        
-        elif isinstance(labels, list):
-            # 列表格式: ["pneumonia", "edema"]
-            for cls in labels:
-                if isinstance(cls, str) and cls in self.target_classes:
-                    true_vector[self.target_classes.index(cls)] = 1.0
-                    
-        elif isinstance(labels, str):
-            # 字符串格式: "pneumonia"
-            if labels in self.target_classes:
-                true_vector[self.target_classes.index(labels)] = 1.0
-                
-        elif isinstance(labels, (int, float)):
-            # 数值格式（二分类）: 0 或 1
-            if len(self.target_classes) == 2:
-                if labels in [1, 1.0]:
-                    true_vector[1] = 1.0  # 假设第二个类别是正类
-                else:
-                    true_vector[0] = 1.0  # 第一个类别是负类
-        
-        return true_vector
 
 
 class ClipEvaluator:
@@ -540,8 +364,7 @@ class ClipEvaluator:
         batch_size: int = 16,
         use_disease_descriptions: bool = False,
         disease_desc_path: Optional[str] = None,
-        description_source: str = "template",
-        eval_config: Optional[LLaVAMedEvalConfig] = None
+        description_source: str = "template"
     ):
         # 自动检测设备
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -549,13 +372,6 @@ class ClipEvaluator:
         self.use_disease_descriptions = use_disease_descriptions
         self.disease_desc_path = disease_desc_path
         self.description_source = description_source
-        
-        # LLaVA-Med风格的评估配置
-        self.eval_config = eval_config if eval_config is not None else LLaVAMedEvalConfig()
-        self.Imgcls_count = self.eval_config.Imgcls_count
-        self.Txtcls_count = self.eval_config.Txtcls_count
-        self.feature_layer = self.eval_config.feature_layer
-        self.temperature = self.eval_config.temperature
         
         # 加载疾病描述文件（如果启用）
         self.disease_descriptions = {}
@@ -654,34 +470,6 @@ class ClipEvaluator:
             token = f"<Txtcls{i}>"
             if token in self.tokenizer.get_vocab():
                 self.txtcls_token_ids.append(self.tokenizer.convert_tokens_to_ids(token))
-        
-        # 在tokenizer加载完成后预计算疾病描述
-        if self.use_disease_descriptions and self.disease_descriptions:
-            self._prepare_disease_descriptions()
-    
-    def _prepare_disease_descriptions(self):
-        """预计算疾病描述的tokenized ID（LLaVA-Med风格）"""
-        if not self.disease_descriptions:
-            return
-            
-        try:
-            # 预计算疾病描述的 tokenized ID
-            tokenized_desc = []
-            for desc in self.disease_descriptions.values():
-                tokens = self.tokenizer.encode(desc, return_tensors="pt").squeeze(0).clone().detach()
-                tokenized_desc.append(tokens)
-
-            # 进行 padding，确保形状为 [num_diseases, max_seq_len]
-            if tokenized_desc:
-                self.disease_desc_ids_padded = torch.nn.utils.rnn.pad_sequence(
-                    tokenized_desc, batch_first=True, padding_value=self.tokenizer.pad_token_id
-                ).to(self.device)
-                self.disease_desc_attention_mask = self.disease_desc_ids_padded.ne(self.tokenizer.pad_token_id)
-                logger.info(f"Prepared disease descriptions tensor: {self.disease_desc_ids_padded.shape}")
-        except Exception as e:
-            logger.warning(f"Failed to prepare disease descriptions: {e}")
-            self.disease_desc_ids_padded = None
-            self.disease_desc_attention_mask = None
     
     def prepare_image_input(self, image_path: str) -> Optional[Dict[str, torch.Tensor]]:
         """准备图像输入（使用AutoProcessor生成pixel_values与image_grid_thw）"""
@@ -952,111 +740,6 @@ class ClipEvaluator:
                 dtype=base_param.dtype,
             )
     
-    def _optimize_threshold_f1(self, y_true: np.ndarray, y_scores: np.ndarray) -> Tuple[float, Dict[str, float]]:
-        """
-        LLaVA-Med风格的F1分数最优阈值选择
-        
-        Returns:
-            Tuple[float, Dict[str, float]]: (最优阈值, 最优指标字典)
-        """
-        try:
-            # 计算精确度、召回率和阈值
-            precision, recall, thresholds = precision_recall_curve(y_true, y_scores)
-            
-            # 计算 F1 分数并找到最大值
-            f1_scores = 2 * precision * recall / (precision + recall + 1e-8)  # 避免分母为0
-            max_f1_idx = np.argmax(f1_scores)  # 最大 F1 对应的索引
-            
-            # 选择最大 F1 对应的阈值
-            if max_f1_idx < len(thresholds):
-                best_threshold = thresholds[max_f1_idx]
-            else:
-                # 如果索引超出范围，使用默认阈值
-                best_threshold = 0.5
-                max_f1_idx = len(precision) - 1
-            
-            # 返回最优阈值和对应的指标
-            optimal_metrics = {
-                'best_threshold': best_threshold,
-                'max_f1': f1_scores[max_f1_idx],
-                'precision_at_max_f1': precision[max_f1_idx],
-                'recall_at_max_f1': recall[max_f1_idx]
-            }
-            
-            return best_threshold, optimal_metrics
-            
-        except Exception as e:
-            logger.warning(f"F1 threshold optimization failed: {e}, using default threshold 0.5")
-            return 0.5, {'best_threshold': 0.5, 'max_f1': 0.0, 'precision_at_max_f1': 0.0, 'recall_at_max_f1': 0.0}
-    
-    @torch.no_grad()
-    def _prepare_category_embeddings_cache(self, class_names: List[str]) -> torch.Tensor:
-        """
-        LLaVA-Med风格的类别嵌入缓存预计算
-        
-        Returns:
-            torch.Tensor: 预计算的类别嵌入矩阵 [num_classes, embed_dim]
-        """
-        # from torch.nn.utils.rnn import pad_sequence  # 已在顶部导入
-        
-        # 生成类别描述文本
-        categories = []
-        for class_name in class_names:
-            if self.use_disease_descriptions and class_name in self.disease_descriptions:
-                # 使用详细的疾病描述
-                category_text = self.disease_descriptions[class_name]
-            else:
-                # 使用简单模板
-                if class_name == "no finding":
-                    category_text = "This is a chest X-ray showing no finding"
-                else:
-                    category_text = f"This is a chest X-ray showing {class_name}"
-            categories.append(category_text)
-        
-        # 对类别进行编码
-        encoded_categories = [self.tokenizer(category, return_tensors="pt") for category in categories]
-        category_ids = pad_sequence([item.input_ids.squeeze(0) for item in encoded_categories], batch_first=True).to(self.device)
-        category_attention_mask = pad_sequence([item.attention_mask.squeeze(0) for item in encoded_categories], batch_first=True).to(self.device)
-        
-        # 类别特征向量存储, 只需要计算一次
-        global_category_embeddings_cache = []
-        
-        for i in range(category_ids.size(0)):
-            category_input_ids = category_ids[i].unsqueeze(0).to(self.device)
-            category_attention = category_attention_mask[i].unsqueeze(0).to(self.device)
-
-            # 使用我们自定义的extract_features方法
-            try:
-                text_features = self.extract_text_features(categories[i])
-                if text_features is not None:
-                    global_category_embeddings_cache.append(text_features)
-                else:
-                    # 如果特征提取失败，添加零向量
-                    base_param = next(self.model.parameters())
-                    zero_features = torch.zeros(
-                        1,
-                        self.sparse_config["output_dim"],
-                        device=base_param.device,
-                        dtype=base_param.dtype,
-                    )
-                    global_category_embeddings_cache.append(zero_features)
-            except Exception as e:
-                logger.warning(f"Failed to extract features for category {i}: {e}")
-                # 添加零向量作为fallback
-                base_param = next(self.model.parameters())
-                zero_features = torch.zeros(
-                    1,
-                    self.sparse_config["output_dim"],
-                    device=base_param.device,
-                    dtype=base_param.dtype,
-                )
-                global_category_embeddings_cache.append(zero_features)
-    
-        global_category_embeddings_cache = torch.cat(global_category_embeddings_cache, dim=0).to(self.device)
-        logger.info(f'预计算类别嵌入缓存完成: {global_category_embeddings_cache.shape}')
-        
-        return global_category_embeddings_cache
-    
     def evaluate_clip_classification(
         self,
         dataset: ClipClassificationDataset
@@ -1067,9 +750,9 @@ class ClipEvaluator:
         """
         target_classes = dataset.target_classes
         
-        # LLaVA-Med风格：预计算类别嵌入缓存
-        print("正在预计算类别嵌入缓存...")
-        global_category_embeddings_cache = self._prepare_category_embeddings_cache(target_classes)
+        # 提取所有类别的文本特征
+        print("正在提取类别文本特征...")
+        class_features = self.extract_class_text_features(target_classes)
         
         # 初始化进度跟踪器
         progress_tracker = ProgressTracker(len(dataset), self.batch_size)
@@ -1100,18 +783,16 @@ class ClipEvaluator:
                     pbar.update(len(batch_samples))
                     continue
             
-                # 逐个计算相似度（使用预计算的类别嵌入）
+                # 逐个计算相似度
                 batch_success_count = 0
                 for rel_idx, abs_idx in enumerate(batch_valid_indices):
                     sample = batch_samples[abs_idx]
                     
                     try:
-                        # 使用LLaVA-Med风格的inference_pipeline计算相似度
+                        # 单独计算每个样本的相似度
                         single_image_features = batch_image_features[rel_idx:rel_idx+1]  # 保持(1, D)维度
-                        
-                        # 直接使用预计算的类别嵌入计算相似度
                         similarity_result = self.model.compute_similarity(
-                            single_image_features, global_category_embeddings_cache
+                            single_image_features, class_features
                         ).cpu().numpy()  # (1, num_classes)
                         similarities = similarity_result.flatten()  # (num_classes,)
                         
@@ -1223,38 +904,19 @@ class ClipEvaluator:
         """计算分类指标"""
         results = {}
         
-        # 计算每个类别的指标（LLaVA-Med风格的阈值优化）
+        # 计算每个类别的指标
         class_metrics = []
         
         for i, class_name in enumerate(target_classes):
             if all_labels[:, i].sum() > 0:  # 确保该类别有正样本
-                # LLaVA-Med风格的F1阈值优化
-                optimal_threshold, optimal_metrics = self._optimize_threshold_f1(
-                    all_labels[:, i], all_probs[:, i]
-                )
+                # 基本分类指标
+                precision = precision_score(all_labels[:, i], all_predictions[:, i], zero_division=0)
+                recall = recall_score(all_labels[:, i], all_predictions[:, i], zero_division=0)
+                f1 = f1_score(all_labels[:, i], all_predictions[:, i], zero_division=0)
+                balanced_acc = balanced_accuracy_score(all_labels[:, i], all_predictions[:, i])
                 
-                # 使用优化后的阈值计算最终预测
-                optimized_predictions = (all_probs[:, i] >= optimal_threshold).astype(int)
-                
-                # 基本分类指标（使用优化后的预测）
-                precision = precision_score(all_labels[:, i], optimized_predictions, zero_division=0)
-                recall = recall_score(all_labels[:, i], optimized_predictions, zero_division=0) 
-                f1 = f1_score(all_labels[:, i], optimized_predictions, zero_division=0)
-                balanced_acc = balanced_accuracy_score(all_labels[:, i], optimized_predictions)
-                
-                # 计算准确率
-                accuracy = (optimized_predictions == all_labels[:, i]).mean()
-                
-                # 混淆矩阵 - 处理边界情况
-                cm = confusion_matrix(all_labels[:, i], all_predictions[:, i])
-                if cm.size == 1:
-                    # 只有一种类别的情况
-                    if all_labels[:, i].sum() == 0:  # 全是负样本
-                        tn, fp, fn, tp = cm[0, 0], 0, 0, 0
-                    else:  # 全是正样本
-                        tn, fp, fn, tp = 0, 0, 0, cm[0, 0]
-                else:
-                    tn, fp, fn, tp = cm.ravel()
+                # 混淆矩阵
+                tn, fp, fn, tp = confusion_matrix(all_labels[:, i], all_predictions[:, i]).ravel()
                 
                 # 敏感性和特异性
                 sensitivity = recall  # TP/(TP+FN)
@@ -1339,7 +1001,7 @@ def main():
     parser.add_argument("--data_path", type=str, required=True, help="Path to evaluation data (jsonl format)")
     parser.add_argument("--image_folder", type=str, required=True, help="Path to images folder")
     parser.add_argument("--dataset", type=str, default="mimic", 
-                       choices=["chestxray", "chexpert", "mimic", "rsna", "COVIDx_CXR", "SIIM_Pneumothorax", "siim", "covid-cxr2"],
+                       choices=["chestxray", "chexpert", "mimic", "rsna", "COVIDx_CXR", "SIIM_Pneumothorax"],
                        help="Dataset name")
     parser.add_argument("--batch_size", type=int, default=16, help="Batch size for evaluation")
     parser.add_argument("--output_path", type=str, default="clip_eval_results.json", 
@@ -1358,13 +1020,6 @@ def main():
                        choices=["template", "file"],
                        help="Source of class descriptions: 'template' for simple templates, 'file' for detailed descriptions")
     
-    # LLaVA-Med风格的评估配置参数
-    parser.add_argument("--Imgcls_count", type=int, default=4, help="Number of image classification tokens")
-    parser.add_argument("--Txtcls_count", type=int, default=4, help="Number of text classification tokens")
-    parser.add_argument("--feature_layer", type=int, default=1, help="Feature layer for extraction")
-    parser.add_argument("--temperature", type=float, default=0.05, help="Temperature for similarity computation")
-    parser.add_argument("--Book_choice", type=int, default=1, help="Choice of disease description source")
-    
 
     
     args = parser.parse_args()
@@ -1379,15 +1034,6 @@ def main():
         print(f"Disease description path: {args.disease_desc_path}")
         print(f"Description source: {args.description_source}")
     
-    # 创建LLaVA-Med风格的评估配置
-    eval_config = LLaVAMedEvalConfig(
-        Imgcls_count=args.Imgcls_count,
-        Txtcls_count=args.Txtcls_count,
-        feature_layer=args.feature_layer,
-        temperature=args.temperature,
-        Book_choice=args.Book_choice
-    )
-    
     # 创建评估器
     try:
         evaluator = ClipEvaluator(
@@ -1395,8 +1041,7 @@ def main():
             batch_size=args.batch_size,
             use_disease_descriptions=args.use_disease_descriptions,
             disease_desc_path=args.disease_desc_path,
-            description_source=args.description_source,
-            eval_config=eval_config
+            description_source=args.description_source
         )
         print(f"Model loaded successfully on {evaluator.device}")
     except Exception as e:
