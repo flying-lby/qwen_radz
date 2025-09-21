@@ -902,8 +902,11 @@ class CLIPGroundingEvaluator:
                 for name, wrong_device in device_check_params[:3]:  # 只显示前3个
                     logger.warning(f"  {name}: {wrong_device} -> {self.device}")
                 self.model = self.model.to(self.device)
-            else:
-                logger.info("All model parameters are on the correct device")
+        else:
+            logger.info("All model parameters are on the correct device")
+        
+        # 递归确保所有子模块都在正确的设备上（深层修复）
+        self._ensure_all_modules_on_device()
         
         # 获取配置参数（与ClipEvaluator一致）
         self.sparse_config = config.sparse_config
@@ -966,6 +969,49 @@ class CLIPGroundingEvaluator:
         # 加载疾病描述
         self.disease_descriptions = self._load_disease_descriptions()
         
+    def _ensure_all_modules_on_device(self):
+        """递归确保所有子模块都在正确的设备上（深层修复MLP组件设备问题）"""
+        target_device = self.device
+        logger.info(f"Starting deep device synchronization to {target_device}")
+        
+        # 递归移动所有子模块
+        moved_modules = []
+        for name, module in self.model.named_modules():
+            if hasattr(module, 'parameters'):
+                try:
+                    # 检查模块是否有参数且不在目标设备上
+                    params = list(module.parameters())
+                    if params and params[0].device != target_device:
+                        module.to(target_device)
+                        moved_modules.append(name)
+                except Exception as e:
+                    logger.debug(f"Could not move module {name}: {e}")
+        
+        if moved_modules:
+            logger.info(f"Moved {len(moved_modules)} modules to {target_device}")
+            logger.debug(f"Moved modules: {moved_modules[:5]}...")  # 只显示前5个
+        
+        # 特别检查和移动关键MLP组件
+        critical_components = ['img_mlp', 'txt_mlp', 'clip_loss', 'special_token_mlp']
+        for comp_name in critical_components:
+            if hasattr(self.model, comp_name):
+                comp = getattr(self.model, comp_name)
+                if hasattr(comp, 'parameters'):
+                    try:
+                        params = list(comp.parameters())
+                        if params:
+                            comp_device = params[0].device
+                            if comp_device != target_device:
+                                logger.warning(f"Critical component {comp_name} on wrong device: {comp_device} -> {target_device}")
+                                comp.to(target_device)
+                                logger.info(f"Successfully moved {comp_name} to {target_device}")
+                            else:
+                                logger.debug(f"Critical component {comp_name} already on correct device")
+                    except Exception as e:
+                        logger.error(f"Failed to check/move critical component {comp_name}: {e}")
+        
+        logger.info("Deep device synchronization completed")
+        
     def _load_disease_descriptions(self):
         """加载疾病描述"""
         if self.disease_desc_path and os.path.exists(self.disease_desc_path):
@@ -1014,6 +1060,16 @@ class CLIPGroundingEvaluator:
                 if isinstance(inputs[key], torch.Tensor) and inputs[key].device != model_device:
                     logger.debug(f"Moving input {key} from {inputs[key].device} to {model_device}")
                     inputs[key] = inputs[key].to(model_device)
+            
+            # 运行时MLP设备检查（深层修复）
+            if hasattr(self.model, 'img_mlp'):
+                try:
+                    mlp_device = next(self.model.img_mlp.parameters()).device
+                    if mlp_device != model_device:
+                        logger.warning(f"Runtime fix: img_mlp device mismatch {mlp_device} -> {model_device}")
+                        self.model.img_mlp.to(model_device)
+                except Exception as e:
+                    logger.debug(f"Could not check img_mlp device: {e}")
             
             # 使用模型的extract_features方法（需要传递完整参数）
             feats = self.model.extract_features(
@@ -1128,6 +1184,16 @@ class CLIPGroundingEvaluator:
                 if isinstance(inputs[key], torch.Tensor) and inputs[key].device != model_device:
                     logger.debug(f"Moving text input {key} from {inputs[key].device} to {model_device}")
                     inputs[key] = inputs[key].to(model_device)
+            
+            # 运行时MLP设备检查（深层修复）
+            if hasattr(self.model, 'txt_mlp'):
+                try:
+                    mlp_device = next(self.model.txt_mlp.parameters()).device
+                    if mlp_device != model_device:
+                        logger.warning(f"Runtime fix: txt_mlp device mismatch {mlp_device} -> {model_device}")
+                        self.model.txt_mlp.to(model_device)
+                except Exception as e:
+                    logger.debug(f"Could not check txt_mlp device: {e}")
             
             feats = self.model.extract_features(
                 input_ids=inputs["input_ids"],
