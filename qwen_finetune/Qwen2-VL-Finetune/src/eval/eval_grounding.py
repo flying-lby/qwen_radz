@@ -194,6 +194,339 @@ def visualize_attention_map(attention_map, save_path=None):
         logger.error(f"Failed to visualize attention map: {e}")
 
 
+def apply_red_overlay(image, mask, alpha=0.3):
+    """
+    在原图上叠加红色高亮区域
+    
+    Args:
+        image: PIL Image 或 numpy array，原始医学图像
+        mask: numpy array，二值化掩码 (0-1 或 True/False)
+        alpha: float，红色叠加的透明度 (0-1)
+    
+    Returns:
+        numpy array: 叠加了红色高亮的图像
+    """
+    try:
+        import numpy as np
+        from PIL import Image
+        import cv2
+        
+        # 将PIL Image转换为numpy array
+        if isinstance(image, Image.Image):
+            image_array = np.array(image)
+        else:
+            image_array = image.copy()
+        
+        # 确保图像是RGB格式
+        if len(image_array.shape) == 2:
+            # 灰度图转RGB
+            image_array = np.stack([image_array] * 3, axis=-1)
+        elif image_array.shape[-1] == 1:
+            # 单通道转RGB
+            image_array = np.repeat(image_array, 3, axis=-1)
+        
+        # 确保mask是2D的numpy array
+        if hasattr(mask, 'cpu'):
+            mask = mask.cpu().numpy()
+        if len(mask.shape) > 2:
+            mask = mask.squeeze()
+        
+        # 归一化图像到0-255范围
+        if image_array.max() <= 1.0:
+            image_array = (image_array * 255).astype(np.uint8)
+        else:
+            image_array = image_array.astype(np.uint8)
+        
+        # 创建红色叠加
+        overlay = image_array.copy()
+        
+        # 二值化mask（阈值处理）
+        if mask.max() > 1:
+            binary_mask = (mask > 0.1)  # 对于0-255范围
+        else:
+            binary_mask = (mask > 0.1)  # 对于0-1范围
+        
+        # 在mask区域应用红色高亮
+        overlay[binary_mask] = [255, 0, 0]  # 纯红色
+        
+        # 混合原图和叠加层
+        result = cv2.addWeighted(image_array, 1-alpha, overlay, alpha, 0)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Failed to apply red overlay: {e}")
+        # 返回原图像作为fallback
+        if isinstance(image, Image.Image):
+            return np.array(image)
+        return image
+
+
+def create_gt_prediction_comparison(image_path, seg_map, attention_map, 
+                                  sample_id, metrics=None, save_path=None):
+    """
+    创建GT vs Prediction对比图，论文风格展示
+    
+    Args:
+        image_path: str，原始图像路径
+        seg_map: torch.Tensor或numpy.array，GT分割掩码
+        attention_map: torch.Tensor或numpy.array，模型预测的attention map
+        sample_id: str，样本ID
+        metrics: dict，包含dice_score, iou_score等指标
+        save_path: str，保存路径
+    
+    Returns:
+        numpy.array: 生成的对比图像
+    """
+    try:
+        import matplotlib.pyplot as plt
+        import numpy as np
+        from PIL import Image
+        import cv2
+        
+        # 加载原始图像
+        try:
+            original_image = load_image_file(image_path)
+            if original_image is None:
+                logger.error(f"Failed to load image: {image_path}")
+                return None
+        except Exception as e:
+            logger.error(f"Error loading image {image_path}: {e}")
+            return None
+        
+        # 转换tensor到numpy
+        if hasattr(seg_map, 'cpu'):
+            seg_map = seg_map.cpu().numpy()
+        if hasattr(attention_map, 'cpu'):
+            attention_map = attention_map.cpu().numpy()
+        
+        # 确保掩码是2D的
+        if len(seg_map.shape) > 2:
+            seg_map = seg_map.squeeze()
+        if len(attention_map.shape) > 2:
+            attention_map = attention_map.squeeze()
+        
+        # 调整图像尺寸以匹配掩码
+        target_size = seg_map.shape[0]  # 假设seg_map是正方形
+        resized_image = original_image.resize((target_size, target_size), Image.Resampling.LANCZOS)
+        
+        # 将attention map二值化（阈值0.008，与MedKLIP一致）
+        attention_binary = (attention_map > 0.008).astype(np.float32)
+        
+        # 创建GT和Prediction的红色叠加图
+        gt_overlay = apply_red_overlay(resized_image, seg_map, alpha=0.4)
+        pred_overlay = apply_red_overlay(resized_image, attention_binary, alpha=0.4)
+        
+        # 创建对比图
+        fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+        
+        # GT图像
+        axes[0].imshow(gt_overlay)
+        axes[0].set_title('GT', fontsize=14, fontweight='bold')
+        axes[0].axis('off')
+        
+        # Prediction图像  
+        axes[1].imshow(pred_overlay)
+        axes[1].set_title('Prediction', fontsize=14, fontweight='bold')
+        axes[1].axis('off')
+        
+        # 添加整体标题和指标信息
+        title = f'Sample: {sample_id}'
+        if metrics:
+            dice_score = metrics.get('dice_score', 0)
+            iou_score = metrics.get('iou_score', 0)
+            title += f' | Dice: {dice_score:.3f}, IoU: {iou_score:.3f}'
+        
+        fig.suptitle(title, fontsize=12, y=0.95)
+        
+        # 调整布局
+        plt.tight_layout()
+        plt.subplots_adjust(top=0.9)
+        
+        # 保存或显示
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight', 
+                       facecolor='white', edgecolor='none')
+            plt.close()
+            logger.info(f"GT vs Prediction comparison saved to: {save_path}")
+        else:
+            plt.show()
+        
+        # 返回组合后的图像数组用于进一步处理
+        fig.canvas.draw()
+        img_array = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
+        img_array = img_array.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+        plt.close()
+        
+        return img_array
+        
+    except ImportError as e:
+        logger.warning(f"Required libraries not available for GT vs Prediction visualization: {e}")
+        return None
+    except Exception as e:
+        logger.error(f"Failed to create GT vs Prediction comparison: {e}")
+        return None
+
+
+def select_representative_samples(all_results, num_samples=15, strategy='balanced'):
+    """
+    从评估结果中选择代表性样本
+    
+    Args:
+        all_results: list，包含所有样本的评估结果
+        num_samples: int，要选择的样本数量
+        strategy: str，选择策略 ('balanced', 'quality', 'diverse', 'challenging')
+    
+    Returns:
+        list: 选中的样本索引列表
+    """
+    try:
+        import numpy as np
+        from collections import defaultdict
+        
+        if len(all_results) <= num_samples:
+            return list(range(len(all_results)))
+        
+        selected_indices = []
+        
+        if strategy == 'balanced':
+            # 平衡选择：一半正样本，一半负样本，优先选择质量高的
+            positive_samples = [(i, r) for i, r in enumerate(all_results) 
+                              if r.get('label', 0) == 1]
+            negative_samples = [(i, r) for i, r in enumerate(all_results) 
+                              if r.get('label', 0) == 0]
+            
+            # 按照质量分数排序
+            positive_samples.sort(key=lambda x: x[1].get('dice_score', 0), reverse=True)
+            negative_samples.sort(key=lambda x: x[1].get('dice_score', 0), reverse=True)
+            
+            # 选择一半正样本，一半负样本
+            pos_count = min(num_samples // 2, len(positive_samples))
+            neg_count = min(num_samples - pos_count, len(negative_samples))
+            
+            selected_indices.extend([idx for idx, _ in positive_samples[:pos_count]])
+            selected_indices.extend([idx for idx, _ in negative_samples[:neg_count]])
+            
+            # 如果还不够，从剩余样本中补充
+            remaining_count = num_samples - len(selected_indices)
+            if remaining_count > 0:
+                all_remaining = [(i, r) for i, r in enumerate(all_results) 
+                               if i not in selected_indices]
+                all_remaining.sort(key=lambda x: x[1].get('dice_score', 0), reverse=True)
+                selected_indices.extend([idx for idx, _ in all_remaining[:remaining_count]])
+        
+        elif strategy == 'quality':
+            # 质量优先：选择dice score最高的样本
+            sorted_results = sorted(enumerate(all_results), 
+                                  key=lambda x: x[1].get('dice_score', 0), 
+                                  reverse=True)
+            selected_indices = [idx for idx, _ in sorted_results[:num_samples]]
+        
+        elif strategy == 'challenging':
+            # 挑战性样本：选择模型表现困难的样本（中等dice score）
+            sorted_results = sorted(enumerate(all_results), 
+                                  key=lambda x: abs(x[1].get('dice_score', 0) - 0.5))
+            selected_indices = [idx for idx, _ in sorted_results[:num_samples]]
+        
+        elif strategy == 'diverse':
+            # 多样性选择：在不同质量区间选择样本
+            sorted_results = sorted(enumerate(all_results), 
+                                  key=lambda x: x[1].get('dice_score', 0))
+            
+            # 分成几个质量区间
+            num_bins = min(5, num_samples)
+            bin_size = len(sorted_results) // num_bins
+            samples_per_bin = num_samples // num_bins
+            
+            for i in range(num_bins):
+                start_idx = i * bin_size
+                end_idx = min((i + 1) * bin_size, len(sorted_results))
+                bin_samples = sorted_results[start_idx:end_idx]
+                
+                # 从每个区间选择指定数量的样本
+                count = samples_per_bin
+                if i == num_bins - 1:  # 最后一个区间包含剩余样本
+                    count = num_samples - len(selected_indices)
+                
+                selected_indices.extend([idx for idx, _ in bin_samples[:count]])
+        
+        # 确保不超过请求的数量
+        selected_indices = selected_indices[:num_samples]
+        
+        logger.info(f"Selected {len(selected_indices)} representative samples using '{strategy}' strategy")
+        return selected_indices
+        
+    except Exception as e:
+        logger.error(f"Failed to select representative samples: {e}")
+        # 返回前N个样本作为fallback
+        return list(range(min(num_samples, len(all_results))))
+
+
+def create_sample_grid(sample_comparisons, grid_cols=3, save_path=None):
+    """
+    创建多样本网格展示
+    
+    Args:
+        sample_comparisons: list，包含多个样本对比图像的numpy数组
+        grid_cols: int，网格列数
+        save_path: str，保存路径
+    
+    Returns:
+        numpy.array: 网格图像
+    """
+    try:
+        import matplotlib.pyplot as plt
+        import numpy as np
+        
+        num_samples = len(sample_comparisons)
+        if num_samples == 0:
+            return None
+        
+        # 计算网格尺寸
+        grid_rows = (num_samples + grid_cols - 1) // grid_cols
+        
+        # 创建大图
+        fig, axes = plt.subplots(grid_rows, grid_cols, 
+                                figsize=(grid_cols * 6, grid_rows * 3))
+        
+        # 处理单行或单列的情况
+        if grid_rows == 1 and grid_cols == 1:
+            axes = [axes]
+        elif grid_rows == 1 or grid_cols == 1:
+            axes = axes.flatten()
+        else:
+            axes = axes.flatten()
+        
+        # 放置每个样本对比图
+        for i, comparison_img in enumerate(sample_comparisons):
+            if i < len(axes):
+                axes[i].imshow(comparison_img)
+                axes[i].axis('off')
+        
+        # 隐藏多余的子图
+        for i in range(num_samples, len(axes)):
+            axes[i].axis('off')
+        
+        # 调整布局
+        plt.tight_layout()
+        plt.subplots_adjust(wspace=0.05, hspace=0.1)
+        
+        # 保存
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight',
+                       facecolor='white', edgecolor='none')
+            plt.close()
+            logger.info(f"Sample grid saved to: {save_path}")
+        else:
+            plt.show()
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"Failed to create sample grid: {e}")
+        return None
+
+
 # 如果load_image_file没有从eval_utils导入成功，我们将在后面定义load_image_file_enhanced
 # 这里先设置为None，等函数定义后再赋值
 if load_image_file is None:
@@ -548,10 +881,29 @@ class CLIPGroundingEvaluator:
             model_path,
             config=config,
             torch_dtype=torch.float16,
-            device_map="auto",
+            device_map={"": "cuda:0"},  # 强制模型完全加载到CUDA设备
             trust_remote_code=True
         )
         self.model.eval()
+        
+        # 确保模型完全在正确的设备上并验证设备一致性
+        if self.device.type == 'cuda':
+            self.model = self.model.to(self.device)
+            logger.info(f"Model moved to device: {self.device}")
+            
+            # 验证模型参数设备一致性
+            device_check_params = []
+            for name, param in self.model.named_parameters():
+                if param.device != self.device:
+                    device_check_params.append((name, param.device))
+                    
+            if device_check_params:
+                logger.warning(f"Found {len(device_check_params)} parameters on wrong device, forcing sync...")
+                for name, wrong_device in device_check_params[:3]:  # 只显示前3个
+                    logger.warning(f"  {name}: {wrong_device} -> {self.device}")
+                self.model = self.model.to(self.device)
+            else:
+                logger.info("All model parameters are on the correct device")
         
         # 获取配置参数（与ClipEvaluator一致）
         self.sparse_config = config.sparse_config
@@ -656,6 +1008,13 @@ class CLIPGroundingEvaluator:
             return None, "failed"
             
         try:
+            # 确保输入张量与模型在同一设备上
+            model_device = next(self.model.parameters()).device
+            for key in inputs:
+                if isinstance(inputs[key], torch.Tensor) and inputs[key].device != model_device:
+                    logger.debug(f"Moving input {key} from {inputs[key].device} to {model_device}")
+                    inputs[key] = inputs[key].to(model_device)
+            
             # 使用模型的extract_features方法（需要传递完整参数）
             feats = self.model.extract_features(
                 input_ids=inputs["input_ids"],
@@ -763,6 +1122,13 @@ class CLIPGroundingEvaluator:
             return None, "failed"
             
         try:
+            # 确保输入张量与模型在同一设备上
+            model_device = next(self.model.parameters()).device
+            for key in inputs:
+                if isinstance(inputs[key], torch.Tensor) and inputs[key].device != model_device:
+                    logger.debug(f"Moving text input {key} from {inputs[key].device} to {model_device}")
+                    inputs[key] = inputs[key].to(model_device)
+            
             feats = self.model.extract_features(
                 input_ids=inputs["input_ids"],
                 attention_mask=inputs["attention_mask"]
@@ -952,7 +1318,8 @@ class CLIPGroundingEvaluator:
             return torch.rand(batch_size, target_size, target_size, device=self.device) * 0.1
     
     def evaluate(self, dataloader: DataLoader, save_visualizations: bool = False, 
-                viz_dir: str = None) -> dict:
+                viz_dir: str = None, enhanced_viz: bool = False, num_viz_samples: int = 15,
+                viz_strategy: str = 'balanced') -> dict:
         """
         执行grounding评估
         
@@ -960,6 +1327,9 @@ class CLIPGroundingEvaluator:
             dataloader: 数据加载器
             save_visualizations: 是否保存可视化结果
             viz_dir: 可视化保存目录
+            enhanced_viz: 是否使用增强的GT vs Prediction可视化
+            num_viz_samples: 可视化样本数量
+            viz_strategy: 样本选择策略 ('balanced', 'quality', 'diverse', 'challenging')
             
         Returns:
             评估结果字典
@@ -971,6 +1341,9 @@ class CLIPGroundingEvaluator:
         all_mass_scores = torch.FloatTensor().to(self.device)
         total_num_samples = 0
         total_point_score = 0
+        
+        # 存储所有样本数据用于增强可视化
+        all_sample_data = [] if enhanced_viz else None
         
         # 创建可视化目录
         if save_visualizations and viz_dir:
@@ -990,6 +1363,7 @@ class CLIPGroundingEvaluator:
                 seg_maps = batch['seg_map'][:, 0, :, :].to(self.device)  # [B, H, W]
                 texts = batch['query_text']
                 sample_ids = batch['sample_id']
+                image_paths = batch['image_path']
                 
                 batch_size = images.shape[0]
                 
@@ -1019,8 +1393,25 @@ class CLIPGroundingEvaluator:
                 if len(mass_score) > 0:
                     all_mass_scores = torch.cat((all_mass_scores, mass_score), dim=0)
                 
-                # 可视化部分样本
-                if save_visualizations and viz_dir and batch_idx < 5:  # 只保存前5个batch的可视化
+                # 收集样本数据用于增强可视化
+                if enhanced_viz and all_sample_data is not None:
+                    dice_idx = 0
+                    for i in range(batch_size):
+                        sample_data = {
+                            'image_path': image_paths[i],
+                            'seg_map': seg_maps[i].cpu(),
+                            'attention_map': attention_maps[i].cpu(),
+                            'sample_id': sample_ids[i],
+                            'label': int(labels[i].cpu().item()),
+                            'dice_score': dice_score[dice_idx].cpu().item() if dice_idx < len(dice_score) and labels[i] == 1 else 0.0,
+                            'iou_score': mass_score[dice_idx].cpu().item() if dice_idx < len(mass_score) and labels[i] == 1 else 0.0
+                        }
+                        all_sample_data.append(sample_data)
+                        if labels[i] == 1:  # 只有正样本才有dice/iou分数
+                            dice_idx += 1
+                
+                # 可视化部分样本（保持原有逻辑作为备用）
+                if save_visualizations and viz_dir and not enhanced_viz and batch_idx < 5:
                     for i in range(min(batch_size, 2)):  # 每个batch保存前2个样本
                         viz_path = os.path.join(viz_dir, f"batch_{batch_idx}_sample_{i}_{sample_ids[i]}.png")
                         visualize_attention_map(
@@ -1081,6 +1472,58 @@ class CLIPGroundingEvaluator:
         # 添加处理统计到结果中
         final_results['processing_stats'] = final_stats
         
+        # 生成增强可视化
+        if enhanced_viz and save_visualizations and viz_dir and all_sample_data:
+            logger.info(f"Generating enhanced GT vs Prediction visualizations...")
+            
+            try:
+                # 选择代表性样本
+                selected_indices = select_representative_samples(
+                    all_sample_data, num_samples=num_viz_samples, strategy=viz_strategy
+                )
+                
+                logger.info(f"Selected {len(selected_indices)} samples for enhanced visualization")
+                
+                # 创建增强可视化目录
+                enhanced_viz_dir = os.path.join(viz_dir, "gt_vs_prediction")
+                os.makedirs(enhanced_viz_dir, exist_ok=True)
+                
+                # 生成单个样本对比图
+                sample_comparisons = []
+                for idx in selected_indices:
+                    sample_data = all_sample_data[idx]
+                    
+                    # 创建单个GT vs Prediction对比图
+                    save_path = os.path.join(enhanced_viz_dir, f"sample_{sample_data['sample_id']}.png")
+                    metrics = {
+                        'dice_score': sample_data['dice_score'],
+                        'iou_score': sample_data['iou_score']
+                    }
+                    
+                    comparison_img = create_gt_prediction_comparison(
+                        image_path=sample_data['image_path'],
+                        seg_map=sample_data['seg_map'],
+                        attention_map=sample_data['attention_map'],
+                        sample_id=sample_data['sample_id'],
+                        metrics=metrics,
+                        save_path=save_path
+                    )
+                    
+                    if comparison_img is not None:
+                        sample_comparisons.append(comparison_img)
+                
+                # 创建网格展示
+                if sample_comparisons:
+                    grid_save_path = os.path.join(enhanced_viz_dir, "samples_grid.png")
+                    create_sample_grid(sample_comparisons, grid_cols=3, save_path=grid_save_path)
+                    
+                    logger.info(f"Enhanced visualizations saved to: {enhanced_viz_dir}")
+                    logger.info(f"Generated {len(sample_comparisons)} GT vs Prediction comparisons")
+                    logger.info(f"Sample grid saved to: {grid_save_path}")
+                
+            except Exception as e:
+                logger.error(f"Failed to generate enhanced visualizations: {e}")
+        
         return final_results
 
 def main():
@@ -1109,6 +1552,13 @@ def main():
                        help="Save attention map visualizations")
     parser.add_argument("--viz_dir", type=str, default="./visualizations",
                        help="Directory to save visualizations")
+    parser.add_argument("--enhanced_viz", action="store_true",
+                       help="Enable enhanced GT vs Prediction visualizations")
+    parser.add_argument("--num_viz_samples", type=int, default=15,
+                       help="Number of samples for enhanced visualization")
+    parser.add_argument("--viz_strategy", type=str, default="balanced",
+                       choices=["balanced", "quality", "diverse", "challenging"],
+                       help="Sample selection strategy for visualization")
     parser.add_argument("--target_size", type=int, default=224,
                        help="Target image size")
     
@@ -1155,7 +1605,10 @@ def main():
     results = evaluator.evaluate(
         dataloader=dataloader,
         save_visualizations=args.save_visualizations,
-        viz_dir=args.viz_dir if args.save_visualizations else None
+        viz_dir=args.viz_dir if args.save_visualizations else None,
+        enhanced_viz=args.enhanced_viz,
+        num_viz_samples=args.num_viz_samples,
+        viz_strategy=args.viz_strategy
     )
     
     # 保存结果

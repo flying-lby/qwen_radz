@@ -7,6 +7,13 @@
 PROJECT_ROOT="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune"
 cd "$PROJECT_ROOT"
 
+# 设置分布式训练环境变量 (单GPU推理模式)
+export MASTER_ADDR=localhost
+export MASTER_PORT=29500
+export WORLD_SIZE=1
+export RANK=0
+export LOCAL_RANK=0
+
 
 
 
