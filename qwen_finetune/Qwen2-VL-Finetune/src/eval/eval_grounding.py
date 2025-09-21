@@ -877,19 +877,20 @@ class CLIPGroundingEvaluator:
         
         # 加载模型配置和模型
         config = ClipQwen2VLConfig.from_pretrained(model_path)
+        # 根本性修复：移除device_map，使用传统手动设备管理
         self.model = ClipQwen2VLForConditionalGeneration.from_pretrained(
             model_path,
             config=config,
             torch_dtype=torch.float16,
-            device_map={"": "cuda:0"},  # 强制模型完全加载到CUDA设备
             trust_remote_code=True
         )
         self.model.eval()
         
-        # 确保模型完全在正确的设备上并验证设备一致性
-        if self.device.type == 'cuda':
+        # 根本性修复：立即手动设备管理，带显存不足降级处理
+        try:
+            logger.info(f"Attempting to move model to {self.device}")
             self.model = self.model.to(self.device)
-            logger.info(f"Model moved to device: {self.device}")
+            logger.info(f"✅ Model successfully moved to {self.device}")
             
             # 验证模型参数设备一致性
             device_check_params = []
@@ -902,8 +903,20 @@ class CLIPGroundingEvaluator:
                 for name, wrong_device in device_check_params[:3]:  # 只显示前3个
                     logger.warning(f"  {name}: {wrong_device} -> {self.device}")
                 self.model = self.model.to(self.device)
-        else:
-            logger.info("All model parameters are on the correct device")
+                logger.info("Parameters re-synchronized to target device")
+            else:
+                logger.info("All model parameters are on the correct device")
+                
+        except RuntimeError as e:
+            if "out of memory" in str(e).lower() or "cuda" in str(e).lower():
+                logger.warning(f"CUDA memory insufficient or device error: {e}")
+                logger.warning("🔄 Falling back to CPU inference mode")
+                self.device = torch.device('cpu')
+                self.model = self.model.to(self.device)
+                logger.info(f"✅ Model moved to CPU device: {self.device}")
+            else:
+                logger.error(f"Failed to move model to device: {e}")
+                raise
         
         # 递归确保所有子模块都在正确的设备上（深层修复）
         self._ensure_all_modules_on_device()
