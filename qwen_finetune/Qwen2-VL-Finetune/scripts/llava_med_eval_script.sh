@@ -24,7 +24,7 @@ export TORCH_USE_CUDA_DSA=1
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # 模型路径配置
-MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version7/merged"
+MODEL_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/qwen_lora_new_clip_version13/merged"
 # 数据路径配置
 IMAGE_FOLDER="/mnt/nlp-ali/usr/zhaizijie/huangwx_ali/zijie_ali/libangyan/dataset/"
 
@@ -111,7 +111,7 @@ fi
 echo "评估RSNA数据集..."
 BASE_CMD="python -m src.eval.clip_eval_original \
     --model_path $MODEL_PATH \
-    --data_path /mnt/shared-storage-user/steai-share/gaozhenkun/qwen_radz/rsna_100/rsna_pneumonia_100.jsonl \
+    --data_path /mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/new_data/rsna/rsna_pneumonia_llava_origin_val.jsonl \
     --image_folder $IMAGE_FOLDER \
     --dataset rsna \
     --batch_size $BATCH_SIZE \
