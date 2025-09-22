@@ -1,0 +1,26 @@
+二分类医学图像评估汇总报告 - 仅评估版本
+生成时间: 2025年 09月 20日 星期六 00:31:22 CST
+============================================
+
+评估概况:
+  总数据集数: 3
+  成功评估数: 0
+  成功率: 0%
+
+评估设置:
+  设备: cuda
+  批次大小: 32
+  最大样本数: -1
+
+数据集: SIIM
+----------------------------------------
+状态: 评估失败或结果文件缺失
+
+数据集: RSNA
+----------------------------------------
+状态: 评估失败或结果文件缺失
+
+详细结果文件位置:
+  SIIM: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_eval_only_experiments/siim_evaluation/
+  COVID-19: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_eval_only_experiments/covid19_evaluation/
+  RSNA: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_eval_only_experiments/rsna_evaluation/

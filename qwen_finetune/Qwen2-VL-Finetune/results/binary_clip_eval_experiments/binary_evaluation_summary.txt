@@ -1,0 +1,59 @@
+二分类CLIP风格医学图像评估汇总报告
+生成时间: 2025年 09月 20日 星期六 13:40:33 CST
+============================================
+
+模型信息:
+  模型路径: /srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged
+  评估类型: CLIP风格二分类
+  MedKLIP对齐: true
+
+评估概况:
+  总数据集数: 3
+  成功评估数: 3
+  成功率: 100.0%
+
+评估设置:
+  批次大小: 1
+  最大样本数: 2
+  使用疾病描述: true
+
+数据集: SIIM Pneumothorax (气胸)
+----------------------------------------
+状态: 评估成功
+平均AUC-ROC: N/A
+总体准确率: N/A
+Macro F1分数: N/A
+平衡准确率: N/A
+总样本数: N/A
+评估时间: N/A
+
+数据集: COVID-19 CXR
+----------------------------------------
+状态: 评估成功
+平均AUC-ROC: N/A
+总体准确率: N/A
+Macro F1分数: N/A
+平衡准确率: N/A
+总样本数: N/A
+评估时间: N/A
+
+数据集: RSNA Pneumonia (肺炎)
+----------------------------------------
+状态: 评估成功
+平均AUC-ROC: N/A
+总体准确率: N/A
+Macro F1分数: N/A
+平衡准确率: N/A
+总样本数: N/A
+评估时间: N/A
+
+详细结果文件位置:
+  SIIM Pneumothorax: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_clip_eval_experiments/SIIM_Pneumothorax_binary_clip_results.json
+  COVID-19 CXR: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_clip_eval_experiments/COVIDx_CXR_binary_clip_results.json
+  RSNA Pneumonia: /home/lby/iclr2026/qwen_radz/qwen_finetune/Qwen2-VL-Finetune/results/binary_clip_eval_experiments/rsna_pneumonia_binary_clip_results.json
+
+注意事项:
+  - 这些是二分类任务的评估结果
+  - 使用CLIP风格的评估方法
+  - 结果与MedKLIP评估方式对齐
+  - 每个数据集专注于特定的二分类任务

@@ -26,7 +26,7 @@ DATA_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/qwen_radz/qwen_radz/qwen_fine
 IMAGE_FOLDER="/mnt/nlp-ali/usr/huangwenxuan/home/dataset/srv/lby/physionet.org/files/mimic-cxr-jpg/2.0.0/files"
 DISEASE_DESC_PATH="/mnt/nlp-ali/usr/huangwenxuan/home/code/llava_test/llava/run/data/disease_desc.json"
 OUTPUT_DIR="/mnt/nlp-ali/usr/huangwenxuan/home/zijie_ali/libangyan/checkpoints/2025-09-13/qwen_lora_new_clip_version13"
-
+ 
 
 # 创建输出目录
 mkdir -p $OUTPUT_DIR

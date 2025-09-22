@@ -1,0 +1,32 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "dataset": "SIIM_Pneumothorax",
+  "num_samples": 2,
+  "chunk_info": "1/1",
+  "evaluation_method": "CLIP-style similarity",
+  "metrics": {
+    "mean_auc": NaN,
+    "macro_f1": 0.5,
+    "overall_accuracy": 0.25,
+    "individual_aucs": [
+      NaN,
+      NaN
+    ],
+    "individual_f1s": [
+      1.0,
+      0.0
+    ],
+    "individual_accs": [
+      0.5,
+      0.0
+    ],
+    "valid_auc_count": 0,
+    "total_class_count": 2,
+    "invalid_auc_count": 2,
+    "auc_validity_rate": 0.0,
+    "invalid_classes": [
+      "pneumothorax",
+      "non-pneumothorax"
+    ]
+  }
+}

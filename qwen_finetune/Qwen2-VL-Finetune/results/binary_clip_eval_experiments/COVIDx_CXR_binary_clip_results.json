@@ -1,0 +1,29 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "dataset": "COVIDx_CXR",
+  "num_samples": 2,
+  "chunk_info": "1/1",
+  "evaluation_method": "CLIP-style similarity",
+  "metrics": {
+    "mean_auc": 0.5,
+    "macro_f1": 0.8333333333333333,
+    "overall_accuracy": 0.25,
+    "individual_aucs": [
+      0.0,
+      1.0
+    ],
+    "individual_f1s": [
+      0.6666666666666666,
+      1.0
+    ],
+    "individual_accs": [
+      0.0,
+      0.5
+    ],
+    "valid_auc_count": 2,
+    "total_class_count": 2,
+    "invalid_auc_count": 0,
+    "auc_validity_rate": 1.0,
+    "invalid_classes": []
+  }
+}

@@ -15,8 +15,17 @@ export PYTHONPATH="${PROJECT_ROOT}:$PYTHONPATH"
 echo "PYTHONPATH设置为: $PYTHONPATH"
 
 # 设置环境变量与激活环境
+# GPU设备配置
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
+# NCCL网络通信配置
+export NCCL_SOCKET_IFNAME=eth0
+export NCCL_IB_DISABLE=1
+export NCCL_DEBUG=INFO
+export NCCL_TREE_THRESHOLD=0
+export NCCL_TIMEOUT=600
 
+# 其他环境变量
 export WANDB_PROJECT="clip-qwen2vl-improved"
 export CUDA_LAUNCH_BLOCKING=1
 
@@ -57,9 +66,9 @@ USE_BNB=False
 
 # DeepSpeed配置
 DEEPSPEED_CONFIG="scripts/zero3.json"
- 
+
 # GPU配置
- 
+
 echo "=========================================="
 echo "开始改进的CLIP风格Qwen2.5-VL训练"
 echo "模型: $MODEL_NAME_OR_PATH"
@@ -67,8 +76,15 @@ echo "数据: $DATA_PATH"
 echo "输出: $OUTPUT_DIR"
 echo "=========================================="
  
+# GPU和网络状态检查
+echo "检查GPU状态..."
+nvidia-smi
+echo "检查网络接口..."
+ip addr show eth0 || echo "警告: eth0网络接口不存在，NCCL可能使用其他接口"
+
 # 训练命令 - 使用DeepSpeed
-deepspeed --master_port=29500 \
+echo "启动DeepSpeed分布式训练..."
+deepspeed --num_gpus=8 --master_port=29500 \
     src/train/clip_train_improved.py \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --data_path $DATA_PATH \
@@ -118,7 +134,19 @@ deepspeed --master_port=29500 \
     --seed 42 \
     2>&1 | tee $OUTPUT_DIR/training.log
 
-echo "训练完成！模型保存在: $OUTPUT_DIR"
+# 检查训练结果
+TRAINING_EXIT_CODE=${PIPESTATUS[0]}
+if [ $TRAINING_EXIT_CODE -eq 0 ]; then
+    echo "训练成功完成！模型保存在: $OUTPUT_DIR"
+else
+    echo "训练失败，退出代码: $TRAINING_EXIT_CODE"
+    echo "请检查训练日志: $OUTPUT_DIR/training.log"
+    echo "常见解决方案:"
+    echo "1. 检查GPU内存是否足够"
+    echo "2. 验证网络接口配置"
+    echo "3. 确认端口29500未被占用"
+    echo "4. 检查NCCL环境变量设置"
+fi
 
 # 是否合并LoRA权重（CLIP专用：合并LoRA并覆盖非LoRA可训练模块）
 MERGE_LORA=true

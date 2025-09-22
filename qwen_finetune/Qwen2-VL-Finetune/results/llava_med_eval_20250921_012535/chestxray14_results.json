@@ -1,0 +1,19 @@
+{
+  "model_path": "/srv/lby/qwen_radz/qwen_lora_new_clip_version1/merged",
+  "dataset": "chestxray",
+  "num_samples": 1,
+  "chunk_info": "1/1",
+  "evaluation_method": "CLIP-style similarity",
+  "metrics": {
+    "macro_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_balanced_accuracy": 1.0,
+    "macro_sensitivity": 1.0,
+    "macro_specificity": 0.0,
+    "mean_auc": 0.0,
+    "mean_auprc": 0.0,
+    "overall_accuracy": 0.0,
+    "hamming_loss": 0.26666666666666666
+  }
+}

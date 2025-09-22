@@ -17,12 +17,16 @@
     "stage": 3,
     "overlap_comm": true,
     "contiguous_gradients": true,
-    "sub_group_size": 1e9,
+    "sub_group_size": 1e8,
     "reduce_bucket_size": "auto",
     "stage3_prefetch_bucket_size": "auto",
     "stage3_param_persistence_threshold": "auto",
-    "stage3_max_live_parameters": 1e9,
-    "stage3_max_reuse_distance": 1e9,
+    "stage3_max_live_parameters": 1e8,
+    "stage3_max_reuse_distance": 1e8,
     "stage3_gather_16bit_weights_on_model_save": true
-  }
+  },
+  "communication_data_type": "fp32",
+  "gradient_clipping": 1.0,
+  "steps_per_print": 1,
+  "wall_clock_breakdown": false
 }
